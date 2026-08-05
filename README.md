@@ -4,7 +4,7 @@ CRM B2B para gestionar contactos, empresas, oportunidades y actividades comercia
 
 ## Funcionalidades
 
-- Autenticación con Google mediante Supabase Auth.
+- Autenticación con correo y contraseña mediante Supabase Auth.
 - Dashboard con indicadores de pipeline, conversión, tareas y oportunidades recientes.
 - Pipeline Kanban con creación, edición, eliminación y movimiento de oportunidades entre etapas.
 - Gestión de contactos y empresas con búsqueda y formularios.
@@ -100,14 +100,6 @@ La aplicación puede desplegarse con Vercel. Configura las variables `VITE_SUPAB
 ```bash
 vercel --prod
 ```
-
-## Configurar Google OAuth
-
-1. En Google Cloud crea un cliente OAuth de tipo **Web application**.
-2. Añade como origen autorizado `https://nexus-green-xi.vercel.app` y, para desarrollo, `http://localhost:8080`.
-3. Añade como URI de redirección autorizada `https://ddlhzzjodxmkmlpyurur.supabase.co/auth/v1/callback`.
-4. En Supabase, abre **Authentication → Providers → Google**, activa el proveedor y pega el Client ID y Client Secret de Google.
-5. En **Authentication → URL Configuration**, registra `https://nexus-green-xi.vercel.app/auth` como Redirect URL permitida.
 
 ## Seguridad
 
