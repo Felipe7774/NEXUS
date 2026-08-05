@@ -39,7 +39,7 @@ export function AppHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-20 flex h-14 items-center gap-3 border-b bg-background px-3">
+    <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b bg-card/95 px-4 backdrop-blur md:px-6">
       <SidebarTrigger aria-label="Alternar menú lateral" />
       <div className="relative hidden max-w-sm flex-1 md:block">
         <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -47,18 +47,18 @@ export function AppHeader() {
           type="search"
           placeholder="Buscar contactos, empresas u oportunidades"
           aria-label="Búsqueda global"
-          className="h-9 pl-8"
+          className="h-9 rounded-lg border-transparent bg-muted/75 pl-8 shadow-none focus-visible:border-input focus-visible:bg-background"
         />
       </div>
       <div className="ml-auto flex items-center gap-1">
         <ThemeToggle />
-        <Button variant="ghost" size="icon" aria-label="Notificaciones">
+        <Button variant="ghost" size="icon" className="rounded-lg" aria-label="Notificaciones">
           <Bell className="h-4 w-4" />
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" aria-label="Menú de usuario">
-              <Avatar className="h-7 w-7">
+              <Avatar className="h-8 w-8 border">
                 {profile?.avatar_url ? <AvatarImage src={profile.avatar_url} alt="" /> : null}
                 <AvatarFallback className="text-xs">{initials(profile?.full_name)}</AvatarFallback>
               </Avatar>

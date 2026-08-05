@@ -122,22 +122,22 @@ function AuthPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4 py-10">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10">
       <div className="w-full max-w-md">
         <div className="mb-6 flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-sm font-semibold text-primary-foreground">
-            N
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground shadow-sm">
+            n
           </div>
-          <span className="text-lg font-semibold tracking-tight">Nexo CRM</span>
+          <span className="text-lg font-semibold tracking-tight">Nexo</span>
         </div>
-        <Card>
-          <CardHeader>
+        <Card className="rounded-xl border shadow-[0_12px_35px_rgb(16_16_20/0.08)]">
+          <CardHeader className="pb-4">
             <CardTitle>Bienvenido</CardTitle>
             <CardDescription>Gestiona tu pipeline de ventas B2B.</CardDescription>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="login">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-2 rounded-lg bg-muted/70 p-1">
                 <TabsTrigger value="login">Iniciar sesión</TabsTrigger>
                 <TabsTrigger value="signup">Crear cuenta</TabsTrigger>
               </TabsList>
@@ -178,7 +178,7 @@ function AuthPage() {
                     />
                     <Button
                       type="submit"
-                      className="w-full"
+                      className="w-full rounded-lg"
                       disabled={loginForm.formState.isSubmitting}
                     >
                       {loginForm.formState.isSubmitting ? "Ingresando..." : "Iniciar sesión"}
@@ -236,7 +236,7 @@ function AuthPage() {
                     />
                     <Button
                       type="submit"
-                      className="w-full"
+                      className="w-full rounded-lg"
                       disabled={signupForm.formState.isSubmitting}
                     >
                       {signupForm.formState.isSubmitting ? "Creando cuenta..." : "Crear cuenta"}

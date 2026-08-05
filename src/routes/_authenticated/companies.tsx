@@ -39,12 +39,13 @@ function Page() {
   const remove = useDeleteCompany();
 
   return (
-    <div>
+    <div className="nexus-page">
       <PageHeader
         title="Empresas"
         description="Cuentas y organizaciones registradas."
         actions={
           <Button
+            className="rounded-lg shadow-sm"
             onClick={() => {
               setEditing(null);
               setOpen(true);
@@ -60,10 +61,10 @@ function Page() {
         value={search}
         onChange={(event) => setSearch(event.target.value)}
         placeholder="Buscar por nombre..."
-        className="mb-4 max-w-sm"
+        className="mb-4 h-9 max-w-sm rounded-lg bg-card"
       />
 
-      <div className="rounded-lg border bg-card">
+      <div className="nexus-table-wrap">
         <Table>
           <TableHeader>
             <TableRow>
@@ -86,19 +87,19 @@ function Page() {
                 </TableRow>
               ))
             ) : (data ?? []).length === 0 ? (
-              <TableRow>
+              <TableRow className="bg-muted/45 hover:bg-muted/45">
                 <TableCell colSpan={7} className="py-10 text-center text-sm text-muted-foreground">
                   Aún no tienes empresas registradas.
                 </TableCell>
               </TableRow>
             ) : (
               (data ?? []).map((company) => (
-                <TableRow key={company.id}>
-                  <TableCell className="font-medium">{company.name}</TableCell>
+                <TableRow key={company.id} className="hover:bg-muted/35">
+                  <TableCell className="font-semibold">{company.name}</TableCell>
                   <TableCell className="text-muted-foreground">{company.industry ?? "—"}</TableCell>
                   <TableCell className="text-muted-foreground">{company.city ?? "—"}</TableCell>
                   <TableCell>
-                    <Badge variant="secondary">
+                    <Badge variant="secondary" className="rounded-md font-medium">
                       {STATUS_LABEL[company.status] ?? company.status}
                     </Badge>
                   </TableCell>

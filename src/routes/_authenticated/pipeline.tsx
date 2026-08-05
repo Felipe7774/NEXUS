@@ -58,19 +58,19 @@ function Page() {
   }
 
   return (
-    <div>
+    <div className="nexus-page">
       <PageHeader
         title="Pipeline"
         description="Arrastra una oportunidad para cambiarla de etapa."
         actions={
-          <Button onClick={() => openNew(stages?.[0]?.id)}>
+          <Button className="rounded-lg shadow-sm" onClick={() => openNew(stages?.[0]?.id)}>
             <Plus className="mr-2 h-4 w-4" />
             Nueva oportunidad
           </Button>
         }
       />
 
-      <div className="flex gap-3 overflow-x-auto pb-4">
+      <div className="flex gap-4 overflow-x-auto pb-4">
         {(stages ?? []).map((stage) => {
           const stageDeals = (deals ?? []).filter((deal) => deal.stage_id === stage.id);
           const total = stageDeals.reduce((sum, deal) => sum + Number(deal.amount), 0);
@@ -82,21 +82,21 @@ function Page() {
                 if (dragging) move.mutate({ id: dragging, stage_id: stage.id });
                 setDragging(null);
               }}
-              className="flex w-72 shrink-0 flex-col rounded-lg border bg-muted/30"
+              className="flex w-[290px] shrink-0 flex-col rounded-xl border bg-muted/45"
             >
-              <div className="flex items-center justify-between border-b px-3 py-2">
+              <div className="flex items-center justify-between border-b px-4 py-3">
                 <div>
-                  <p className="text-sm font-medium">{stage.name}</p>
+                  <p className="text-sm font-semibold">{stage.name}</p>
                   <p className="text-xs text-muted-foreground tabular-nums">
                     {stageDeals.length} · {formatCurrency(total)}
                   </p>
                 </div>
-                <Badge variant="outline" className="text-xs">
+                <Badge variant="outline" className="rounded-md bg-background text-xs">
                   {stage.default_probability}%
                 </Badge>
               </div>
 
-              <div className="flex flex-1 flex-col gap-2 p-2">
+              <div className="flex flex-1 flex-col gap-2 p-2.5">
                 {isLoading ? <Skeleton className="h-20 w-full" /> : null}
                 {stageDeals.map((deal) => (
                   <div
@@ -109,10 +109,10 @@ function Page() {
                       setDefaultStageId(undefined);
                       setOpen(true);
                     }}
-                    className="group cursor-pointer rounded-md border bg-card p-3 shadow-sm transition-colors hover:border-primary/50"
+                    className="group cursor-pointer rounded-lg border bg-card p-3.5 shadow-[0_1px_2px_rgb(16_16_20/0.05)] transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-sm"
                   >
                     <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium leading-tight">{deal.title}</p>
+                      <p className="text-sm font-semibold leading-tight">{deal.title}</p>
                       <button
                         type="button"
                         aria-label="Eliminar oportunidad"
@@ -141,7 +141,7 @@ function Page() {
                 <button
                   type="button"
                   onClick={() => openNew(stage.id)}
-                  className="rounded-md border border-dashed py-2 text-xs text-muted-foreground transition-colors hover:bg-accent"
+                  className="rounded-lg border border-dashed py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:bg-background hover:text-primary"
                 >
                   Agregar
                 </button>

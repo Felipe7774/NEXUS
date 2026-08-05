@@ -40,12 +40,13 @@ function Page() {
   const remove = useDeleteActivity();
 
   return (
-    <div>
+    <div className="nexus-page">
       <PageHeader
         title="Actividades"
         description="Tareas, llamadas, reuniones y notas."
         actions={
           <Button
+            className="rounded-lg shadow-sm"
             onClick={() => {
               setEditing(null);
               setOpen(true);
@@ -62,7 +63,7 @@ function Page() {
         onValueChange={(value) => setFilter(value as typeof filter)}
         className="mb-4"
       >
-        <TabsList>
+        <TabsList className="rounded-lg bg-muted/70 p-1">
           <TabsTrigger value="pending">Pendientes</TabsTrigger>
           <TabsTrigger value="done">Completadas</TabsTrigger>
           <TabsTrigger value="all">Todas</TabsTrigger>
@@ -75,12 +76,15 @@ function Page() {
             <Skeleton key={index} className="h-16 w-full" />
           ))
         ) : (data ?? []).length === 0 ? (
-          <div className="flex min-h-48 items-center justify-center rounded-lg border border-dashed text-sm text-muted-foreground">
+          <div className="flex min-h-48 items-center justify-center rounded-xl border border-dashed bg-card text-sm text-muted-foreground">
             No hay actividades en esta vista.
           </div>
         ) : (
           (data ?? []).map((activity) => (
-            <div key={activity.id} className="flex items-start gap-3 rounded-lg border bg-card p-3">
+            <div
+              key={activity.id}
+              className="nexus-surface flex items-start gap-3 p-4 transition-shadow hover:shadow-sm"
+            >
               <Checkbox
                 checked={Boolean(activity.completed_at)}
                 onCheckedChange={(checked) =>
@@ -99,10 +103,10 @@ function Page() {
                   >
                     {activity.subject}
                   </p>
-                  <Badge variant="secondary" className="text-xs">
+                  <Badge variant="secondary" className="rounded-md text-xs">
                     {ACTIVITY_TYPE_LABEL[activity.type] ?? activity.type}
                   </Badge>
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="outline" className="rounded-md text-xs">
                     {STATUS_LABEL[activity.priority] ?? activity.priority}
                   </Badge>
                 </div>

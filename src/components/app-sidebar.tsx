@@ -41,18 +41,20 @@ export function AppSidebar() {
   const isActive = (url: string) => pathname === url || pathname.startsWith(`${url}/`);
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader className="border-b px-3 py-3">
+    <Sidebar collapsible="icon" className="border-r bg-sidebar">
+      <SidebarHeader className="border-b px-3 py-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary text-xs font-semibold text-primary-foreground">
-            N
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground shadow-sm">
+            n
           </div>
-          {!collapsed && <span className="text-sm font-semibold tracking-tight">Nexo CRM</span>}
+          {!collapsed && <span className="text-[15px] font-semibold tracking-tight">Nexo</span>}
         </div>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Ventas</SidebarGroupLabel>
+        <SidebarGroup className="px-2 pt-4">
+          <SidebarGroupLabel className="px-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            Espacio de trabajo
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {mainItems.map((item) => (

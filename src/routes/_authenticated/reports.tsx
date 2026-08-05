@@ -45,7 +45,7 @@ function Page() {
   ];
 
   return (
-    <div>
+    <div className="nexus-page">
       <PageHeader title="Reportes" description="Análisis de conversión y desempeño comercial." />
 
       {isLoading ? (
@@ -54,7 +54,7 @@ function Page() {
         <div className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {kpis.map((kpi) => (
-              <Card key={kpi.label}>
+              <Card key={kpi.label} className="rounded-xl shadow-[0_1px_2px_rgb(16_16_20/0.04)]">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                     {kpi.label}
@@ -67,7 +67,7 @@ function Page() {
             ))}
           </div>
 
-          <Card>
+          <Card className="rounded-xl shadow-[0_1px_2px_rgb(16_16_20/0.04)]">
             <CardHeader>
               <CardTitle className="text-sm">Embudo por etapa</CardTitle>
             </CardHeader>
@@ -95,7 +95,7 @@ function Page() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="rounded-xl shadow-[0_1px_2px_rgb(16_16_20/0.04)]">
             <CardHeader>
               <CardTitle className="text-sm">Resultados</CardTitle>
             </CardHeader>

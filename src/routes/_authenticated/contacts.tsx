@@ -38,12 +38,13 @@ function Page() {
   const remove = useDeleteContact();
 
   return (
-    <div>
+    <div className="nexus-page">
       <PageHeader
         title="Contactos"
         description="Personas con las que trabaja tu equipo comercial."
         actions={
           <Button
+            className="rounded-lg shadow-sm"
             onClick={() => {
               setEditing(null);
               setOpen(true);
@@ -59,10 +60,10 @@ function Page() {
         value={search}
         onChange={(event) => setSearch(event.target.value)}
         placeholder="Buscar por nombre o correo..."
-        className="mb-4 max-w-sm"
+        className="mb-4 h-9 max-w-sm rounded-lg bg-card"
       />
 
-      <div className="rounded-lg border bg-card">
+      <div className="nexus-table-wrap">
         <Table>
           <TableHeader>
             <TableRow>
@@ -85,15 +86,15 @@ function Page() {
                 </TableRow>
               ))
             ) : (data ?? []).length === 0 ? (
-              <TableRow>
+              <TableRow className="bg-muted/45 hover:bg-muted/45">
                 <TableCell colSpan={7} className="py-10 text-center text-sm text-muted-foreground">
                   Aún no tienes contactos registrados.
                 </TableCell>
               </TableRow>
             ) : (
               (data ?? []).map((contact) => (
-                <TableRow key={contact.id}>
-                  <TableCell className="font-medium">
+                <TableRow key={contact.id} className="hover:bg-muted/35">
+                  <TableCell className="font-semibold">
                     {contact.first_name} {contact.last_name}
                   </TableCell>
                   <TableCell className="text-muted-foreground">
@@ -105,7 +106,7 @@ function Page() {
                   <TableCell className="text-muted-foreground">{contact.email ?? "—"}</TableCell>
                   <TableCell className="text-muted-foreground">{contact.phone ?? "—"}</TableCell>
                   <TableCell>
-                    <Badge variant="secondary">
+                    <Badge variant="secondary" className="rounded-md font-medium">
                       {STATUS_LABEL[contact.lifecycle_stage] ?? contact.lifecycle_stage}
                     </Badge>
                   </TableCell>

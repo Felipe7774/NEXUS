@@ -55,17 +55,17 @@ function Page() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="nexus-page space-y-6">
       <PageHeader title="Configuración" description="Usuarios, pipelines y etapas." />
 
-      <Card>
+      <Card className="overflow-hidden rounded-xl shadow-[0_1px_2px_rgb(16_16_20/0.04)]">
         <CardHeader>
           <CardTitle className="text-sm">Usuarios</CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className="bg-muted/45 hover:bg-muted/45">
                 <TableHead>Nombre</TableHead>
                 <TableHead>Correo</TableHead>
                 <TableHead>Activo</TableHead>
@@ -81,8 +81,8 @@ function Page() {
                 </TableRow>
               ) : (
                 (profiles ?? []).map((profile) => (
-                  <TableRow key={profile.id}>
-                    <TableCell className="font-medium">{profile.full_name}</TableCell>
+                  <TableRow key={profile.id} className="hover:bg-muted/35">
+                    <TableCell className="font-semibold">{profile.full_name}</TableCell>
                     <TableCell className="text-muted-foreground">{profile.email}</TableCell>
                     <TableCell>
                       <Badge variant={profile.is_active ? "secondary" : "outline"}>
@@ -100,7 +100,7 @@ function Page() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="rounded-xl shadow-[0_1px_2px_rgb(16_16_20/0.04)]">
         <CardHeader>
           <CardTitle className="text-sm">
             Etapas de {pipelines?.[0]?.name ?? "el pipeline"}
@@ -110,7 +110,7 @@ function Page() {
           {(stages ?? []).map((stage) => (
             <div
               key={stage.id}
-              className="flex items-center justify-between rounded-md border px-3 py-2 text-sm"
+              className="flex items-center justify-between rounded-lg border px-3 py-2.5 text-sm"
             >
               <span>
                 {stage.position}. {stage.name}
