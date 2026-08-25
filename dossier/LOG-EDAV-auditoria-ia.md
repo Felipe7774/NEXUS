@@ -19,7 +19,7 @@
 | Escenario 1 (Seguridad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 2 (Disponibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 3 (Rendimiento) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
-| Escenario 4 (Mantenibilidad) | Claude | Parcial — ver Matriz de Auditoría abajo | Falta clasificación y justificación del equipo |
+| Escenario 4 (Mantenibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 5 (Usabilidad) | Claude | No | Auditar — requiere prueba de usuario real, no solo hipótesis |
 | Escenario 6 (Escalabilidad) | Claude | No | Auditar — dataset de 5.000/1.000 registros no existe todavía |
 | Migración de esquema (`stakeholders`, salud de cuenta) | Claude, propuesta técnica | Sí — validada corriendo Postgres real vía Supabase local, RLS y `security_invoker` verificados | Ninguna — es implementación, no decisión arquitectónica |
@@ -34,7 +34,7 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 | Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | Ver justificación completa abajo | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
 | Escenario 2 — Disponibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 3 — Rendimiento | **Válido** | Ver justificación completa abajo | `experimentos/EXP-001-linea-base/resultados/corrida-{2,3,4}.json` (rama `semana-4-medicion-real`), mediana p95 = 92.62ms contra umbral de 2.000ms, 0% errores en 4 corridas, corrida el 25/08/2026. |
-| Escenario 4 — Mantenibilidad | `Por definir — falta clasificación y justificación del equipo` | Ver investigación técnica abajo | Ver investigación técnica abajo |
+| Escenario 4 — Mantenibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 6 — Escalabilidad | `Por definir` | `Por definir` | `Por definir` |
 
@@ -53,7 +53,9 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 
 **Lo que sigue sin ser verificable por una prueba:** "el cambio toma menos de 1 día-persona" es una estimación de esfuerzo humano, no algo medible por un script.
 
-**Para el equipo:** falta la clasificación (Válido/Modificado/Genérico/Falso) y la justificación propia de este escenario, con estos datos.
+**Clasificación del equipo: Válido.**
+
+> La implementación cumple con el control principal de mantenibilidad, ya que se configuró la protección de la rama main para exigir que las pruebas unit-tests y rls-integration-test finalicen correctamente antes de permitir un merge. La verificación práctica confirmó que, al subir una rama con un test fallando intencionalmente, GitHub bloqueó la integración y deshabilitó el botón de merge. Posteriormente, la rama de prueba fue cerrada sin fusionarse, por lo que main no se vio afectada.
 
 ### Investigación técnica — Escenario 2 (Disponibilidad)
 
