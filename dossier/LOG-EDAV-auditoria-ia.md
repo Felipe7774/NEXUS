@@ -32,7 +32,7 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 | Escenario sugerido por IA | Clasificación (equipo) | Justificación técnica (equipo) | Verificación |
 |---|---|---|---|
 | Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | Ver justificación completa abajo | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
-| Escenario 2 — Disponibilidad | `Por definir — falta clasificación y justificación del equipo` | Ver investigación técnica abajo | Ver investigación técnica abajo |
+| Escenario 2 — Disponibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 3 — Rendimiento | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 4 — Mantenibilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
@@ -57,7 +57,9 @@ Registro completo de la verificación en vivo, incluyendo los errores de medici�
 
 **Conclusión técnica:** la diferencia entre ambas mediciones (10 ms) no es significativa — el cambio de timeout no tuvo efecto medible en este escenario de falla. El umbral original de ≤3 segundos **se cumple con el código sin modificar**; el problema de disponibilidad no existía tal como se había medido inicialmente. El código del timeout se mantuvo en el repositorio (no genera daño y es una práctica defensiva razonable para otros tipos de falla), pero no debe presentarse como "la solución a un problema de 11.5 segundos", porque ese número nunca fue real.
 
-**Para el equipo:** falta la clasificación (Válido/Modificado/Genérico/Falso) y la justificación propia de este escenario, con estos datos.
+**Clasificación del equipo: Válido.**
+
+> La implementación cumple satisfactoriamente con el escenario planteado. Al simular una caída real del proveedor externo, la aplicación mostró un mensaje de error identificable en lugar de presentar una pantalla en blanco o finalizar de manera silenciosa. Además, la respuesta se produjo en aproximadamente 2,1 segundos, tanto con el código original como con el timeout defensivo, por lo que se cumple el umbral establecido de máximo 3 segundos. Las mediciones anteriores de 11,5 y 46 segundos fueron descartadas porque estuvieron afectadas por errores en el método de prueba y no reflejaban el comportamiento real del sistema. En consecuencia, la evidencia válida confirma que la aplicación maneja correctamente la indisponibilidad del proveedor y responde dentro del tiempo esperado.
 
 ### Justificación completa — Escenario 1 (equipo)
 
