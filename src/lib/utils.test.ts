@@ -13,4 +13,8 @@ describe("cn", () => {
   it("resolves conflicting tailwind classes to the last one", () => {
     expect(cn("p-2", "p-4")).toBe("p-4");
   });
+
+  it("prueba deliberadamente rota para verificar branch protection (dossier Escenario 4)", () => {
+    expect(cn("a", "b")).toBe("esto-nunca-va-a-pasar");
+  });
 });
