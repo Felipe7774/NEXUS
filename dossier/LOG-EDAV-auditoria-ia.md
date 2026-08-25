@@ -17,7 +17,7 @@
 | 5 drivers priorizados | Claude | No | Re-priorizar o ratificar con justificación propia del equipo |
 | Matriz de 6 atributos de calidad | Claude | No | Re-priorizar con justificación propia |
 | Escenario 1 (Seguridad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
-| Escenario 2 (Disponibilidad) | Claude | No | Auditar — el umbral de ≤3s fue propuesto sin dato empírico |
+| Escenario 2 (Disponibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 3 (Rendimiento) | Claude | No | Auditar — umbral p95<2000ms sin dato empírico, semilla no definida |
 | Escenario 4 (Mantenibilidad) | Claude | No | Auditar |
 | Escenario 5 (Usabilidad) | Claude | No | Auditar — requiere prueba de usuario real, no solo hipótesis |
