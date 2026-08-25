@@ -16,7 +16,7 @@
 | 9 riesgos iniciales (R1-R9) | Claude | No — solo confirmación rápida | Reclasificar con matriz EDAV y justificación propia |
 | 5 drivers priorizados | Claude | No | Re-priorizar o ratificar con justificación propia del equipo |
 | Matriz de 6 atributos de calidad | Claude | No | Re-priorizar con justificación propia |
-| Escenario 1 (Seguridad) | Claude | No | Auditar |
+| Escenario 1 (Seguridad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 2 (Disponibilidad) | Claude | No | Auditar — el umbral de ≤3s fue propuesto sin dato empírico |
 | Escenario 3 (Rendimiento) | Claude | No | Auditar — umbral p95<2000ms sin dato empírico, semilla no definida |
 | Escenario 4 (Mantenibilidad) | Claude | No | Auditar |
@@ -24,6 +24,19 @@
 | Escenario 6 (Escalabilidad) | Claude | No | Auditar — dataset de 5.000/1.000 registros no existe todavía |
 | Migración de esquema (`stakeholders`, salud de cuenta) | Claude, propuesta técnica | Sí — validada corriendo Postgres real vía Supabase local, RLS y `security_invoker` verificados | Ninguna — es implementación, no decisión arquitectónica |
 | Suite de tests (Vitest + Docker) | Claude, propuesta técnica | Sí — 12 tests corridos y verificados en local y Docker | Ninguna — es implementación |
+
+## Matriz de auditoría de escenarios de IA (ciclo EDAV — paso A)
+
+Clasificación y justificación del equipo, no de la IA. Se completa a medida que se audita cada escenario — no todos están auditados todavía (ver tabla de arriba).
+
+| Escenario sugerido por IA | Clasificación (equipo) | Justificación técnica (equipo) | Verificación |
+|---|---|---|---|
+| Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | "Veo válido ya que está corriendo pruebas exitosamente en mi Docker." | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
+| Escenario 2 — Disponibilidad | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 3 — Rendimiento | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 4 — Mantenibilidad | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 6 — Escalabilidad | `Por definir` | `Por definir` | `Por definir` |
 
 ## Riesgos residuales asumidos mientras no se complete la auditoría
 
