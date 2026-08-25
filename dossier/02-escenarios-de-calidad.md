@@ -40,7 +40,13 @@ Estructura SEI de 6 partes. Los 6 escenarios completos (fuente, estímulo, artef
 
 ## 8. Características necesarias de la semilla
 
-`PENDIENTE — el equipo no definió todavía volumen ni sesgo de la semilla.` La cátedra pide semilla 80/20 (80% de las consultas sobre el 20% de las entidades "calientes") y un volumen mínimo explícito (la cátedra usa 50.000-100.000 registros como referencia en otros contextos) — **no hay decisión tomada sobre cuántos registros ni qué distribución usar para Nexo CRM**.
+**Decidido por el equipo (25/08/2026):**
+
+- Volumen: 20 `companies`, 800 `contacts`, 1.000 `deals`.
+- Entidades calientes (20%): las ~200 oportunidades en las etapas activas "Negociación" y "Propuesta enviada" del pipeline por defecto — son las que un vendedor revisa obsesivamente porque están cerca de cerrarse.
+- Las 800 oportunidades restantes se distribuyen entre las otras 5 etapas (Prospecto, Contacto inicial, Calificado, Ganado, Perdido).
+- Semilla 80/20 aplicada como: 80% de las peticiones de k6 consultan las etapas calientes; 20% consultan el tablero completo sin filtrar.
+- Volumen menor al de referencia de la cátedra (50.000-100.000) a propósito: mide uso normal de un CRM chico en etapa académica, no un escenario de estrés — eso se reserva para el Escenario 6 (Escalabilidad), que ya usa 5.000/1.000 como volumen de stress test.
 
 ## 9. Instrumento previsto
 

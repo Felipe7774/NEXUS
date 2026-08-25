@@ -1,0 +1,20 @@
+{
+  "seededAt": "2026-08-25T16:49:41.691Z",
+  "ownerId": "d4e471cf-34ee-41c0-aef5-cdf980ca8ef7",
+  "ownerEmail": "seed-owner-1787676581003@nexo.invalid",
+  "pipelineId": "11111111-1111-1111-1111-111111111111",
+  "hotStageIds": [
+    "49ed4f8d-cc40-4db1-9a54-6409854ec711",
+    "2cec0f57-661b-4326-ac2a-d0b6fe856527"
+  ],
+  "coldStageIds": [
+    "3c8e97bb-7e4a-4833-b320-908ea409ed87",
+    "c8983b02-6245-4c58-a4a1-195872b80e57",
+    "db98cc6e-bc11-41fd-ba01-9209fde6438e",
+    "60f1bbf9-bad0-4c01-bce4-7b9f21ff3565",
+    "b3d6942d-485c-4ce7-853c-8a3fcfb4c8f7"
+  ],
+  "hotDealCount": 200,
+  "coldDealCount": 800,
+  "userJwt": "eyJhbGciOiJFUzI1NiIsImtpZCI6ImI4MTI2OWYxLTIxZDgtNGYyZS1iNzE5LWMyMjQwYTg0MGQ5MCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjU0MzIxL2F1dGgvdjEiLCJzdWIiOiJkNGU0NzFjZi0zNGVlLTQxYzAtYWVmNS1jZGY5ODBjYThlZjciLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzg3NjgwMTgxLCJpYXQiOjE3ODc2NzY1ODEsImVtYWlsIjoic2VlZC1vd25lci0xNzg3Njc2NTgxMDAzQG5leG8uaW52YWxpZCIsInBob25lIjoiIiwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiZW1haWwiLCJwcm92aWRlcnMiOlsiZW1haWwiXX0sInVzZXJfbWV0YWRhdGEiOnsiZW1haWxfdmVyaWZpZWQiOnRydWV9LCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImFhbCI6ImFhbDEiLCJhbXIiOlt7Im1ldGhvZCI6InBhc3N3b3JkIiwidGltZXN0YW1wIjoxNzg3Njc2NTgxfV0sInNlc3Npb25faWQiOiI2YjFhYzcyMC0wNjY1LTRkZmItYTZmZC0xODg1MjNmOGEwYTciLCJpc19hbm9ueW1vdXMiOmZhbHNlfQ.SR_cKAOaNm3NKzJBoUnVwCBqEto-MiCOztwP6eJOjanDvEb5toaw6p62omGC5TqPBQ9AxKalvWu1DTjCRrvi6Q"
+}
