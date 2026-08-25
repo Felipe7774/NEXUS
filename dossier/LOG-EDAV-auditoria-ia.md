@@ -32,11 +32,32 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 | Escenario sugerido por IA | Clasificación (equipo) | Justificación técnica (equipo) | Verificación |
 |---|---|---|---|
 | Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | Ver justificación completa abajo | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
-| Escenario 2 — Disponibilidad | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 2 — Disponibilidad | `Por definir — falta clasificación y justificación del equipo` | Ver investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 3 — Rendimiento | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 4 — Mantenibilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 6 — Escalabilidad | `Por definir` | `Por definir` | `Por definir` |
+
+### Investigación técnica — Escenario 2 (Disponibilidad)
+
+Registro completo de la verificación en vivo, incluyendo los errores de medición cometidos por la IA antes de llegar al dato correcto — se documentan a propósito, porque son justo el tipo de cosa que el ciclo EDAV debe capturar.
+
+**Umbral propuesto originalmente:** ≤3 segundos, sin dato empírico.
+
+**Intento 1 (descartado — método de medición defectuoso):** se simuló la caída apuntando `.env` a `http://127.0.0.1:1` y se midió el tiempo repartiendo la acción en varias llamadas de herramienta separadas (enviar formulario → esperar → revisar resultado). Resultado: 11,456 ms. **Este número es inválido**: la latencia entre llamadas de herramienta (infraestructura de esta sesión, no la app) se sumó a la medición.
+
+**Intento 2 (descartado — mismo error de método, además puerto mal elegido):** se implementó un timeout en el cliente de Supabase (`AbortSignal.timeout(3000)` en `client.ts`, `client.server.ts`, `auth-middleware.ts`) basado en el intento 1, y se volvió a medir con el mismo método defectuoso. Resultado: 46,077 ms — peor, no mejor. Se detectó además que el puerto 1 es tratado como "puerto inseguro" por Chrome (`ERR_UNSAFE_PORT`), que rechaza la conexión al instante — no simula una caída real de un proveedor que no responde.
+
+**Medición correcta:** se corrigió el método (un único script ejecutado dentro del navegador, con `performance.now()`, sin depender de llamadas externas) y se usó un puerto no bloqueado y sin nada escuchando (`127.0.0.1:19999`) para simular una caída real.
+
+| Condición | Resultado |
+|---|---|
+| Sin el cambio de timeout (código original) | **2,145 ms** |
+| Con el cambio de timeout (`AbortSignal.timeout(3000)`) | **2,135 ms** |
+
+**Conclusión técnica:** la diferencia entre ambas mediciones (10 ms) no es significativa — el cambio de timeout no tuvo efecto medible en este escenario de falla. El umbral original de ≤3 segundos **se cumple con el código sin modificar**; el problema de disponibilidad no existía tal como se había medido inicialmente. El código del timeout se mantuvo en el repositorio (no genera daño y es una práctica defensiva razonable para otros tipos de falla), pero no debe presentarse como "la solución a un problema de 11.5 segundos", porque ese número nunca fue real.
+
+**Para el equipo:** falta la clasificación (Válido/Modificado/Genérico/Falso) y la justificación propia de este escenario, con estos datos.
 
 ### Justificación completa — Escenario 1 (equipo)
 
