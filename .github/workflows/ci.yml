@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm test
+
+  rls-integration-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Levantar Supabase local
+        run: npx supabase start -x studio,edge-runtime,vector,logflare,imgproxy,mailpit,realtime,storage-api,postgres-meta,supavisor
+      - name: Correr prueba de aislamiento RLS (Escenario 1)
+        run: |
+          npx supabase status -o json > supabase-status.json
+          export SUPABASE_URL_TEST=$(jq -r '.API_URL' supabase-status.json)
+          export SUPABASE_ANON_KEY_TEST=$(jq -r '.ANON_KEY' supabase-status.json)
+          export SUPABASE_SERVICE_ROLE_KEY_TEST=$(jq -r '.SERVICE_ROLE_KEY' supabase-status.json)
+          npx vitest run src/integrations/supabase/rls-isolation.integration.test.ts
+      - name: Bajar Supabase local
+        if: always()
+        run: npx supabase stop
