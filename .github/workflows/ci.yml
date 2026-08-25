@@ -14,6 +14,8 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      - name: Actualizar npm (el lock file esta generado con npm 11, el runner trae npm 10)
+        run: npm install -g npm@11
       - run: npm ci
       - run: npm test
 
@@ -25,6 +27,8 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      - name: Actualizar npm (el lock file esta generado con npm 11, el runner trae npm 10)
+        run: npm install -g npm@11
       - run: npm ci
       - name: Levantar Supabase local
         run: npx supabase start -x studio,edge-runtime,vector,logflare,imgproxy,mailpit,realtime,storage-api,postgres-meta,supavisor
