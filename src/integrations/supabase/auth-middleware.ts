@@ -8,6 +8,11 @@ function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith("sb_publishable_") || value.startsWith("sb_secret_");
 }
 
+// Escenario 2 (dossier/02-escenarios-de-calidad.md): sin este timeout, una caida del
+// proveedor tarda ~11.5s en mostrar error (reintentos con backoff de @supabase/auth-js).
+// Limita cada request a Supabase para que el estado de error aparezca rapido.
+const SUPABASE_FETCH_TIMEOUT_MS = 3000;
+
 function createSupabaseFetch(supabaseKey: string): typeof fetch {
   return (input, init) => {
     const headers = new Headers(
@@ -27,7 +32,11 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
     }
 
     headers.set("apikey", supabaseKey);
-    return fetch(input, { ...init, headers });
+
+    const timeoutSignal = AbortSignal.timeout(SUPABASE_FETCH_TIMEOUT_MS);
+    const signal = init?.signal ? AbortSignal.any([init.signal, timeoutSignal]) : timeoutSignal;
+
+    return fetch(input, { ...init, headers, signal });
   };
 }
 
