@@ -19,7 +19,7 @@
 | Escenario 1 (Seguridad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 2 (Disponibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 3 (Rendimiento) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
-| Escenario 4 (Mantenibilidad) | Claude | No | Auditar |
+| Escenario 4 (Mantenibilidad) | Claude | Parcial — ver Matriz de Auditoría abajo | Falta clasificación y justificación del equipo |
 | Escenario 5 (Usabilidad) | Claude | No | Auditar — requiere prueba de usuario real, no solo hipótesis |
 | Escenario 6 (Escalabilidad) | Claude | No | Auditar — dataset de 5.000/1.000 registros no existe todavía |
 | Migración de esquema (`stakeholders`, salud de cuenta) | Claude, propuesta técnica | Sí — validada corriendo Postgres real vía Supabase local, RLS y `security_invoker` verificados | Ninguna — es implementación, no decisión arquitectónica |
@@ -34,9 +34,26 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 | Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | Ver justificación completa abajo | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
 | Escenario 2 — Disponibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 3 — Rendimiento | **Válido** | Ver justificación completa abajo | `experimentos/EXP-001-linea-base/resultados/corrida-{2,3,4}.json` (rama `semana-4-medicion-real`), mediana p95 = 92.62ms contra umbral de 2.000ms, 0% errores en 4 corridas, corrida el 25/08/2026. |
-| Escenario 4 — Mantenibilidad | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 4 — Mantenibilidad | `Por definir — falta clasificación y justificación del equipo` | Ver investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 6 — Escalabilidad | `Por definir` | `Por definir` | `Por definir` |
+
+### Investigación técnica — Escenario 4 (Mantenibilidad)
+
+**Escenario:** "el cambio se implementa y el suite de tests corre sin fallos antes del merge" — medida de respuesta: `npm test` pasa al 100% antes de cada merge, y el cambio toma menos de 1 día-persona.
+
+**Verificación en vivo (25/08/2026):**
+
+1. Se confirmó que existía CI (`unit-tests`, `rls-integration-test`) corriendo en cada PR — **pero sin branch protection**, GitHub mostraba "Classic branch protections have not been configured". O sea: el CI corría e informaba, pero no bloqueaba nada — cualquiera podía mergear con el CI en rojo.
+2. El compañero (Felipe, dueño del repo) activó branch protection en `main`, exigiendo que `unit-tests` y `rls-integration-test` pasen antes de poder mergear.
+3. Se probó de verdad: se creó la rama `test-branch-protection` con un test roto a propósito (`src/lib/utils.test.ts`), se pusheó y se abrió un PR. Resultado real, confirmado por captura de pantalla: **"Merging is blocked due to failing merge requirements"**, con los dos checks en rojo y el botón de merge deshabilitado.
+4. El PR de prueba se cerró sin mergear y la rama se borró — el test roto nunca llegó a `main`.
+
+**Hallazgo no esperado:** en esa misma corrida, `rls-integration-test` también falló, sin que se hubiera tocado ningún archivo relacionado a RLS (solo se rompió un test de `utils.ts`, un job distinto). Podría ser inestabilidad puntual del runner de GitHub Actions al levantar Supabase (timing), no necesariamente un problema real de la prueba — **pendiente de investigar si vuelve a pasar**.
+
+**Lo que sigue sin ser verificable por una prueba:** "el cambio toma menos de 1 día-persona" es una estimación de esfuerzo humano, no algo medible por un script.
+
+**Para el equipo:** falta la clasificación (Válido/Modificado/Genérico/Falso) y la justificación propia de este escenario, con estos datos.
 
 ### Investigación técnica — Escenario 2 (Disponibilidad)
 
