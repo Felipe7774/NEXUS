@@ -19,9 +19,9 @@
 | Escenario 1 (Seguridad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 2 (Disponibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 3 (Rendimiento) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
-| Escenario 4 (Mantenibilidad) | Claude | No | Auditar |
+| Escenario 4 (Mantenibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 5 (Usabilidad) | Claude | No | Auditar — requiere prueba de usuario real, no solo hipótesis |
-| Escenario 6 (Escalabilidad) | Claude | No | Auditar — dataset de 5.000/1.000 registros no existe todavía |
+| Escenario 6 (Escalabilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Migración de esquema (`stakeholders`, salud de cuenta) | Claude, propuesta técnica | Sí — validada corriendo Postgres real vía Supabase local, RLS y `security_invoker` verificados | Ninguna — es implementación, no decisión arquitectónica |
 | Suite de tests (Vitest + Docker) | Claude, propuesta técnica | Sí — 12 tests corridos y verificados en local y Docker | Ninguna — es implementación |
 
@@ -34,9 +34,52 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 | Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | Ver justificación completa abajo | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
 | Escenario 2 — Disponibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 3 — Rendimiento | **Válido** | Ver justificación completa abajo | `experimentos/EXP-001-linea-base/resultados/corrida-{2,3,4}.json` (rama `semana-4-medicion-real`), mediana p95 = 92.62ms contra umbral de 2.000ms, 0% errores en 4 corridas, corrida el 25/08/2026. |
-| Escenario 4 — Mantenibilidad | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 4 — Mantenibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
-| Escenario 6 — Escalabilidad | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 6 — Escalabilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
+
+### Investigación técnica — Escenario 6 (Escalabilidad)
+
+**Semilla:** volumen exacto definido en el escenario — 50 companies, **5.000 contacts**, **1.000 deals** (6.25x más contactos que en EXP-001). Sembrada con `experimentos/EXP-002-escalabilidad/scripts/seed-scale.mjs` contra Supabase local, base reseteada antes de sembrar.
+
+**Medición:** k6 contra la API REST de Supabase local (PostgREST) con RLS activo, alternando 50/50 entre el listado completo de `contacts` y de `deals`. 4 corridas (1 descartada como calentamiento, 3 válidas), 5 VUs, 30s cada una.
+
+| Corrida | p95 | Throughput |
+|---|---|---|
+| 1 (descartada) | 135.51ms | 4.54/s |
+| 2 | 112.89ms | 4.58/s |
+| 3 | 129.30ms | 4.53/s |
+| 4 | 127.16ms | 4.53/s |
+| **Mediana (2-4)** | **127.16ms** | **4.53/s** |
+
+Umbral del escenario: p95 < 2.000ms. Resultado real: **127.16ms**, ~15.7x por debajo del umbral, 0% de errores en las 4 corridas.
+
+**Comparación con EXP-001 (1.000ms → 5.000 contactos):** la mediana de p95 subió de 92.62ms a 127.16ms — un aumento real, pero pequeño, al multiplicar los contactos por 6.25.
+
+**Misma limitación que el Escenario 3:** se midió la API REST directamente, no la app renderizada en el navegador — no hay evidencia sobre cómo se comporta React renderizando 5.000 filas en el DOM (paginación, virtualización, etc., si es que la interfaz las tiene).
+
+**Clasificación del equipo: Válido.**
+
+> La prueba se ejecutó con el volumen exacto definido en el escenario: 50 empresas, 5.000 contactos y 1.000 oportunidades. En cuatro corridas no se presentaron errores y la mediana obtenida fue de 127,16 ms, aproximadamente 15,7 veces por debajo del umbral de 2.000 ms. Aunque el volumen de contactos aumentó 6,25 veces frente a la prueba anterior, el tiempo solo pasó de 92,62 ms a 127,16 ms, lo que evidencia un comportamiento estable y una buena capacidad de escalamiento en la API.
+
+### Investigación técnica — Escenario 4 (Mantenibilidad)
+
+**Escenario:** "el cambio se implementa y el suite de tests corre sin fallos antes del merge" — medida de respuesta: `npm test` pasa al 100% antes de cada merge, y el cambio toma menos de 1 día-persona.
+
+**Verificación en vivo (25/08/2026):**
+
+1. Se confirmó que existía CI (`unit-tests`, `rls-integration-test`) corriendo en cada PR — **pero sin branch protection**, GitHub mostraba "Classic branch protections have not been configured". O sea: el CI corría e informaba, pero no bloqueaba nada — cualquiera podía mergear con el CI en rojo.
+2. El compañero (Felipe, dueño del repo) activó branch protection en `main`, exigiendo que `unit-tests` y `rls-integration-test` pasen antes de poder mergear.
+3. Se probó de verdad: se creó la rama `test-branch-protection` con un test roto a propósito (`src/lib/utils.test.ts`), se pusheó y se abrió un PR. Resultado real, confirmado por captura de pantalla: **"Merging is blocked due to failing merge requirements"**, con los dos checks en rojo y el botón de merge deshabilitado.
+4. El PR de prueba se cerró sin mergear y la rama se borró — el test roto nunca llegó a `main`.
+
+**Hallazgo no esperado:** en esa misma corrida, `rls-integration-test` también falló, sin que se hubiera tocado ningún archivo relacionado a RLS (solo se rompió un test de `utils.ts`, un job distinto). Podría ser inestabilidad puntual del runner de GitHub Actions al levantar Supabase (timing), no necesariamente un problema real de la prueba — **pendiente de investigar si vuelve a pasar**.
+
+**Lo que sigue sin ser verificable por una prueba:** "el cambio toma menos de 1 día-persona" es una estimación de esfuerzo humano, no algo medible por un script.
+
+**Clasificación del equipo: Válido.**
+
+> La implementación cumple con el control principal de mantenibilidad, ya que se configuró la protección de la rama main para exigir que las pruebas unit-tests y rls-integration-test finalicen correctamente antes de permitir un merge. La verificación práctica confirmó que, al subir una rama con un test fallando intencionalmente, GitHub bloqueó la integración y deshabilitó el botón de merge. Posteriormente, la rama de prueba fue cerrada sin fusionarse, por lo que main no se vio afectada.
 
 ### Investigación técnica — Escenario 2 (Disponibilidad)
 
