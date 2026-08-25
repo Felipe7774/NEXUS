@@ -18,7 +18,7 @@
 | Matriz de 6 atributos de calidad | Claude | No | Re-priorizar con justificación propia |
 | Escenario 1 (Seguridad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 2 (Disponibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
-| Escenario 3 (Rendimiento) | Claude | No | Auditar — umbral p95<2000ms sin dato empírico, semilla no definida |
+| Escenario 3 (Rendimiento) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 4 (Mantenibilidad) | Claude | No | Auditar |
 | Escenario 5 (Usabilidad) | Claude | No | Auditar — requiere prueba de usuario real, no solo hipótesis |
 | Escenario 6 (Escalabilidad) | Claude | No | Auditar — dataset de 5.000/1.000 registros no existe todavía |
@@ -33,7 +33,7 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 |---|---|---|---|
 | Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | Ver justificación completa abajo | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
 | Escenario 2 — Disponibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
-| Escenario 3 — Rendimiento | `Por definir` | `Por definir` | `Por definir` |
+| Escenario 3 — Rendimiento | **Válido** | Ver justificación completa abajo | `experimentos/EXP-001-linea-base/resultados/corrida-{2,3,4}.json` (rama `semana-4-medicion-real`), mediana p95 = 92.62ms contra umbral de 2.000ms, 0% errores en 4 corridas, corrida el 25/08/2026. |
 | Escenario 4 — Mantenibilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 6 — Escalabilidad | `Por definir` | `Por definir` | `Por definir` |
@@ -60,6 +60,26 @@ Registro completo de la verificación en vivo, incluyendo los errores de medici�
 **Clasificación del equipo: Válido.**
 
 > La implementación cumple satisfactoriamente con el escenario planteado. Al simular una caída real del proveedor externo, la aplicación mostró un mensaje de error identificable en lugar de presentar una pantalla en blanco o finalizar de manera silenciosa. Además, la respuesta se produjo en aproximadamente 2,1 segundos, tanto con el código original como con el timeout defensivo, por lo que se cumple el umbral establecido de máximo 3 segundos. Las mediciones anteriores de 11,5 y 46 segundos fueron descartadas porque estuvieron afectadas por errores en el método de prueba y no reflejaban el comportamiento real del sistema. En consecuencia, la evidencia válida confirma que la aplicación maneja correctamente la indisponibilidad del proveedor y responde dentro del tiempo esperado.
+
+### Investigación técnica y justificación — Escenario 3 (Rendimiento)
+
+**Semilla decidida por el equipo (25/08/2026):** 20 companies, 800 contacts, 1.000 deals (200 en etapas calientes "Negociación"/"Propuesta enviada", distribución 80/20). Sembrada con `experimentos/EXP-001-linea-base/scripts/seed.mjs` contra Supabase local.
+
+**Medición:** k6 contra la API REST de Supabase local (PostgREST) con RLS activo, 4 corridas (protocolo: 1 descartada como calentamiento, 3 válidas), 5 VUs, 30s cada una.
+
+| Corrida | p95 | Throughput |
+|---|---|---|
+| 1 (descartada) | 120.31ms | 4.75/s |
+| 2 | 92.62ms | 4.77/s |
+| 3 | 96.79ms | 4.75/s |
+| 4 | 89.64ms | 4.74/s |
+| **Mediana (2-4)** | **92.62ms** | **4.75/s** |
+
+Umbral auditado: p95 < 2.000ms. Resultado real: **92.62ms**, ~21x por debajo del umbral, 0% de errores.
+
+**Clasificación del equipo: Válido.**
+
+> La evidencia obtenida demuestra que la API REST de Supabase responde satisfactoriamente bajo la carga de datos establecida. La prueba se realizó con 20 empresas, 800 contactos y 1.000 oportunidades, de las cuales 200 se encontraban en las etapas "Negociación" o "Propuesta enviada". En cuatro corridas no se presentaron errores y la mediana obtenida fue de 92,62 ms, aproximadamente 21 veces por debajo del límite auditado de 2.000 ms. Sin embargo, la medición se efectuó directamente sobre la API con las políticas RLS aplicadas y no sobre la aplicación completa renderizada en el navegador. Por lo tanto, el resultado confirma que la consulta y el backend cumplen ampliamente con el umbral, pero no permite asegurar todavía que el usuario visualice el Kanban en menos de dos segundos.
 
 ### Justificación completa — Escenario 1 (equipo)
 
