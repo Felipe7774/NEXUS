@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:rls": "echo 'Requiere: npx supabase start, y las variables SUPABASE_URL_TEST / SUPABASE_ANON_KEY_TEST / SUPABASE_SERVICE_ROLE_KEY_TEST (ver output de supabase start)' && vitest run src/integrations/supabase/rls-isolation.integration.test.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
