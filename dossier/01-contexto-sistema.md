@@ -1,6 +1,9 @@
 # 01 — Contexto del sistema
 
-> Borrador base. Los campos marcados `[COMPLETAR]` necesitan un dato que solo ustedes tienen (nombre de la materia/docente, criterios de evaluación puntuales, decisiones internas del equipo).
+> Integrantes: Carlos Correa, Felipe Piragauta y Santiago Roman
+> Docente: Nelson Sánchez Sánchez
+> Materia: Arquitectura de Software
+
 
 ## Sistema adoptado
 
