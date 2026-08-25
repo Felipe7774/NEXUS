@@ -21,7 +21,7 @@
 | Escenario 3 (Rendimiento) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 4 (Mantenibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 5 (Usabilidad) | Claude | No | Auditar — requiere prueba de usuario real, no solo hipótesis |
-| Escenario 6 (Escalabilidad) | Claude | Parcial — ver Matriz de Auditoría abajo | Falta clasificación y justificación del equipo |
+| Escenario 6 (Escalabilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Migración de esquema (`stakeholders`, salud de cuenta) | Claude, propuesta técnica | Sí — validada corriendo Postgres real vía Supabase local, RLS y `security_invoker` verificados | Ninguna — es implementación, no decisión arquitectónica |
 | Suite de tests (Vitest + Docker) | Claude, propuesta técnica | Sí — 12 tests corridos y verificados en local y Docker | Ninguna — es implementación |
 
@@ -36,7 +36,7 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 | Escenario 3 — Rendimiento | **Válido** | Ver justificación completa abajo | `experimentos/EXP-001-linea-base/resultados/corrida-{2,3,4}.json` (rama `semana-4-medicion-real`), mediana p95 = 92.62ms contra umbral de 2.000ms, 0% errores en 4 corridas, corrida el 25/08/2026. |
 | Escenario 4 — Mantenibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
-| Escenario 6 — Escalabilidad | `Por definir — falta clasificación y justificación del equipo` | Ver investigación técnica abajo | Ver investigación técnica abajo |
+| Escenario 6 — Escalabilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 
 ### Investigación técnica — Escenario 6 (Escalabilidad)
 
@@ -58,7 +58,9 @@ Umbral del escenario: p95 < 2.000ms. Resultado real: **127.16ms**, ~15.7x por de
 
 **Misma limitación que el Escenario 3:** se midió la API REST directamente, no la app renderizada en el navegador — no hay evidencia sobre cómo se comporta React renderizando 5.000 filas en el DOM (paginación, virtualización, etc., si es que la interfaz las tiene).
 
-**Para el equipo:** falta la clasificación (Válido/Modificado/Genérico/Falso) y la justificación propia de este escenario, con estos datos.
+**Clasificación del equipo: Válido.**
+
+> La prueba se ejecutó con el volumen exacto definido en el escenario: 50 empresas, 5.000 contactos y 1.000 oportunidades. En cuatro corridas no se presentaron errores y la mediana obtenida fue de 127,16 ms, aproximadamente 15,7 veces por debajo del umbral de 2.000 ms. Aunque el volumen de contactos aumentó 6,25 veces frente a la prueba anterior, el tiempo solo pasó de 92,62 ms a 127,16 ms, lo que evidencia un comportamiento estable y una buena capacidad de escalamiento en la API.
 
 ### Investigación técnica — Escenario 4 (Mantenibilidad)
 
