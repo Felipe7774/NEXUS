@@ -31,12 +31,16 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 
 | Escenario sugerido por IA | Clasificación (equipo) | Justificación técnica (equipo) | Verificación |
 |---|---|---|---|
-| Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | "Veo válido ya que está corriendo pruebas exitosamente en mi Docker." | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
+| Escenario 1 — Seguridad (aislamiento entre organizaciones) | **Válido** | Ver justificación completa abajo | `rls-isolation.integration.test.ts`, 2/2 tests pasados contra PostgreSQL real en Docker (`npx supabase start` local), corrida el 25/08/2026. Automatizado en cada PR vía `.github/workflows/ci.yml` (job `rls-integration-test`). |
 | Escenario 2 — Disponibilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 3 — Rendimiento | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 4 — Mantenibilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 5 — Usabilidad | `Por definir` | `Por definir` | `Por definir` |
 | Escenario 6 — Escalabilidad | `Por definir` | `Por definir` | `Por definir` |
+
+### Justificación completa — Escenario 1 (equipo)
+
+> La implementación es correcta porque garantiza el aislamiento de la información entre usuarios mediante Row Level Security (RLS). La prueba automatizada confirmó que el propietario puede consultar su propia empresa, mientras que otro usuario autenticado no puede acceder a ella y recibe un resultado vacío. Además, al realizar la misma consulta con la clave administrativa service_role, que omite las políticas RLS de forma intencional, la empresa sí aparece. Este contraste demuestra que el registro existe correctamente en la base de datos y que su ausencia para el Usuario B no corresponde a un error en los datos ni en la consulta, sino al funcionamiento esperado de las políticas de seguridad. Por lo tanto, se valida que cada usuario solamente puede acceder a la información que le corresponde, evitando la exposición de datos entre empresas o usuarios diferentes. La prueba automatizada finalizó satisfactoriamente con dos casos aprobados de dos ejecutados.
 
 ## Riesgos residuales asumidos mientras no se complete la auditoría
 
