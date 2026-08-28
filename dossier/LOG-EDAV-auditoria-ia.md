@@ -20,7 +20,7 @@
 | Escenario 2 (Disponibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 3 (Rendimiento) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 4 (Mantenibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
-| Escenario 5 (Usabilidad) | Claude | Parcial — ver Matriz de Auditoría abajo | Falta clasificación y justificación del equipo |
+| Escenario 5 (Usabilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 6 (Escalabilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Migración de esquema (`stakeholders`, salud de cuenta) | Claude, propuesta técnica | Sí — validada corriendo Postgres real vía Supabase local, RLS y `security_invoker` verificados | Ninguna — es implementación, no decisión arquitectónica |
 | Suite de tests (Vitest + Docker) | Claude, propuesta técnica | Sí — 12 tests corridos y verificados en local y Docker | Ninguna — es implementación |
@@ -35,7 +35,7 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 | Escenario 2 — Disponibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 3 — Rendimiento | **Válido** | Ver justificación completa abajo | `experimentos/EXP-001-linea-base/resultados/corrida-{2,3,4}.json` (rama `semana-4-medicion-real`), mediana p95 = 92.62ms contra umbral de 2.000ms, 0% errores en 4 corridas, corrida el 25/08/2026. |
 | Escenario 4 — Mantenibilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
-| Escenario 5 — Usabilidad | `Por definir — falta clasificación y justificación del equipo` | Ver investigación técnica abajo | Ver investigación técnica abajo |
+| Escenario 5 — Usabilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 | Escenario 6 — Escalabilidad | **Válido** | Ver justificación completa e investigación técnica abajo | Ver investigación técnica abajo |
 
 ### Investigación técnica — Escenario 5 (Usabilidad)
@@ -57,7 +57,9 @@ Clasificación y justificación del equipo, no de la IA. Se completa a medida qu
 
 **Resultado:** tarea completada en **3 minutos 28 segundos**, sin pedir ayuda en ningún momento. Umbral del escenario: <5 minutos. **Se cumple, con margen de casi 1:32.**
 
-**Para el equipo:** falta la clasificación (Válido/Modificado/Genérico/Falso) y la justificación propia de este escenario, con estos datos.
+**Clasificación del equipo: Válido.**
+
+> La prueba comenzó con la consigna: "Registrate y cargá una oportunidad de venta nueva", iniciando el cronómetro en ese momento. La persona tardó 1 minuto y 5 segundos en registrarse e ingresar a la plataforma. Luego observó el menú, ingresó a "Oportunidades" y seleccionó "Nueva oportunidad". Completó los datos necesarios y presionó "Guardar" en el minuto 3:20. La confirmación apareció a los 3 minutos y 28 segundos. Resultado final: completó correctamente la tarea en 3 minutos y 28 segundos, sin pedir ayuda ni recibir indicaciones adicionales.
 
 ### Investigación técnica — Escenario 6 (Escalabilidad)
 
