@@ -28,17 +28,17 @@ El frontend original del equipo se perdió cuando el compañero a cargo del back
 - **Económica:** proyecto Supabase en plan free (límites de filas, conexiones, ancho de banda); sin presupuesto para infraestructura paga.
 - **Organizacional:** un solo integrante administra la cuenta de Supabase (punto único de dependencia de acceso); cronograma de 4 semanas con checkpoint en semana 2.
 
-## 5. Drivers arquitectónicos preliminares
+## 5. Drivers arquitectónicos priorizados
 
-`PROPUESTO POR IA (Claude) — auditado por el equipo con confirmación informal, no con el ciclo EDAV completo (ver Log). Pendiente re-auditoría formal antes de tratarlo como definitivo.`
+`Auditados por el equipo con justificación propia (ciclo EDAV completo) — ver Log EDAV.`
 
 1. Seguridad · 2. Disponibilidad · 3. Mantenibilidad · 4. Rendimiento · 5. Usabilidad
 
 ## 6. Riesgos iniciales
 
-`PROPUESTOS POR IA (9 candidatos) — el equipo clasificó cada uno con un "sí" de confirmación rápida, no con justificación matemática/empírica propia. Detalle completo, evidencia y clasificación original en el Log EDAV.`
+`Auditados por el equipo, uno por uno, con clasificación y justificación propia (ciclo EDAV completo) — detalle completo en el Log EDAV.`
 
-Resumen: 5 válidos (fuga de `service_role`, ausencia de tests, dependencia organizacional única, RLS sin auditar, límites del plan free), 2 genéricos, 1 irrelevante/falso, 1 válido-condicionado.
+Resumen: 4 válidos (R1, R3, R4: fuga de `service_role`, dependencia organizacional única, RLS sin auditar), 3 modificados (R2: mitigado con tests/CI; R5: reformulable como riesgo de escalabilidad; R7: condicionado a que exista una vulnerabilidad de inyección), 2 genéricos (R6, R8), 1 falso (R9).
 
 ## 7. Supuestos
 
@@ -48,14 +48,13 @@ Resumen: 5 válidos (fuga de `service_role`, ausencia de tests, dependencia orga
 
 ## 8. Referencia a la hipótesis inicial
 
-Hipótesis de rendimiento pre-registrada (a contrastar en `04-evidencia-ejecutable.md`): el tablero Kanban del pipeline responde en p95 < 2000 ms con un volumen de datos representativo. Esta hipótesis todavía no fue auditada con el ciclo EDAV completo — ver `02-escenarios-de-calidad.md`.
+Hipótesis de rendimiento pre-registrada: el tablero Kanban del pipeline responde en p95 < 2000 ms con un volumen de datos representativo. Contrastada y auditada (Válido): p95 real = 92.62ms con 1.000 registros, 127.16ms con 5.000 — ver `04-evidencia-ejecutable.md` y `02-escenarios-de-calidad.md`.
 
 ## 9. Qué todavía no ha sido verificado
 
-- Las políticas RLS no fueron auditadas línea por línea (riesgo R4).
-- No hay medición real de rendimiento — solo hipótesis.
-- El riesgo de sesión en `localStorage` (R7) depende de que exista una vulnerabilidad de inyección no confirmada.
-- Los escenarios propuestos por IA en `02-escenarios-de-calidad.md` no pasaron todavía por el paso "A — Auditoría" completo del ciclo EDAV con la matriz Válido/Modificado/Genérico/Falso.
+- Las políticas RLS no fueron auditadas línea por línea, política por política (riesgo R4) — sí se verificó el aislamiento entre usuarios en la práctica (Escenario 1), pero no cada política individualmente.
+- El riesgo de sesión en `localStorage` (R7) sigue condicionado a que exista una vulnerabilidad de inyección en el frontend — no confirmada ni descartada.
+- La medición de rendimiento (Escenario 3 y 6) se hizo contra la API REST directamente, no contra la app renderizada en el navegador — el tiempo real de carga percibido por un usuario sigue sin medir.
 
 ## 10. Trazabilidad
 

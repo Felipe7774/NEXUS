@@ -13,9 +13,9 @@
 
 | Contenido | Propuesto por | Auditado formalmente (matriz Válido/Modificado/Genérico/Falso) | Acción pendiente |
 |---|---|---|---|
-| 9 riesgos iniciales (R1-R9) | Claude | No — solo confirmación rápida | Reclasificar con matriz EDAV y justificación propia |
-| 5 drivers priorizados | Claude | No | Re-priorizar o ratificar con justificación propia del equipo |
-| Matriz de 6 atributos de calidad | Claude | No | Re-priorizar con justificación propia |
+| 9 riesgos iniciales (R1-R9) | Claude | **Sí** — ver Matriz de Auditoría de Riesgos abajo | Ninguna |
+| 5 drivers priorizados | Claude | **Sí** — ver Auditoría de Drivers abajo | Ninguna |
+| Matriz de 6 atributos de calidad | Claude | **Sí** — mismo orden y justificación que los drivers (ver abajo) | Ninguna |
 | Escenario 1 (Seguridad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 2 (Disponibilidad) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
 | Escenario 3 (Rendimiento) | Claude | **Sí** — ver Matriz de Auditoría abajo | Ninguna |
@@ -151,11 +151,31 @@ Umbral auditado: p95 < 2.000ms. Resultado real: **92.62ms**, ~21x por debajo del
 
 > La implementación es correcta porque garantiza el aislamiento de la información entre usuarios mediante Row Level Security (RLS). La prueba automatizada confirmó que el propietario puede consultar su propia empresa, mientras que otro usuario autenticado no puede acceder a ella y recibe un resultado vacío. Además, al realizar la misma consulta con la clave administrativa service_role, que omite las políticas RLS de forma intencional, la empresa sí aparece. Este contraste demuestra que el registro existe correctamente en la base de datos y que su ausencia para el Usuario B no corresponde a un error en los datos ni en la consulta, sino al funcionamiento esperado de las políticas de seguridad. Por lo tanto, se valida que cada usuario solamente puede acceder a la información que le corresponde, evitando la exposición de datos entre empresas o usuarios diferentes. La prueba automatizada finalizó satisfactoriamente con dos casos aprobados de dos ejecutados.
 
-## Riesgos residuales asumidos mientras no se complete la auditoría
+## Matriz de auditoría de riesgos (ciclo EDAV — paso A)
 
-- El orden de prioridad de drivers/atributos podría no reflejar el criterio real del equipo — se está usando como si fuera definitivo en la práctica (PRs mergeados) sin el respaldo formal.
-- Los umbrales numéricos (≤3s, p95<2000ms, ≤2s) son estimaciones sin dato empírico previo — riesgo de que la medición real los invalide por completo.
-- La clasificación de riesgos R4 y R7 ("válido sin verificar" / "válido condicionado") no tiene una categoría exacta en la matriz de la cátedra (Válido/Modificado/Genérico/Falso) — falta decidir a cuál mapean.
+Clasificación y justificación del equipo (25/08/2026), no de la IA. Reemplaza la clasificación preliminar de la semana 2 (que usaba confirmación rápida, no justificación individual propia).
+
+| # | Riesgo propuesto por IA | Clasificación (equipo) | Justificación (equipo) |
+|---|---|---|---|
+| R1 | Fuga de `service_role` si se importa mal fuera de `*.server.ts` | **Válido** | "La separación de `client.server.ts` deja un riesgo concreto de importar accidentalmente `service_role` en un contexto incorrecto, y no existe un control automático que lo impida." |
+| R2 | Sin tests, un refactor rompe algo sin avisar | **Modificado** | "El riesgo ya está mitigado mediante 12 tests, integración continua y protección de ramas." — era válido cuando se propuso (cero tests); la situación cambió, no la afirmación original. |
+| R3 | Un solo integrante administra Supabase | **Válido** | "Que una sola persona administre Supabase genera dependencia operativa y un punto único de conocimiento/acceso." |
+| R4 | Política RLS mal escrita expone datos de otra organización | **Válido** | "La cantidad de tablas y políticas RLS sin auditoría detallada representa un riesgo real de exposición de datos." |
+| R5 | Límites del plan free cortan el servicio bajo carga | **Modificado** | "El límite económico del plan es real, pero debería expresarse como riesgo de escalabilidad o saturación, ya que todavía no fue validado con pruebas de carga." |
+| R6 | Dependencias muy nuevas traen bugs de tooling | **Genérico** | "Las dependencias nuevas pueden generar problemas en cualquier proyecto; no hay evidencia específica de que estén afectando a Nexo." |
+| R7 | Sesión en `localStorage`, riesgo si hay XSS | **Modificado** | "Guardar la sesión en `localStorage` aumenta el impacto de una vulnerabilidad XSS, pero no demuestra por sí mismo que exista una vulnerabilidad activa." |
+| R8 | Nombre de paquete `"tanstack_start_ts"` sin cambiar | **Genérico** | "El nombre del paquete es un detalle cosmético y no representa un riesgo funcional, técnico ni operativo." |
+| R9 | "El servidor de Supabase podría estar caído en algún país" | **Falso** | "La posible caída regional de Supabase es un riesgo general del proveedor, sin evidencia específica relacionada con este sistema." |
+
+## Auditoría de drivers arquitectónicos y atributos de calidad (ciclo EDAV — paso A)
+
+El equipo ratificó el orden propuesto, con justificación propia por driver (25/08/2026). El mismo orden aplica a la matriz de 6 atributos de calidad de `02-escenarios-de-calidad.md` (que agrega Escalabilidad como 6to atributo, no cubierto por los 5 drivers).
+
+1. **Seguridad** — "Protege credenciales y datos; una falla puede generar exposición o accesos no autorizados."
+2. **Disponibilidad** — "El sistema debe permanecer accesible para sostener la operación."
+3. **Mantenibilidad** — "Facilita corregir errores, incorporar cambios y reducir la dependencia de una sola persona."
+4. **Rendimiento** — "Es importante para el crecimiento, pero todavía no hay evidencia de problemas bajo carga real."
+5. **Usabilidad** — "Afecta la experiencia, aunque tiene menor impacto que los riesgos técnicos y operativos anteriores."
 
 ## Instrucción para el equipo
 
