@@ -10,8 +10,10 @@
 |---|---|---|---|
 | Nivel 1 — Contexto | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
 | Nivel 2 — Contenedores | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
-| Nivel 3 — Componentes (app web) | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
-| Nivel 3 — Componentes (backend Supabase) | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Nivel 3 — Componentes (app web) | **Quien va a tocar el código**: integrantes actuales del equipo y cualquier persona que se sume al proyecto | `[BORRADOR — CONFIRMAR]` Dónde hay que intervenir para modificar una funcionalidad, y con qué riesgo se toca cada zona | `[BORRADOR — CONFIRMAR]` El recorrido punto a punto de una petición, las utilidades transversales (`src/lib/format.ts`, `src/lib/utils.ts`) y el detalle de las políticas RLS |
+| Nivel 3 — Componentes (backend Supabase) | **Quien va a tocar el código** (misma audiencia que la vista anterior) | `[BORRADOR — CONFIRMAR]` Qué responsabilidades viven del lado de Supabase y no en la app | `[BORRADOR — CONFIRMAR]` Las políticas RLS una por una y el esquema de tablas en detalle |
+
+> Criterio derivado de esta decisión: si la vista de componentes es para quien va a tocar el código, entonces **todo archivo que esa persona se vaya a encontrar debe estar representado**, aunque hoy no lo ejecute ningún flujo. De ahí sale la resolución del caso `client.server.ts` (ver abajo).
 
 ## Nivel 1 — Contexto
 
@@ -98,6 +100,7 @@ C4Container
 | 6 | Configuración administrativa | Muestra usuarios, roles, pipelines y etapas para los administradores | `src/routes/_authenticated/settings.tsx`, `src/hooks/use-auth.ts` |
 | 7 | Acceso a datos del CRM | Ejecuta consultas y operaciones de creación, actualización y eliminación sobre los datos del CRM | `src/lib/crm.ts`, `src/integrations/supabase/client.ts`, `src/integrations/supabase/types.ts` |
 | 8 | Procesamiento del servidor | Procesa solicitudes SSR, adjunta la sesión de Supabase y presenta páginas de error | `src/server.ts`, `src/start.ts`, `src/integrations/supabase/auth-attacher.ts`, `src/integrations/supabase/auth-middleware.ts` |
+| 9 | Acceso administrativo a datos (sin RLS) | Instancia un cliente Supabase con `service_role` para operaciones administrativas del lado servidor. **Bypassa las políticas RLS.** Presente en el código y cableado al entorno, pero sin consumidores: ningún módulo de `src/` lo importa (verificado 15/09/2026) | `src/integrations/supabase/client.server.ts` |
 
 ```mermaid
 C4Component
@@ -112,6 +115,7 @@ C4Component
     Component(settings_comp, "Configuracion administrativa", "React", "Muestra usuarios, roles, pipelines y etapas para los administradores")
     Component(data_comp, "Acceso a datos del CRM", "React Query + Supabase client", "Ejecuta consultas y operaciones de creacion, actualizacion y eliminacion sobre los datos del CRM")
     Component(server_comp, "Procesamiento del servidor", "Nitro / TanStack Start", "Procesa solicitudes SSR, adjunta la sesion de Supabase y presenta paginas de error")
+    Component(admin_comp, "Acceso administrativo a datos (sin RLS)", "Supabase service_role", "Cliente privilegiado para operaciones administrativas del lado servidor. Bypassa RLS. Sin consumidores: ningun modulo de src/ lo importa hoy")
   }
 
   Rel(auth_comp, data_comp, "Usa")
@@ -151,13 +155,13 @@ Cada archivo citado en este documento fue verificado como existente en el reposi
 
 Nota de disciplina: se evaluó incluir "Supabase Storage" como componente (existe el campo `file_url` en la tabla `client_documents`), pero se descartó — no hay código en el repositorio que implemente subida/descarga de archivos. Sin archivo que lo respalde, no aparece en el diagrama.
 
-### Corrección pendiente — elemento del código no representado (15/09/2026)
+### Corrección aplicada — elemento del código que no estaba representado (15/09/2026)
 
-La re-verificación no encontró rutas rotas, pero sí un archivo que **existe en el código y no aparece en ningún nivel del diagrama**:
+La re-verificación no encontró rutas rotas, pero sí un archivo que **existía en el código y no aparecía en ningún nivel del diagrama**:
 
-| Archivo | Qué es | Dónde aparece hoy en el C4 |
-|---|---|---|
-| `src/integrations/supabase/client.server.ts` | Cliente Supabase con `service_role` que **bypassa RLS**, para operaciones administrativas del lado servidor | En ninguno — ni contexto, ni contenedores, ni componentes |
+| Archivo | Qué es | Estado antes | Estado después |
+|---|---|---|---|
+| `src/integrations/supabase/client.server.ts` | Cliente Supabase con `service_role` que **bypassa RLS**, para operaciones administrativas del lado servidor | En ningún nivel — ni contexto, ni contenedores, ni componentes | Componente #9 de la app web |
 
 Datos verificables al 15/09/2026:
 
@@ -166,6 +170,10 @@ Datos verificables al 15/09/2026:
 - El componente #7 del diagrama ("Acceso a datos del CRM") cita `src/integrations/supabase/client.ts` — el cliente que **sí** está sujeto a RLS — pero no distingue esa ruta de acceso de la ruta privilegiada.
 - Es el archivo directamente asociado al Riesgo **R1** (fuga de `service_role`) y al Driver **#1 (Seguridad)** del dossier.
 
-**Decisión pendiente del equipo:** igual que se hizo con "Supabase Storage" en la nota de disciplina de arriba, este elemento necesita **o bien aparecer en el diagrama como componente propio** (por ser una ruta de acceso a datos arquitectónicamente distinta: sin RLS), **o bien una omisión justificada por escrito** (por ejemplo: no se modela porque ningún flujo lo usa todavía). Lo que no es defendible es que exista en el código y el diagrama no lo mencione ni lo descarte.
+**Decisión del equipo (15/09/2026): se incluye** como componente #9 de la app web, "Acceso administrativo a datos (sin RLS)".
 
-> `[COMPLETAR — EQUIPO]` Decisión y justificación:
+**Justificación.** La decisión se deriva de la audiencia declarada para esta vista: la vista de componentes es *para quien va a tocar el código*. Bajo ese criterio, un archivo que esa persona se va a encontrar al abrir `src/integrations/supabase/` tiene que estar en el diagrama — y sobre todo este, porque quien lo use sin saber que bypassa RLS rompe el aislamiento entre usuarios que el Escenario 1 verifica automáticamente en cada PR.
+
+**Por qué no aplica el precedente de "Supabase Storage".** En aquel caso lo único que existía era una columna (`file_url`) sin una sola línea de código que la usara. Acá hay un archivo real, con el cliente instanciado y cableado a una variable de entorno (`SUPABASE_SERVICE_ROLE_KEY`). Son dos situaciones distintas: una es una intención en el esquema, la otra es código desplegado. Se registran ambas para dejar explícito que el criterio no es "incluir todo", sino *incluir lo que existe como código*.
+
+**Lo que no se modeló, a propósito:** no se dibuja ninguna relación entrante hacia este componente, porque hoy no la tiene. Aparece aislado en el diagrama y eso es deliberado: comunica exactamente su estado real — código privilegiado presente, sin consumidores.
