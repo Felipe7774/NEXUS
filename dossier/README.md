@@ -36,13 +36,16 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
 
 ## Pendientes declarados
 
-Campos marcados `[COMPLETAR — EQUIPO]` que están abiertos a propósito, porque son decisiones de autoría del equipo y no se delegan a la IA:
+Campos abiertos a propósito, porque son decisiones de autoría del equipo y no se delegan a la IA. **Los tres pendientes del Módulo 3 quedaron cerrados el 15/09/2026:**
 
-| Dónde | Qué falta |
+| Dónde | Estado |
 |---|---|
-| [`modeloc4-nivel.md`](modeloc4-nivel.md) | Audiencia y propósito de cada una de las 4 vistas |
-| [`modeloc4-nivel.md`](modeloc4-nivel.md) | Decisión sobre `src/integrations/supabase/client.server.ts`: la re-verificación del 15/09/2026 detectó que ese cliente (`service_role`, bypassa RLS, ligado al riesgo R1 y al driver #1) no aparece en ningún nivel del diagrama. Debe incluirse como componente o justificarse su omisión por escrito |
-| [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md) | Clasificación del equipo sobre el uso de IA en el Módulo 3 (C4) |
+| [`modeloc4-nivel.md`](modeloc4-nivel.md) — audiencia de las vistas | ✅ Cerrado. Nivel 1 para quien debe entender el sistema sin conocerlo por dentro; Niveles 2 y 3 para quien va a tocar el código |
+| [`modeloc4-nivel.md`](modeloc4-nivel.md) — caso `client.server.ts` | ✅ Cerrado. Se incluye como componente #9, derivado del criterio de audiencia del Nivel 3 |
+| [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md) — uso de IA en el Módulo 3 | ✅ Cerrado. El equipo validó el registro como exacto y completo |
+| [`modeloc4-nivel.md`](modeloc4-nivel.md) — columnas `[BORRADOR — CONFIRMAR]` | Abierto. Falta que el equipo confirme o reescriba las columnas de propósito y exclusiones de la tabla de audiencia |
+
+Pendientes del Módulo 4 (semanas 7-8), todavía sin abrir: decisión de estilo arquitectónico, mapa modular, ADR-1 y ADR-2.
 
 ## Índice de documentos
 

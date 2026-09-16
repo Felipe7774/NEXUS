@@ -199,9 +199,18 @@ Registro fáctico de cómo se usó la IA en `modeloc4-nivel.md`. A diferencia de
 
 **Consecuencia verificable:** el contenido analítico de `modeloc4-nivel.md` (qué es contenedor, qué es componente, dónde están las fronteras, la nota de disciplina sobre Supabase Storage) es de autoría del equipo. La contribución de la IA se limita a evidencia de archivos, verificación de existencia y transcripción a Mermaid.
 
-**Clasificación del equipo sobre el uso de IA en este módulo:**
+**Validación del equipo (15/09/2026):** el equipo revisó este registro y lo confirma **exacto y completo** — las cuatro acciones listadas son las que efectivamente ocurrieron, y no hubo ninguna otra intervención de la IA en el módulo que quede sin anotar.
 
-> `[COMPLETAR — EQUIPO]` Clasificación (`Válido / Modificado / Genérico / Falso`) y justificación propia:
+**Por qué este ítem no lleva clasificación `Válido / Modificado / Genérico / Falso`.** Esa matriz sirve para auditar *propuestas* de la IA — un riesgo, un driver, un escenario: afirmaciones que pueden ser ciertas, vagas o inventadas. Lo que se registra acá no es una propuesta sino una declaración de uso, y aplicarle esa escala sería un error de categoría.
+
+Las dos cosas que la IA sí produjo en este módulo no son propuestas a clasificar sino **hechos verificables, y fueron verificados**:
+
+| Producto de la IA | Cómo se verificó |
+|---|---|
+| Transcripción del análisis del equipo a sintaxis Mermaid | Los diagramas compilan y se renderizan en GitHub (comprobado el 15/09/2026) |
+| Verificación de que las rutas citadas existan | 21 rutas el 28/08/2026, 25 el 15/09/2026, comprobadas contra el repositorio; 0 rotas |
+
+El único hallazgo que la IA aportó (`client.server.ts` sin representar) se devolvió al equipo como decisión abierta, y **la resolución la tomó el equipo** a partir de un criterio propio: la audiencia declarada de la vista de componentes. Ver `modeloc4-nivel.md`.
 
 ## Instrucción para el equipo
 
