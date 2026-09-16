@@ -8,12 +8,14 @@
 
 | Vista | ¿Para quién es? | ¿Qué pregunta responde / qué decisión habilita? | ¿Qué deja deliberadamente afuera? |
 |---|---|---|---|
-| Nivel 1 — Contexto | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
-| Nivel 2 — Contenedores | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Nivel 1 — Contexto | **Quien tiene que entender el sistema sin conocerlo por dentro**; hoy, concretamente, el docente y el comité técnico | `[BORRADOR — CONFIRMAR]` Qué alcance tiene el sistema y de qué depende para funcionar, antes de discutir cualquier decisión interna. En particular, qué queda fuera del control del equipo (Supabase, Vercel) | `[BORRADOR — CONFIRMAR]` Toda la estructura interna: no dice en cuántas piezas se despliega ni cómo está organizado el código |
+| Nivel 2 — Contenedores | **Quien va a tocar el código** | `[BORRADOR — CONFIRMAR]` En qué pieza desplegable hay que intervenir y qué se despliega junto con qué. Responde explícitamente que **no existe un backend Node separado** donde ubicar lógica de servidor: esa lógica viaja con la app web | `[BORRADOR — CONFIRMAR]` La organización interna de cada contenedor (eso es el Nivel 3) y el esquema de la base de datos |
 | Nivel 3 — Componentes (app web) | **Quien va a tocar el código**: integrantes actuales del equipo y cualquier persona que se sume al proyecto | `[BORRADOR — CONFIRMAR]` Dónde hay que intervenir para modificar una funcionalidad, y con qué riesgo se toca cada zona | `[BORRADOR — CONFIRMAR]` El recorrido punto a punto de una petición, las utilidades transversales (`src/lib/format.ts`, `src/lib/utils.ts`) y el detalle de las políticas RLS |
 | Nivel 3 — Componentes (backend Supabase) | **Quien va a tocar el código** (misma audiencia que la vista anterior) | `[BORRADOR — CONFIRMAR]` Qué responsabilidades viven del lado de Supabase y no en la app | `[BORRADOR — CONFIRMAR]` Las políticas RLS una por una y el esquema de tablas en detalle |
 
 > Criterio derivado de esta decisión: si la vista de componentes es para quien va a tocar el código, entonces **todo archivo que esa persona se vaya a encontrar debe estar representado**, aunque hoy no lo ejecute ningún flujo. De ahí sale la resolución del caso `client.server.ts` (ver abajo).
+
+> `[BORRADOR — CONFIRMAR]` Por qué el Nivel 2 y el Nivel 3 comparten audiencia y aun así son dos vistas: le responden preguntas distintas a la misma persona. El Nivel 2 responde *"¿en qué pieza desplegable intervengo?"* — y su respuesta más importante es que solo hay dos piezas, sin backend propio. El Nivel 3 responde *"¿en qué parte del código de esa pieza intervengo?"*. Colapsarlas en una sola vista obligaría a mezclar fronteras de despliegue con fronteras de código.
 
 ## Nivel 1 — Contexto
 
