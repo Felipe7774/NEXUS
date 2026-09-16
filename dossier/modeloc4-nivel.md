@@ -1,6 +1,17 @@
 # 03 — Vistas C4 (as-is)
 
-> Diagrama **as-is**: representa la arquitectura que existe hoy y puede demostrarse en el código. Cada elemento tiene un ancla verificable en el repositorio — nada de lo que "nos gustaría tener". Contenido y decisiones de frontera son del equipo; verificación de trazabilidad (que cada archivo citado exista de verdad) corrida el 28/08/2026.
+> Diagrama **as-is**: representa la arquitectura que existe hoy y puede demostrarse en el código. Cada elemento tiene un ancla verificable en el repositorio — nada de lo que "nos gustaría tener". Contenido y decisiones de frontera son del equipo; verificación de trazabilidad (que cada archivo citado exista de verdad) corrida el 28/08/2026 y re-corrida el 15/09/2026.
+
+## Audiencia y propósito de cada vista
+
+`[COMPLETAR — EQUIPO]` Una vista que no declara para quién es y qué decisión ayuda a tomar, decora en vez de comunicar. Los stakeholders ya identificados en `01-contexto-y-drivers.md` son: equipo (3 integrantes), usuarios comerciales, dueño del proyecto Supabase, docente, y proveedores externos (Supabase / Vercel).
+
+| Vista | ¿Para quién es? | ¿Qué pregunta responde / qué decisión habilita? | ¿Qué deja deliberadamente afuera? |
+|---|---|---|---|
+| Nivel 1 — Contexto | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Nivel 2 — Contenedores | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Nivel 3 — Componentes (app web) | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Nivel 3 — Componentes (backend Supabase) | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
 
 ## Nivel 1 — Contexto
 
@@ -136,6 +147,25 @@ C4Component
 
 ## Tabla de trazabilidad — verificación
 
-Cada archivo citado en este documento fue verificado como existente en el repositorio (`main`) el 28/08/2026. Ningún elemento de este diagrama carece de ruta física verificable.
+Cada archivo citado en este documento fue verificado como existente en el repositorio (`main`) el 28/08/2026 y **re-verificado el 15/09/2026**: las 25 rutas citadas siguen existiendo, ninguna quedó rota.
 
 Nota de disciplina: se evaluó incluir "Supabase Storage" como componente (existe el campo `file_url` en la tabla `client_documents`), pero se descartó — no hay código en el repositorio que implemente subida/descarga de archivos. Sin archivo que lo respalde, no aparece en el diagrama.
+
+### Corrección pendiente — elemento del código no representado (15/09/2026)
+
+La re-verificación no encontró rutas rotas, pero sí un archivo que **existe en el código y no aparece en ningún nivel del diagrama**:
+
+| Archivo | Qué es | Dónde aparece hoy en el C4 |
+|---|---|---|
+| `src/integrations/supabase/client.server.ts` | Cliente Supabase con `service_role` que **bypassa RLS**, para operaciones administrativas del lado servidor | En ninguno — ni contexto, ni contenedores, ni componentes |
+
+Datos verificables al 15/09/2026:
+
+- El archivo existe y exporta `supabaseAdmin`, que instancia el cliente con `SUPABASE_SERVICE_ROLE_KEY`.
+- `grep -r "supabaseAdmin" src/` devuelve **una sola coincidencia: su propia definición**. Hoy ningún otro módulo de `src/` lo importa.
+- El componente #7 del diagrama ("Acceso a datos del CRM") cita `src/integrations/supabase/client.ts` — el cliente que **sí** está sujeto a RLS — pero no distingue esa ruta de acceso de la ruta privilegiada.
+- Es el archivo directamente asociado al Riesgo **R1** (fuga de `service_role`) y al Driver **#1 (Seguridad)** del dossier.
+
+**Decisión pendiente del equipo:** igual que se hizo con "Supabase Storage" en la nota de disciplina de arriba, este elemento necesita **o bien aparecer en el diagrama como componente propio** (por ser una ruta de acceso a datos arquitectónicamente distinta: sin RLS), **o bien una omisión justificada por escrito** (por ejemplo: no se modela porque ningún flujo lo usa todavía). Lo que no es defendible es que exista en el código y el diagrama no lo mencione ni lo descarte.
+
+> `[COMPLETAR — EQUIPO]` Decisión y justificación:
