@@ -24,7 +24,7 @@ El frontend original del equipo se perdió cuando el compañero a cargo del back
 ## 4. Restricciones
 
 - **Técnica:** stack fijo (React 19 + TanStack Start + Supabase); sin backend independiente desplegable aparte.
-- **Técnica:** `service_role` solo en `*.server.ts` — no hay control automatizado (lint/CI) que lo garantice.
+- **Técnica:** `service_role` solo en `*.server.ts` — desde el 15/09/2026 lo garantiza una fitness function que corre en CI en cada PR (`src/architecture/service-role-boundary.test.ts`), verificada en vivo con una violación deliberada.
 - **Económica:** proyecto Supabase en plan free (límites de filas, conexiones, ancho de banda); sin presupuesto para infraestructura paga.
 - **Organizacional:** un solo integrante administra la cuenta de Supabase (punto único de dependencia de acceso); cronograma de 4 semanas con checkpoint en semana 2.
 - **Organizacional:** el equipo dispone de 6 a 8 horas semanales entre los tres integrantes para el proyecto.
