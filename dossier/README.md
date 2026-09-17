@@ -45,7 +45,7 @@ Campos abiertos a propósito, porque son decisiones de autoría del equipo y no 
 | [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md) — uso de IA en el Módulo 3 | ✅ Cerrado. El equipo validó el registro como exacto y completo |
 | [`modeloc4-nivel.md`](modeloc4-nivel.md) — columnas `[BORRADOR — CONFIRMAR]` | Abierto. Falta que el equipo confirme o reescriba las columnas de propósito y exclusiones de la tabla de audiencia |
 
-Pendientes del Módulo 4 (semanas 7-8), todavía sin abrir: decisión de estilo arquitectónico, mapa modular, ADR-1 y ADR-2.
+Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, mapa modular y el contenido de los dos ADR, cuyo esqueleto ya está en [`docs/adr/`](../docs/adr/). Trabajo repartido en los issues #27 a #30.
 
 ## Índice de documentos
 
@@ -55,6 +55,7 @@ Pendientes del Módulo 4 (semanas 7-8), todavía sin abrir: decisión de estilo 
 - [`04-evidencia-ejecutable.md`](04-evidencia-ejecutable.md) — resultado de la medición de línea base (Escenario 3).
 - [`experimentos/EXP-001-linea-base/`](experimentos/EXP-001-linea-base/) — script de siembra + k6, condiciones, 3 corridas válidas.
 - [`experimentos/EXP-002-escalabilidad/`](experimentos/EXP-002-escalabilidad/) — mismo paquete, para el Escenario 6 (5.000/1.000 registros).
+- [`../docs/adr/`](../docs/adr/) — ADR-0001 (estilo) y ADR-0002 (frontera dominio/persistencia) del Módulo 4. Hoy en borrador, con los datos empíricos precargados y las decisiones en blanco.
 - [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md) — el documento más importante: registro completo del ciclo EDAV (E-D-A-V) para los 6 escenarios, incluyendo los errores de medición propios de la IA y cómo se corrigieron con datos reales.
 
 ## Trazabilidad Git
