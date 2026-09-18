@@ -39,6 +39,7 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
 - [`04-evidencia-ejecutable.md`](04-evidencia-ejecutable.md) — resultado de la medición de línea base (Escenario 3).
 - [`experimentos/EXP-001-linea-base/`](experimentos/EXP-001-linea-base/) — script de siembra + k6, condiciones, 3 corridas válidas.
 - [`experimentos/EXP-002-escalabilidad/`](experimentos/EXP-002-escalabilidad/) — mismo paquete, para el Escenario 6 (5.000/1.000 registros).
+- [`experimentos/EXP-003-recuperacion/`](experimentos/EXP-003-recuperacion/) — respaldo lógico, restauración local y comparación de conteos contra el proyecto vigente.
 - [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md) — el documento más importante: registro completo del ciclo EDAV (E-D-A-V) para los 6 escenarios, incluyendo los errores de medición propios de la IA y cómo se corrigieron con datos reales.
 - [`SEMANA-15-INVENTARIO.md`](SEMANA-15-INVENTARIO.md) — estado de preparación de los entregables del Módulo 8.
 - [`12-matriz-trade-offs.md`](12-matriz-trade-offs.md) — tensiones documentadas y matriz pendiente de decisión del equipo.

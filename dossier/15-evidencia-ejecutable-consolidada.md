@@ -12,8 +12,8 @@
 | Usabilidad | Registro de prueba real y sus límites. | `LOG-EDAV-auditoria-ia.md` | Escenario 5 |
 | Mantenibilidad | CI y evidencia de la prueba de branch protection. | `.github/workflows/ci.yml`; `LOG-EDAV-auditoria-ia.md` | Escenario 4 |
 | Integración desplegada | Frontend en producción enlazado al proyecto Supabase vigente; Auth, RLS y tablas principales accesibles. | `https://nexus-green-xi.vercel.app`; proyecto Supabase `xysncmauhogsvqtqeshe` | Verificación operativa del 18/09/2026 |
-| Acceso de equipo | Dos miembros con acceso, ambos `Owner`; el tercer integrante y MFA siguen pendientes. | Panel Team de la organización Supabase | Revisión de solo lectura del 18/09/2026 |
-| Recuperación | No hay respaldo disponible; el intento de preparar una restauración local quedó bloqueado por el arranque de Docker Desktop 4.49. | `supabase backups list`; diagnóstico local de Docker | Evidencia negativa: no declarar recuperación como verificada |
+| Acceso de equipo | Los 3 integrantes tienen acceso; privilegios mínimos y MFA siguen pendientes de verificación/cierre. | Panel Team y confirmación del equipo | Revisión del 18/09/2026 |
+| Recuperación | Respaldo lógico restaurado en Supabase local; coinciden Auth y las 14 tablas públicas. | `experimentos/EXP-003-recuperacion/README.md` | Verificación del 18/09/2026 con alcance y límites declarados |
 
 ## Verificación antes de entregar
 

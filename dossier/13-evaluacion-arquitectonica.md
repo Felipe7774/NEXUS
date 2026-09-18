@@ -12,7 +12,8 @@
 | Escalabilidad | EXP-002 registra mediciones locales con 5.000 contactos y 1.000 oportunidades. | `experimentos/EXP-002-escalabilidad/` | No representa concurrencia o infraestructura cloud a escala de producción. |
 | Mantenibilidad | El repositorio contiene pruebas y CI para pull requests y `main`. | `package.json`; `.github/workflows/ci.yml` | No se cuantificó el costo de mantenimiento ni la cobertura total. |
 | Usabilidad | El ciclo EDAV documenta una prueba real de primer uso. | `LOG-EDAV-auditoria-ia.md`, Escenario 5 | Una sola observación no permite generalizar a todos los usuarios. |
-| Acceso operativo | La organización Supabase tiene 2 miembros, ambos `Owner` y sin MFA, para un equipo de 3 personas. | Panel Team de la organización, consultado el 18/09/2026. | La redundancia parcial no elimina el exceso de privilegios ni la ausencia del tercer integrante. |
+| Acceso operativo | El equipo confirmó acceso para los 3 integrantes; la revisión previa mostró dos cuentas `Owner` sin MFA. | Panel Team y confirmación del equipo, 18/09/2026. | Falta verificar privilegios mínimos y MFA para todas las cuentas administrativas. |
+| Recuperación | Un respaldo lógico fue restaurado localmente y los conteos de Auth y 14 tablas públicas coincidieron con producción. | `experimentos/EXP-003-recuperacion/README.md` | No demuestra recuperación automática, almacenamiento externo, RPO/RTO ni recuperación regional. |
 
 ## Clasificación propuesta para validación del equipo
 
@@ -24,7 +25,7 @@
 | Rendimiento | **Verificado con alcance acotado** | EXP-001 y EXP-002 miden la API REST local con RLS y semillas registradas. No miden render completo del Kanban ni latencia de red en producción. | `04-evidencia-ejecutable.md`; EXP-001; EXP-002 |
 | Disponibilidad | **Verificado con alcance acotado** | Se documentó y midió el manejo de caída del proveedor. No demuestra uptime del proveedor, failover ni recuperación multi-región. | `LOG-EDAV-auditoria-ia.md`, Escenario 2 |
 | Escalabilidad | **Verificado con alcance acotado** | EXP-002 registra un escenario local con 5.000 contactos y 1.000 oportunidades. No demuestra crecimiento ilimitado ni capacidad cloud. | EXP-002; ADR-004 |
-| Recuperación ante desastres | **Supuesto / no verificado** | No hay respaldos disponibles en el proyecto y la restauración local no pudo ejecutarse porque Docker Desktop 4.49 no inició. No se alteró la base remota. | Plan de evolución; intento del 18/09/2026 |
+| Recuperación ante desastres | **Verificado con alcance acotado** | Se restauraron esquema y datos en un entorno local desechable y coincidieron todos los conteos evaluados. No existen respaldos automáticos disponibles ni se midieron RPO/RTO. | EXP-003; plan de evolución |
 | Multi-región | **No aplica al alcance actual** | El alcance académico actual no incluye despliegue multi-región. Si el alcance cambia, debe abrirse un escenario y evidencia nuevos. | ADR-002; plan de evolución |
 
 ## Preguntas para la evaluación tipo comité

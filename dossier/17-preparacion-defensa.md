@@ -41,7 +41,7 @@ EXP-001 y EXP-002 registran mediciones k6 contra la API REST local de Supabase c
 
 ### ¿Cuál es el riesgo arquitectónico vigente más importante?
 
-El riesgo de control administrativo y continuidad del proyecto Supabase aumentó porque el proyecto original dejó de estar disponible y el reemplazo se encuentra en otra cuenta. El equipo debe presentarlo como riesgo vigente hasta verificar acceso compartido, migraciones aplicadas y una restauración reproducible.
+El riesgo aumentó cuando el proyecto original dejó de estar disponible y el reemplazo quedó en otra cuenta. Desde entonces se verificaron acceso para los tres integrantes, migraciones aplicadas y una restauración lógica reproducible (EXP-003). El riesgo residual está en aplicar privilegios mínimos, habilitar MFA y definir respaldos periódicos con RPO/RTO.
 
 **Mostrar:** actualización operativa en `01-contexto-y-drivers.md` y el plan de evolución.
 
@@ -49,5 +49,5 @@ El riesgo de control administrativo y continuidad del proyecto Supabase aumentó
 
 - Decir **“verificado con alcance acotado”** cuando la evidencia sea local, parcial o de un escenario específico.
 - Decir **“supuesto”** cuando no exista prueba o medición.
-- No atribuir a Docker evidencia de disponibilidad cloud, respaldo o recuperación ante desastres.
+- No atribuir a Docker, por sí solo, disponibilidad cloud o recuperación. La evidencia válida es el procedimiento ejecutado de EXP-003 y solo cubre restauración lógica local.
 - Abrir el archivo, commit, script o resultado al que se haga referencia; no depender solo de diapositivas.
