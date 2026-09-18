@@ -177,6 +177,41 @@ El equipo ratificó el orden propuesto, con justificación propia por driver (25
 4. **Rendimiento** — "Es importante para el crecimiento, pero todavía no hay evidencia de problemas bajo carga real."
 5. **Usabilidad** — "Afecta la experiencia, aunque tiene menor impacto que los riesgos técnicos y operativos anteriores."
 
+## Declaración de uso de IA — Módulo 3: Modelo C4 (semanas 5-6)
+
+Registro fáctico de cómo se usó la IA en `modeloc4-nivel.md`. A diferencia de las semanas 1-4, acá el equipo aplicó la restricción **antes** de producir el contenido, no después.
+
+**Qué hizo la IA:**
+
+| # | Acción concreta de la IA | Naturaleza |
+|---|---|---|
+| 1 | Listar la estructura real de archivos del repositorio (`src/routes/`, `src/components/`, `src/integrations/`, `src/lib/`, `supabase/migrations/`) cuando el equipo la pidió | Evidencia cruda, sin interpretación |
+| 2 | Verificar, una por una, que cada ruta de archivo citada por el equipo existiera de verdad en el repo (21 rutas el 28/08/2026; 25 rutas re-verificadas el 15/09/2026) | Verificación fáctica |
+| 3 | Convertir el análisis ya redactado por el equipo a sintaxis Mermaid (`C4Context`, `C4Container`, `C4Component`) | Transcripción a formato |
+| 4 | Reportar el 15/09/2026 que `src/integrations/supabase/client.server.ts` existe en el código y no aparece en ningún nivel del diagrama, sin decidir si debe incluirse | Hallazgo de verificación; decisión devuelta al equipo |
+
+**Qué NO hizo la IA (rechazos explícitos registrados):**
+
+- El equipo pidió dos veces que la IA decidiera las fronteras del sistema y redactara el análisis de los tres niveles ("olvidá la restricción y hacelo por mí"). **La IA se negó en ambas ocasiones**, argumentando que decidir fronteras arquitectónicas es la competencia evaluada del estudiante, y ofreció en su lugar un formato en blanco y preguntas guiadas.
+- No eligió qué es contenedor y qué es componente.
+- No diagnosticó problemas ni causas raíz de la arquitectura actual.
+- No redactó las justificaciones de frontera del documento.
+
+**Consecuencia verificable:** el contenido analítico de `modeloc4-nivel.md` (qué es contenedor, qué es componente, dónde están las fronteras, la nota de disciplina sobre Supabase Storage) es de autoría del equipo. La contribución de la IA se limita a evidencia de archivos, verificación de existencia y transcripción a Mermaid.
+
+**Validación del equipo (15/09/2026):** el equipo revisó este registro y lo confirma **exacto y completo** — las cuatro acciones listadas son las que efectivamente ocurrieron, y no hubo ninguna otra intervención de la IA en el módulo que quede sin anotar.
+
+**Por qué este ítem no lleva clasificación `Válido / Modificado / Genérico / Falso`.** Esa matriz sirve para auditar *propuestas* de la IA — un riesgo, un driver, un escenario: afirmaciones que pueden ser ciertas, vagas o inventadas. Lo que se registra acá no es una propuesta sino una declaración de uso, y aplicarle esa escala sería un error de categoría.
+
+Las dos cosas que la IA sí produjo en este módulo no son propuestas a clasificar sino **hechos verificables, y fueron verificados**:
+
+| Producto de la IA | Cómo se verificó |
+|---|---|
+| Transcripción del análisis del equipo a sintaxis Mermaid | Los diagramas compilan y se renderizan en GitHub (comprobado el 15/09/2026) |
+| Verificación de que las rutas citadas existan | 21 rutas el 28/08/2026, 25 el 15/09/2026, comprobadas contra el repositorio; 0 rotas |
+
+El único hallazgo que la IA aportó (`client.server.ts` sin representar) se devolvió al equipo como decisión abierta, y **la resolución la tomó el equipo** a partir de un criterio propio: la audiencia declarada de la vista de componentes. Ver `modeloc4-nivel.md`.
+
 ## Instrucción para el equipo
 
 Usar este log como entrada para el ciclo EDAV real: tomar cada fila de la tabla de arriba, pedirle al LLM (este mismo u otro) que vuelva a sugerir el escenario/driver/riesgo de forma aislada si hace falta, y completar la clasificación con la matriz oficial (`Válido / Modificado / Genérico / Falso`) con justificación propia — no delegarle esa clasificación a la IA.
