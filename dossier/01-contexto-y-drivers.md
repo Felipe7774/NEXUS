@@ -63,3 +63,15 @@ Hipótesis de rendimiento pre-registrada: el tablero Kanban del pipeline respond
 - Riesgos y drivers: PR `semana-2-riesgos-drivers` (mergeado), commits `19a54cf`, `3f5057b`, `0c4f667`.
 - Migración de esquema (`stakeholders`, `client_documents`, salud de cuenta): PR `add-stakeholders-schema` (mergeado), migración `20260822010000_add_stakeholders_and_client_health.sql`.
 - Suite de tests: PR `add-vitest-docker-tests` (mergeado).
+
+## Actualización operativa — Módulo 8
+
+**Hecho reportado por el equipo:** el proyecto original de Supabase dejó de estar disponible y fue sustituido por `nexo-crm` (`xysncmauhogsvqtqeshe`) en otra cuenta. Esta situación incrementa temporalmente el riesgo asociado al control de acceso administrativo, la trazabilidad operativa y la dependencia del proveedor.
+
+**Verificado el 18/09/2026:** la cuenta que ejecutó Supabase CLI puede enlazar el proyecto nuevo y `supabase migration list --linked` reporta aplicadas las mismas cuatro migraciones versionadas en este repositorio (`20260805035001`, `20260805035020`, `20260805035038` y `20260822010000`).
+
+**Verificado el 18/09/2026:** Supabase Auth y la API REST del proyecto nuevo responden correctamente; Email Auth está habilitado y Google Auth no está habilitado. Las variables del proyecto `nexus` en Vercel fueron actualizadas para Production, Preview y Development, preservando `SUPABASE_SERVICE_ROLE_KEY` como secreto solo de servidor en Production y Preview. El redespliegue de producción quedó disponible en `https://nexus-green-xi.vercel.app`; la aplicación respondió HTTP 200 y su bundle referencia el proyecto nuevo, no el eliminado. Las tablas `profiles`, `companies`, `contacts`, `pipelines`, `deals` y `activities` también respondieron correctamente mediante la API.
+
+**Acceso verificado el 18/09/2026:** la organización de Supabase tiene 2 miembros para un equipo académico de 3 integrantes. Ambos miembros tienen rol `Owner` y MFA deshabilitado. Por tanto, existe continuidad de acceso para dos personas, pero el riesgo no está cerrado: falta incorporar al tercer integrante, acordar privilegios mínimos y habilitar MFA en las cuentas administrativas.
+
+**Respaldo y restauración:** el panel y `supabase backups list` no reportan respaldos disponibles. Se intentó preparar una restauración local desechable, pero Docker Desktop 4.49 no logró iniciar por un error local al crear sus sockets de ejecución; no se modificó la base remota. La recuperación ante desastres permanece **no verificada** hasta actualizar o reparar Docker, generar un respaldo lógico y restaurarlo con comprobaciones de esquema y conteos.

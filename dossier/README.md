@@ -8,7 +8,7 @@
 | **Equipo** | Carlos Correa, Felipe Piragauta, Santiago Roman |
 | **Sistema base** | Este mismo repositorio — [Felipe7774/NEXUS](https://github.com/Felipe7774/NEXUS), rama `main` |
 | **Repositorio del dossier** | Mismo repo, carpeta `dossier/` (migrado desde el repo separado `NEXUS-dossier` — ver Historial) |
-| **Semana actual** | 4 — Módulo 2 cerrado |
+| **Estado de consolidación** | Módulo 8 — preparación de Semana 15; ver [`SEMANA-15-INVENTARIO.md`](SEMANA-15-INVENTARIO.md) |
 
 ## Estado: 6/6 escenarios auditados (ciclo EDAV completo)
 
@@ -40,6 +40,14 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
 - [`experimentos/EXP-001-linea-base/`](experimentos/EXP-001-linea-base/) — script de siembra + k6, condiciones, 3 corridas válidas.
 - [`experimentos/EXP-002-escalabilidad/`](experimentos/EXP-002-escalabilidad/) — mismo paquete, para el Escenario 6 (5.000/1.000 registros).
 - [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md) — el documento más importante: registro completo del ciclo EDAV (E-D-A-V) para los 6 escenarios, incluyendo los errores de medición propios de la IA y cómo se corrigieron con datos reales.
+- [`SEMANA-15-INVENTARIO.md`](SEMANA-15-INVENTARIO.md) — estado de preparación de los entregables del Módulo 8.
+- [`12-matriz-trade-offs.md`](12-matriz-trade-offs.md) — tensiones documentadas y matriz pendiente de decisión del equipo.
+- [`13-evaluacion-arquitectonica.md`](13-evaluacion-arquitectonica.md) — evidencia consolidada y clasificación pendiente del equipo.
+- [`14-plan-evolucion.md`](14-plan-evolucion.md) — hallazgos documentados y roadmap pendiente de aprobación.
+- [`15-evidencia-ejecutable-consolidada.md`](15-evidencia-ejecutable-consolidada.md) — índice de pruebas, experimentos y registros reproducibles.
+- [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md) — plantilla de cierre basada en el Log EDAV.
+- [`adrs/README.md`](adrs/README.md) — plantilla y criterio para ADRs aún no documentados.
+- [`17-preparacion-defensa.md`](17-preparacion-defensa.md) — estructura de presentación, preguntas críticas y límites de cada respuesta.
 
 ## Trazabilidad Git
 
