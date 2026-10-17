@@ -20,6 +20,7 @@ por política SELECT/RLS. Se corrigió con tres RPC propietarios autorizados,
 manteniendo ocultas las filas borradas; las pruebas verifican los permisos.
 
 `summary.json` y `vitest.json` conservan recuentos; `m6-results.json` los datos
-por solicitud; `m6-resources.json` muestras de recursos; `compilacion.log` y
-`fitness-m6.log` los controles. `app-smoke.json` registra el arranque posterior.
+por solicitud; `m6-resources.json` muestras de recursos; `build.txt` y
+`fitness.txt` los controles, conservados sin códigos de color de terminal.
+`app-smoke.json` registra el arranque posterior.
 Esta repetición no sustituye ni reescribe la medición inicial del 16/10.

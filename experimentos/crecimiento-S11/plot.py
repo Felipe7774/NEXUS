@@ -35,3 +35,5 @@ for ax in axes:
 fig.suptitle("NEXUS · crecimiento local en Docker · calentamiento descartado, 3 corridas")
 fig.savefig(folder / "crecimiento.png", dpi=170)
 fig.savefig(folder / "crecimiento.svg")
+svg = folder / "crecimiento.svg"
+svg.write_text("\n".join(line.rstrip() for line in svg.read_text(encoding="utf-8").splitlines()) + "\n", encoding="utf-8")

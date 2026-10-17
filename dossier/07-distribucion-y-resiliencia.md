@@ -217,6 +217,10 @@ conserva **dos errores previos** de genéricos en `src/routes/auth.tsx:189,202`;
 ese archivo tiene el mismo blob que la base. No se presenta el build como una
 verificación de tipos satisfactoria. Evidencia estática incluida con los resultados.
 
+La [validación ampliada del 17/10](experimentos/EXP-004-resiliencia/resultados/docker-local-2026-10-17/README.md)
+pasó **40 tests, sin omisiones**, controles M5, EXP-004, fitness y build. La app
+reiniciada con migración local aplicada respondió HTTP 200 en `/auth` y Auth/REST.
+
 ### Propiedad de datos implementada
 
 `src/modules/*/api.ts` posee sus FROM/CRUD. Las consultas de oportunidades y
