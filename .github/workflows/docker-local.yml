@@ -8,6 +8,8 @@ on:
       - ".dockerignore"
       - "compose.yaml"
       - "scripts/docker-local.mjs"
+      - "scripts/growth-local.mjs"
+      - "experimentos/crecimiento-S11/**"
       - "src/**"
       - "supabase/**"
       - "dossier/experimentos/spike-01-integracion/**"
@@ -24,7 +26,7 @@ permissions:
 jobs:
   docker-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,12 +39,18 @@ jobs:
         run: npm run docker:test
       - name: Arranque y salud de la app en Docker
         run: npm run docker:up
+      - name: Humo de reproducibilidad de k6 (3 s por meseta, no benchmark local)
+        run: npm run docker:growth
+        env:
+          GROWTH_SECONDS: 3
       - name: Publicar resultados sin claves
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: nexus-docker-${{ github.sha }}
-          path: artifacts/docker/
+          path: |
+            artifacts/docker/
+            artifacts/growth/
           if-no-files-found: warn
       - name: Detener solo el entorno local de este repositorio
         if: always()
