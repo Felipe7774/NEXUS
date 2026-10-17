@@ -1,0 +1,48 @@
+name: Docker local
+
+on:
+  push:
+    branches: [main, "codex/**"]
+    paths:
+      - "Dockerfile"
+      - ".dockerignore"
+      - "compose.yaml"
+      - "scripts/docker-local.mjs"
+      - "src/**"
+      - "supabase/**"
+      - "dossier/experimentos/spike-01-integracion/**"
+      - "package*.json"
+      - "vite.config.ts"
+      - "vitest.config.ts"
+      - ".github/workflows/docker-local.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm install -g npm@11
+      - run: npm ci
+      - name: Pruebas, RLS, spike y build dentro de Docker
+        run: npm run docker:test
+      - name: Arranque y salud de la app en Docker
+        run: npm run docker:up
+      - name: Publicar resultados sin claves
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-docker-${{ github.sha }}
+          path: artifacts/docker/
+          if-no-files-found: warn
+      - name: Detener solo el entorno local de este repositorio
+        if: always()
+        run: npm run docker:down

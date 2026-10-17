@@ -41,6 +41,18 @@ En Windows, crea el archivo `.env` manualmente a partir de `.env.example`.
 
 ## Variables de entorno
 
+Para ejecutar la app y las pruebas con Docker Desktop y Supabase local:
+
+```bash
+npm ci
+npm run docker:up    # App en http://localhost:3000
+npm run docker:test  # Suite, RLS, spike y compilación dentro de Docker
+npm run docker:down  # Detiene desarrollo y conserva sus datos locales
+```
+
+Consulta [el entorno Docker](docs/docker-local.md) para requisitos, aislamiento de
+datos y resultados. No requiere credenciales de Supabase Cloud.
+
 ```env
 VITE_SUPABASE_URL=https://<project-ref>.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_<key>
