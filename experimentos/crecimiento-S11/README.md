@@ -16,6 +16,8 @@ aislado `nexus-growth-tests`, 20 empresas/800 contactos/1.000 oportunidades,
 verifica RLS de dos vendedores y ejecuta la imagen oficial `grafana/k6:2.3.0`.
 La corrida `warmup` se descarta; `run-1`, `run-2`, `run-3` se conservan.
 Las credenciales permanecen en memoria/entorno de contenedores, fuera de Git.
+En Linux, k6 usa el UID/GID del usuario que prepara el directorio para poder
+guardar los JSON del volumen montado; en Windows conserva el usuario de la imagen.
 Al finalizar se eliminan únicamente los volúmenes del proyecto desechable.
 
 Cada corrida contiene mesetas de 30 s a 5, 50, 100, 150 y 200 VUs, pausa 5 s y

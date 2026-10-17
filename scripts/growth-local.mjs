@@ -221,12 +221,16 @@ try {
       "--mount",
       `type=bind,source=${output},target=/out`,
     ];
+    // On Linux the checkout/output belongs to the host runner, while k6 defaults
+    // to UID 12345. Match the host owner instead of broadening directory modes.
+    if (process.platform !== "win32" && process.getuid && process.getgid)
+      args.push("--user", `${process.getuid()}:${process.getgid()}`);
     for (const key of Object.keys(env)) args.push("-e", key);
     let active = true;
     const measurement = run(
       "docker",
       [...args, k6, "run", "--no-usage-report", "/scripts/load.js"],
-      { env },
+      { env, quiet: false },
     );
     const sampler = (async () => {
       while (active) {
