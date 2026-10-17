@@ -19,7 +19,8 @@
     "test:watch": "vitest",
     "test:spike-m5": "node --test dossier/experimentos/spike-01-integracion/metrics.test.mjs",
     "spike:m5": "node dossier/experimentos/spike-01-integracion/run.mjs",
-    "test:rls": "echo 'Requiere: npx supabase start, y las variables SUPABASE_URL_TEST / SUPABASE_ANON_KEY_TEST / SUPABASE_SERVICE_ROLE_KEY_TEST (ver output de supabase start)' && vitest run src/integrations/supabase/rls-isolation.integration.test.ts"
+    "test:rls": "echo 'Requiere: npx supabase start, y las variables SUPABASE_URL_TEST / SUPABASE_ANON_KEY_TEST / SUPABASE_SERVICE_ROLE_KEY_TEST (ver output de supabase start)' && vitest run src/integrations/supabase/rls-isolation.integration.test.ts",
+    "docker:growth": "node scripts/growth-local.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
