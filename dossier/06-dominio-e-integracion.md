@@ -21,13 +21,13 @@ CRM venda productos, cobre pagos, gestione inventario o necesite esos contextos.
 
 ## 2. Mapa de contextos propuesto y evidencias actuales
 
-| Contexto | Responsabilidad, modelo y reglas observables | Dueño funcional propuesto (rol, sin asignar personas) | Evidencia as-is |
-|---|---|---|---|
-| Identidad y acceso | Usuario, perfil, rol y pertenencia al equipo; sesión y políticas de acceso. | Administración del CRM | `src/hooks/use-auth.ts`, `src/integrations/supabase/`, funciones SQL `can_access_owner`, `has_role`, `team_member_ids` |
-| Relaciones comerciales | Empresas y contactos; propietarios, ciclo de vida y borrado lógico. Stakeholders/documentos existen en esquema, sin afirmar una UI completa. | Gestión comercial de cuentas | `useCompanies`, `useContacts`, `useSaveCompany`, `useSaveContact` en `src/lib/crm.ts`; rutas `companies.tsx`, `contacts.tsx`; migración `20260822010000_add_stakeholders_and_client_health.sql` |
-| Ventas (núcleo) | Oportunidad, pipeline, etapa e historial. El cambio de etapa ajusta probabilidad/estado y deja historial en PostgreSQL. | Gerencia comercial | `useDeals`, `useMoveDeal`, `useStages`, `usePipelines`; `src/routes/_authenticated/pipeline.tsx`; triggers `apply_deal_stage_defaults`, `handle_deal_stage_change` |
-| Seguimiento | Actividades, autor, asignado y referencias opcionales a empresa/contacto/oportunidad. `activities_insert` restringe creación/asignación según identidad. | Equipo comercial que ejecuta el seguimiento | `useActivities`, `useSaveActivity`, `useToggleActivity`; `src/routes/_authenticated/activities.tsx`; tabla/políticas `activities` |
-| Analítica (lectura) | Indicadores y reportes derivados. No posee la verdad de empresas, oportunidades o actividades. | Gerencia comercial | `src/routes/_authenticated/dashboard.tsx`, `reports.tsx`; vista SQL `company_value_summary` |
+| Contexto               | Responsabilidad, modelo y reglas observables                                                                                                             | Dueño funcional propuesto (rol, sin asignar personas) | Evidencia as-is                                                                                                                                                                                 |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Identidad y acceso     | Usuario, perfil, rol y pertenencia al equipo; sesión y políticas de acceso.                                                                              | Administración del CRM                                | `src/hooks/use-auth.ts`, `src/integrations/supabase/`, funciones SQL `can_access_owner`, `has_role`, `team_member_ids`                                                                          |
+| Relaciones comerciales | Empresas y contactos; propietarios, ciclo de vida y borrado lógico. Stakeholders/documentos existen en esquema, sin afirmar una UI completa.             | Gestión comercial de cuentas                          | `useCompanies`, `useContacts`, `useSaveCompany`, `useSaveContact` en `src/lib/crm.ts`; rutas `companies.tsx`, `contacts.tsx`; migración `20260822010000_add_stakeholders_and_client_health.sql` |
+| Ventas (núcleo)        | Oportunidad, pipeline, etapa e historial. El cambio de etapa ajusta probabilidad/estado y deja historial en PostgreSQL.                                  | Gerencia comercial                                    | `useDeals`, `useMoveDeal`, `useStages`, `usePipelines`; `src/routes/_authenticated/pipeline.tsx`; triggers `apply_deal_stage_defaults`, `handle_deal_stage_change`                              |
+| Seguimiento            | Actividades, autor, asignado y referencias opcionales a empresa/contacto/oportunidad. `activities_insert` restringe creación/asignación según identidad. | Equipo comercial que ejecuta el seguimiento           | `useActivities`, `useSaveActivity`, `useToggleActivity`; `src/routes/_authenticated/activities.tsx`; tabla/políticas `activities`                                                               |
+| Analítica (lectura)    | Indicadores y reportes derivados. No posee la verdad de empresas, oportunidades o actividades.                                                           | Gerencia comercial                                    | `src/routes/_authenticated/dashboard.tsx`, `reports.tsx`; vista SQL `company_value_summary`                                                                                                     |
 
 Los símbolos SQL de la tabla están en
 `supabase/migrations/20260805035001_05269e6f-a1a0-41ee-9053-ba7d49685ade.sql`,
@@ -56,13 +56,13 @@ Hoy los hooks de cinco capacidades comparten `src/lib/crm.ts` y el cliente Supab
 Hay joins de lectura entre oportunidades, empresas y contactos, y claves foráneas
 entre dominios. **No se afirma un monolito modular con persistencia aislada.**
 
-| Contexto | Contrato propuesto hacia otros contextos | Dependencia permitida objetivo | Dependencia que se quiere evitar |
-|---|---|---|---|
-| Identidad | Identificador de usuario y autorización verificada | Servicio Auth y esquema de perfiles/roles | Importar reglas comerciales para autenticar |
-| Relaciones | Referencias y proyecciones públicas de empresa/contacto | Identidad; almacenamiento propio | Modificar etapas u oportunidades por acceso directo |
-| Ventas | Comando de cambio de etapa; evento experimental v1 | Identidad y referencias/proyecciones de Relaciones | Escribir tablas de Seguimiento desde la UI de ventas |
+| Contexto    | Contrato propuesto hacia otros contextos                       | Dependencia permitida objetivo                          | Dependencia que se quiere evitar                                 |
+| ----------- | -------------------------------------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------- |
+| Identidad   | Identificador de usuario y autorización verificada             | Servicio Auth y esquema de perfiles/roles               | Importar reglas comerciales para autenticar                      |
+| Relaciones  | Referencias y proyecciones públicas de empresa/contacto        | Identidad; almacenamiento propio                        | Modificar etapas u oportunidades por acceso directo              |
+| Ventas      | Comando de cambio de etapa; evento experimental v1             | Identidad y referencias/proyecciones de Relaciones      | Escribir tablas de Seguimiento desde la UI de ventas             |
 | Seguimiento | Crear/consultar actividad; consumidor idempotente experimental | Identidad, referencias comerciales y contrato de evento | Conocer componentes React o modificar reglas de estado de Ventas |
-| Analítica | Proyecciones de lectura | Lectura de las otras capacidades bajo permisos | Cambiar el estado del negocio desde un reporte |
+| Analítica   | Proyecciones de lectura                                        | Lectura de las otras capacidades bajo permisos          | Cambiar el estado del negocio desde un reporte                   |
 
 El mapa objetivo no se implementa con una refactorización completa en este PR.
 El spike prueba un corte entre Ventas y Seguimiento; conserva la aplicación existente.
@@ -90,10 +90,10 @@ Capacidad experimental: después de ese cambio, generar **una tarea** de seguimi
 El efecto usa la tabla real `activities`; no simula un correo enviado ni inventa un
 servicio de notificaciones desplegado.
 
-| Contrato del spike | Productor/consumidor | Semántica |
-|---|---|---|
+| Contrato del spike                                                                     | Productor/consumidor                            | Semántica                                                                                                                |
+| -------------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | [`m5-mover-oportunidad.v1.schema.json`](contratos/m5-mover-oportunidad.v1.schema.json) | Harness autenticado → RPC `m5_spike_move` local | UUID de oportunidad, etapa destino, modalidad e ID idempotente. Etapa del mismo pipeline y propietario igual al usuario. |
-| [`m5-etapa-cambiada.v1.schema.json`](contratos/m5-etapa-cambiada.v1.schema.json) | RPC → outbox → consumidor local | Evento `crm.deal.stage_changed.v1`, versión 1, etapa anterior/nueva, propietario y fechas asignados en DB. |
+| [`m5-etapa-cambiada.v1.schema.json`](contratos/m5-etapa-cambiada.v1.schema.json)       | RPC → outbox → consumidor local                 | Evento `crm.deal.stage_changed.v1`, versión 1, etapa anterior/nueva, propietario y fechas asignados en DB.               |
 
 Cambios incompatibles deben publicar una versión nueva y un lector compatible o una
 migración explícita. No se reutiliza un ID para otro comando. El ID del evento es

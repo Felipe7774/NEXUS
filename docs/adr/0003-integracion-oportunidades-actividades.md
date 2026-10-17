@@ -13,11 +13,11 @@ Seguimiento debe justificar la complejidad adicional.
 
 ## Alternativas
 
-| Alternativa | Valor | Costo y riesgo |
-|---|---|---|
-| Mantener el flujo actual; actividades creadas explícitamente por el usuario | Mantiene comportamiento conocido y no añade operación de colas | No automatiza seguimiento; requiere acción del vendedor |
-| Generar actividad y esperar el receptor en la misma petición | Confirmación significa actividad creada | Acopla respuesta a latencia/fallo del receptor; etapa y efecto no forman una transacción distribuida |
-| Registrar evento durable y generar actividad después | Permite aceptar cambio mientras el efecto queda pendiente | Introduce consistencia eventual, idempotencia, consumidor, monitoreo y manejo de pendientes |
+| Alternativa                                                                 | Valor                                                          | Costo y riesgo                                                                                       |
+| --------------------------------------------------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| Mantener el flujo actual; actividades creadas explícitamente por el usuario | Mantiene comportamiento conocido y no añade operación de colas | No automatiza seguimiento; requiere acción del vendedor                                              |
+| Generar actividad y esperar el receptor en la misma petición                | Confirmación significa actividad creada                        | Acopla respuesta a latencia/fallo del receptor; etapa y efecto no forman una transacción distribuida |
+| Registrar evento durable y generar actividad después                        | Permite aceptar cambio mientras el efecto queda pendiente      | Introduce consistencia eventual, idempotencia, consumidor, monitoreo y manejo de pendientes          |
 
 ## Propuesta
 

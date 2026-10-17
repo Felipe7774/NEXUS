@@ -6,9 +6,13 @@
   "additionalProperties": false,
   "required": ["p_deal_id", "p_stage_id", "p_mode", "p_event_id"],
   "properties": {
-    "p_deal_id": {"type": "string", "format": "uuid"},
-    "p_stage_id": {"type": "string", "format": "uuid"},
-    "p_mode": {"enum": ["sync", "async"]},
-    "p_event_id": {"type": "string", "format": "uuid", "description": "Clave idempotente estable durante reintentos del mismo comando."}
+    "p_deal_id": { "type": "string", "format": "uuid" },
+    "p_stage_id": { "type": "string", "format": "uuid" },
+    "p_mode": { "enum": ["sync", "async"] },
+    "p_event_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Clave idempotente estable durante reintentos del mismo comando."
+    }
   }
 }

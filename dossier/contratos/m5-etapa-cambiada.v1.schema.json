@@ -4,17 +4,28 @@
   "description": "Registro durable experimental. Fechas y propietario se asignan en PostgreSQL con auth.uid().",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "owner_id", "deal_id", "from_stage_id", "to_stage_id", "mode", "event_type", "schema_version", "enqueued_at", "delivered_at"],
+  "required": [
+    "id",
+    "owner_id",
+    "deal_id",
+    "from_stage_id",
+    "to_stage_id",
+    "mode",
+    "event_type",
+    "schema_version",
+    "enqueued_at",
+    "delivered_at"
+  ],
   "properties": {
-    "id": {"type": "string", "format": "uuid"},
-    "owner_id": {"type": "string", "format": "uuid"},
-    "deal_id": {"type": "string", "format": "uuid"},
-    "from_stage_id": {"type": "string", "format": "uuid"},
-    "to_stage_id": {"type": "string", "format": "uuid"},
-    "mode": {"enum": ["sync", "async"]},
-    "event_type": {"const": "crm.deal.stage_changed.v1"},
-    "schema_version": {"const": 1},
-    "enqueued_at": {"type": "string", "format": "date-time"},
-    "delivered_at": {"type": ["string", "null"], "format": "date-time"}
+    "id": { "type": "string", "format": "uuid" },
+    "owner_id": { "type": "string", "format": "uuid" },
+    "deal_id": { "type": "string", "format": "uuid" },
+    "from_stage_id": { "type": "string", "format": "uuid" },
+    "to_stage_id": { "type": "string", "format": "uuid" },
+    "mode": { "enum": ["sync", "async"] },
+    "event_type": { "const": "crm.deal.stage_changed.v1" },
+    "schema_version": { "const": 1 },
+    "enqueued_at": { "type": "string", "format": "date-time" },
+    "delivered_at": { "type": ["string", "null"], "format": "date-time" }
   }
 }
