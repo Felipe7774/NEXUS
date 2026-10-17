@@ -21,6 +21,8 @@ Abre [NEXUS local](http://localhost:3000). El comando levanta Supabase con las
 migraciones versionadas, genera `.docker/app.env` con las claves del stack local
 y construye la imagen de desarrollo. La primera ejecución descarga las imágenes
 y tarda más. El contenedor aparece en Docker Desktop bajo `nexus-local`.
+Además de la página de acceso, comprueba desde el contenedor la conexión con
+Auth y la API de empresas. Registra esa comprobación en `artifacts/docker/app-smoke.json`.
 
 El navegador accede a Supabase por `127.0.0.1:54321`; el código de servidor usa
 `host.docker.internal:54321`. La clave de servicio solo se configura como variable

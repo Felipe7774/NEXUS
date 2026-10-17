@@ -110,6 +110,45 @@ async function up() {
     signal: AbortSignal.timeout(15000),
   });
   assert.equal(response.status, 200, "La página de acceso debe responder HTTP 200");
+  const connectivity = JSON.parse(
+    await compose([
+      "exec",
+      "-T",
+      "app",
+      "node",
+      "--input-type=module",
+      "-e",
+      `const checks = [];
+      for (const path of ['/auth/v1/health', '/rest/v1/companies?select=id&limit=0']) {
+        const r = await fetch(process.env.SUPABASE_URL + path, {
+          headers: { apikey: process.env.SUPABASE_PUBLISHABLE_KEY,
+            Authorization: 'Bearer ' + process.env.SUPABASE_PUBLISHABLE_KEY },
+          signal: AbortSignal.timeout(10000)
+        });
+        if (!r.ok) throw new Error(path + ': HTTP ' + r.status);
+        checks.push({ path, status: r.status });
+      }
+      console.log(JSON.stringify(checks));`,
+    ]),
+  );
+  await mkdir(artifacts, { recursive: true });
+  await writeFile(
+    join(artifacts, "app-smoke.json"),
+    JSON.stringify(
+      {
+        status: "passed",
+        checkedAt: new Date().toISOString(),
+        sourceCommit: await run("git", ["rev-parse", "HEAD"], { quiet: true }),
+        workingTreeDirty: Boolean(
+          await run("git", ["status", "--porcelain", "--untracked-files=no"], { quiet: true }),
+        ),
+        page: { url: "http://127.0.0.1:3000/auth", status: response.status },
+        containerToSupabase: connectivity,
+      },
+      null,
+      2,
+    ) + "\n",
+  );
   console.log("NEXUS disponible en http://localhost:3000 (Supabase local en Docker).");
 }
 
