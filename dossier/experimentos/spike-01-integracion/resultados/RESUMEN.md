@@ -38,6 +38,12 @@ no reconstruye el p95 de la ventana.
 
 ## Cinco verificaciones funcionales que pasaron
 
+`initialStatus` registra la salida del coordinador de pruebas. En asíncrono,
+202 es su representación lógica de aceptación tras una RPC HTTP 200 de PostgREST;
+no es una respuesta de un endpoint productivo 202. Los 200/503 del receptor son
+respuestas HTTP reales. La medición de aceptación abarca esa RPC y la política
+de coordinación del harness, no una API productiva nueva.
+
 | Caso                                       | Observación comprobada                                                                                                                         |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | Síncrono: caída, reintento y recuperación  | Respuesta inicial 503; evento pendiente; reintentar el comando no duplica historial; tras reinicio del receptor y dos entregas, una actividad. |

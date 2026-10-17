@@ -17,6 +17,11 @@ se ejecuta después del acuse, con una espera controlada de 20 ms. No hay broker
 worker desplegado continuamente. Es una prueba del corte de integración y sus
 fallos, no de capacidad de colas, recuperación productiva o UX de React.
 
+Los códigos de aceptación los representa el coordinador del harness: una RPC de
+PostgREST exitosa devuelve HTTP 200 y se representa como aceptación lógica 202 en
+modo asíncrono. El receptor sí devuelve HTTP 200/503 reales. No se publica un
+endpoint nuevo que responda 202 ni se mide su overhead de red.
+
 ## Archivos
 
 - `fixture.sql`: tabla y RPC temporales, fuera de `supabase/migrations`.
