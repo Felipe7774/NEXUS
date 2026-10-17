@@ -39,11 +39,9 @@ export const saveCompany = async (input: {
 };
 
 export const deleteCompany = async (id: string) => {
-  const { error } = await supabase
-    .from("companies")
-    .update({ deleted_at: new Date().toISOString() })
-    .eq("id", id);
+  const { data, error } = await supabase.rpc("soft_delete_company", { _id: id });
   if (error) throw error;
+  if (!data) throw new Error("Empresa no disponible para eliminar");
 };
 
 export const readContacts = async (search = "") => {
@@ -79,9 +77,7 @@ export const saveContact = async (input: {
 };
 
 export const deleteContact = async (id: string) => {
-  const { error } = await supabase
-    .from("contacts")
-    .update({ deleted_at: new Date().toISOString() })
-    .eq("id", id);
+  const { data, error } = await supabase.rpc("soft_delete_contact", { _id: id });
   if (error) throw error;
+  if (!data) throw new Error("Contacto no disponible para eliminar");
 };

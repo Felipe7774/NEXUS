@@ -135,6 +135,9 @@ describe.skipIf(!url || !key)("APIs modulares con RLS real", () => {
     expect(await readDeals(pipeline)).toHaveLength(0);
     expect(await readCompanies()).toHaveLength(0);
     expect(await readActivities()).toHaveLength(0);
+    await expect(deleteDeal(deal)).rejects.toThrow("no disponible");
+    await expect(deleteContact(contact)).rejects.toThrow("no disponible");
+    await expect(deleteCompany(company)).rejects.toThrow("no disponible");
     await supabase.auth.signOut();
     const again = await supabase.auth.signInWithPassword(users[0]!);
     if (again.error) throw again.error;

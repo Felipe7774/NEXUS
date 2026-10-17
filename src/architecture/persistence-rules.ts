@@ -10,6 +10,11 @@ export const owners: Record<string, string> = {
   stages: "sales",
   activities: "followup",
 };
+const rpcOwners: Record<string, string> = {
+  soft_delete_company: "relationships",
+  soft_delete_contact: "relationships",
+  soft_delete_deal: "sales",
+};
 
 /** Static guard for the supported SDK syntax; RLS remains the runtime security boundary. */
 export function persistenceViolations(path: string, source: string): string[] {
@@ -40,8 +45,12 @@ export function persistenceViolations(path: string, source: string): string[] {
             if (!module || owners[match[1]!] !== module) errors.push("JOIN ajeno: " + match[1]);
           }
       }
-      if (method === "rpc" || method === "schema")
-        errors.push("RPC/schema requiere contrato explícito");
+      if (
+        method === "rpc" &&
+        (!arg || !ts.isStringLiteral(arg) || !module || rpcOwners[arg.text] !== module)
+      )
+        errors.push("RPC ajena o sin contrato");
+      if (method === "schema") errors.push("RPC/schema requiere contrato explícito");
     }
     if (
       ts.isElementAccessExpression(node) &&

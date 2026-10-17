@@ -59,9 +59,7 @@ export const moveDeal = async (input: { id: string; stage_id: string }) => {
 };
 
 export const deleteDeal = async (id: string) => {
-  const { error } = await supabase
-    .from("deals")
-    .update({ deleted_at: new Date().toISOString() })
-    .eq("id", id);
+  const { data, error } = await supabase.rpc("soft_delete_deal", { _id: id });
   if (error) throw error;
+  if (!data) throw new Error("Oportunidad no disponible para eliminar");
 };
