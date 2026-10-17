@@ -81,13 +81,9 @@ describe.skipIf(!url || !key)("APIs modulares con RLS real", () => {
       }
     }
     for (const u of users) {
-      for (const table of ["user_roles", "profiles"] as const) {
-        const r = await admin
-          .from(table)
-          .delete()
-          .eq(table === "profiles" ? "id" : "user_id", u.id);
-        if (r.error) throw r.error;
-      }
+      const roles = await admin.from("user_roles").delete().eq("user_id", u.id);
+      const profile = await admin.from("profiles").delete().eq("id", u.id);
+      if (roles.error || profile.error) throw roles.error ?? profile.error;
       const r = await admin.auth.admin.deleteUser(u.id);
       if (r.error) throw r.error;
     }

@@ -27,9 +27,8 @@ export function persistenceViolations(path: string, source: string): string[] {
     }
     if (ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression)) {
       const method = node.expression.name.text;
-      if (method === "from" && node.expression.expression.getText(file) === "Array") return;
       const arg = node.arguments[0];
-      if (method === "from") {
+      if (method === "from" && node.expression.expression.getText(file) !== "Array") {
         if (!arg || !ts.isStringLiteral(arg)) errors.push("Tabla dinámica no permitida");
         else if (!module || owners[arg.text] !== module)
           errors.push("Persistencia ajena: " + arg.text);
