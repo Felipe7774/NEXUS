@@ -18,7 +18,11 @@ no afirma que el texto o la implementación se escribieran sin asistencia.
 | Un reintento debe generar una sola actividad | Criterio verificable | UUID estable, transacción y prueba de entrega repetida en el spike |
 | El equipo y el comité ya aprobaron la integración | No afirmada | ADR propuesto y PR para revisión; no se inventan participantes ni veredictos |
 
-La corrida real se registrará con SHA, condiciones y datos después de CI. Esta tabla
+La corrida real está en `experimentos/spike-01-integracion/resultados/RESUMEN.md`,
+con SHA, condiciones, 48 muestras y cinco verificaciones funcionales exitosas.
+Se conserva el intento inicial fallido por la semilla y su corrección. La menor
+latencia de aceptación no se presenta como una mejora del tiempo al efecto final.
+Esta tabla
 declara la intervención de la herramienta y su verificación técnica; no se presenta
 como una clasificación EDAV realizada personalmente por los tres integrantes.
 

@@ -5,6 +5,7 @@
 | Evidencia | Qué permite demostrar | Ubicación | Commit o trazabilidad disponible |
 |---|---|---|---|
 | Pruebas unitarias | Comportamiento de utilidades y formato cubierto por Vitest. | `src/lib/*.test.ts`; `package.json` | CI en `.github/workflows/ci.yml` |
+| Spike 1 de integración | Coordinación síncrona/diferida entre cambio de etapa y tarea de seguimiento propuesta; fallos, aislamiento e idempotencia. | `experimentos/spike-01-integracion/` | Plan `e348616`, código `47dcb1f`, ejecución CI `38987811793`; límites y JSON en `resultados/RESUMEN.md` |
 | Prueba RLS | Aislamiento entre dos usuarios en una instancia local de Supabase. | `src/integrations/supabase/rls-isolation.integration.test.ts` | Escenario 1, `LOG-EDAV-auditoria-ia.md` |
 | Línea base de rendimiento | Resultado k6 bajo semilla y condiciones registradas. | `experimentos/EXP-001-linea-base/` | Escenario 3, `04-evidencia-ejecutable.md` |
 | Escalabilidad | Resultado k6 con semilla ampliada y condiciones registradas. | `experimentos/EXP-002-escalabilidad/` | Escenario 6, `LOG-EDAV-auditoria-ia.md` |

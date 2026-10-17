@@ -126,7 +126,9 @@ Plan previo: [`PLAN.md`](experimentos/spike-01-integracion/PLAN.md), commit `e34
 Implementación y reproducción: [Spike 1](experimentos/spike-01-integracion/README.md).
 Decisión propuesta: [ADR-0003 de integración](../docs/adr/0003-integracion-oportunidades-actividades.md).
 
-La primera corrida y su veredicto se incorporarán después de ejecutar CI. Los resultados
-no se rellenan con cifras de las imágenes de AVATA ni de otros experimentos.
+La [corrida válida y su interpretación](experimentos/spike-01-integracion/resultados/RESUMEN.md)
+quedaron registradas con su SHA y URL de CI. Hubo 48 muestras y cinco verificaciones
+funcionales exitosas; el primer intento fallido también se conserva. La aceptación
+asíncrona fue menor, pero la finalización tardó más en este entorno controlado.
 La revisión humana de límites y decisión corresponde al PR; no se registra una
 aprobación ficticia de equipo o mini-comité.

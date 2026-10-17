@@ -46,8 +46,11 @@ la actividad como terminada. El evento v1 usa ID estable y efecto idempotente.
 - [Dominio y contratos](../../dossier/06-dominio-e-integracion.md).
 - [Plan previo](../../dossier/experimentos/spike-01-integracion/PLAN.md), commit `e348616`.
 - [Implementación y reproducción](../../dossier/experimentos/spike-01-integracion/README.md).
-- Resultados: primera corrida pendiente al redactar esta versión; se añadirán con
-  URL de CI y SHA después de ejecutarla, incluso si refuta H1.
+- [Resultados ejecutados](../../dossier/experimentos/spike-01-integracion/resultados/RESUMEN.md):
+  48 muestras y cinco verificaciones funcionales exitosas. Aceptación (mediana de
+  tres p95): síncrona 51,00 ms, asíncrona 4,49 ms; finalización: 51,00 ms y 71,84 ms.
+  Se confirma H1 solo bajo demora artificial de 40 ms y consumidor diferido 20 ms.
+  La evidencia no demuestra menor tiempo al efecto ni mayor throughput asíncrono.
 
 ## Revisión y gobernanza
 

@@ -1,6 +1,8 @@
 # Spike 1 — Ventas → Seguimiento
 
-**Estado inicial:** implementación preparada; primera corrida aún pendiente.
+**Estado:** ejecutado y verificado en GitHub Actions el 16/10/2026.
+Resultado, condiciones, intento fallido y límites: [resumen](resultados/RESUMEN.md).
+La corrida válida contiene 48 muestras y cinco verificaciones funcionales exitosas.
 Plan anterior al código: [`PLAN.md`](PLAN.md), commit `e348616`.
 
 ## Qué ejecuta

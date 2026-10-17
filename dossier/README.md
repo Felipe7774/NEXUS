@@ -43,8 +43,9 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
   con plan previo, fixture sobre Supabase local, prueba de fallos e idempotencia.
 - [ADR-0003 de integración](../docs/adr/0003-integracion-oportunidades-actividades.md),
   propuesta para revisión; distinto del ADR-003 histórico sobre RLS.
-- Primera corrida y conclusión: pendientes en esta versión inicial; el workflow
-  publica el resultado real para incorporarlo con su SHA y enlace.
+- [Resultados reales](experimentos/spike-01-integracion/resultados/RESUMEN.md):
+  48 muestras, cinco verificaciones funcionales exitosas, menor tiempo de aceptación
+  asíncrona y mayor tiempo al efecto final en el ensayo controlado. Incluye SHA y CI.
 
 Las propuestas de límites no se presentan como módulos ya extraídos, y el spike no
 activa seguimiento automático en la aplicación desplegada.
