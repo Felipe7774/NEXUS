@@ -2,6 +2,12 @@
 
 **Veredicto experimental: pasó.** No equivale a adopción productiva ni a veredicto del comité.
 
+Validación adicional en el equipo Windows con Docker Desktop:
+[corrida local del 16/10/2026](docker-local-2026-10-16/README.md).
+Ejecutó 18 pruebas NEXUS sin omisiones, cuatro controles del spike, 48 mediciones,
+cinco verificaciones de integración, build y conectividad de la app en Docker.
+La referencia de CI y sus cifras de abajo se conservan por separado.
+
 ## Procedencia
 
 - Plan previo: `e348616` (anterior al código y a las corridas).

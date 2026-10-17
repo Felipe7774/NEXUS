@@ -50,6 +50,11 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
 Las propuestas de límites no se presentan como módulos ya extraídos, y el spike no
 activa seguimiento automático en la aplicación desplegada.
 
+La [validación local con Docker Desktop](experimentos/spike-01-integracion/resultados/docker-local-2026-10-16/README.md)
+añade suite NEXUS completa (18/18, incluidas RLS), cuatro controles del spike,
+48 mediciones, compilación y conexión de la app con Auth/PostgREST.
+Se reproduce con `npm run docker:test`; ver [entorno Docker](../docs/docker-local.md).
+
 Campos abiertos a propósito, porque son decisiones de autoría del equipo y no se delegan a la IA. **Los tres pendientes del Módulo 3 quedaron cerrados el 15/09/2026:**
 
 | Dónde | Estado |

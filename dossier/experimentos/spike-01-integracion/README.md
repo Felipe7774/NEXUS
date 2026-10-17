@@ -32,6 +32,12 @@ endpoint nuevo que responda 202 ni se mide su overhead de red.
 
 ## Reproducir
 
+Con Docker Desktop instalado, el flujo automatizado y aislado es
+`npm ci` seguido de `npm run docker:test` desde la raíz del repositorio.
+Incluye las pruebas RLS y la compilación dentro de contenedores Linux.
+Ver [instrucciones de Docker](../../../docs/docker-local.md) y
+[evidencia local](resultados/docker-local-2026-10-16/README.md).
+
 1. `npm ci` y `npm run test:spike-m5`.
 2. Levantar un Supabase **local de pruebas**, con las migraciones de este repo:
    `npx supabase start -x studio,edge-runtime,vector,logflare,imgproxy,mailpit,realtime,storage-api,postgres-meta,supavisor`.
