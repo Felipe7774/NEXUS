@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
-import { beforeAll, afterAll, describe, it, expect } from "vitest";
+import { beforeAll, afterAll, describe, it, expect, vi } from "vitest";
 import type { Database } from "@/integrations/supabase/types";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -22,7 +22,8 @@ import { enrichDeals, enrichActivities } from "@/lib/crm-composition";
 
 const url = process.env["SUPABASE_URL_TEST"];
 const key = process.env["SUPABASE_SERVICE_ROLE_KEY_TEST"];
-describe.skipIf(!url || !key)("APIs modulares con RLS real", () => {
+const anon = process.env["SUPABASE_ANON_KEY_TEST"];
+describe.skipIf(!url || !key || !anon)("APIs modulares con RLS real", () => {
   let admin: ReturnType<typeof createClient<Database>>;
   const users: { id: string; email: string; password: string }[] = [];
   let pipeline = "",
@@ -34,6 +35,8 @@ describe.skipIf(!url || !key)("APIs modulares con RLS real", () => {
     activity = randomUUID();
   beforeAll(async () => {
     expect(new URL(url!).hostname).toBe("127.0.0.1");
+    vi.stubEnv("VITE_SUPABASE_URL", url!);
+    vi.stubEnv("VITE_SUPABASE_PUBLISHABLE_KEY", anon!);
     admin = createClient<Database>(url!, key!, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
@@ -139,6 +142,10 @@ describe.skipIf(!url || !key)("APIs modulares con RLS real", () => {
     await expect(deleteContact(contact)).rejects.toThrow("no disponible");
     await expect(deleteCompany(company)).rejects.toThrow("no disponible");
     await supabase.auth.signOut();
+    for (const rpc of ["soft_delete_company", "soft_delete_contact", "soft_delete_deal"] as const) {
+      const response = await supabase.rpc(rpc, { _id: deal });
+      expect(response.error).not.toBeNull();
+    }
     const again = await supabase.auth.signInWithPassword(users[0]!);
     if (again.error) throw again.error;
     await deleteActivity(activity);

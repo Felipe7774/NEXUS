@@ -68,6 +68,7 @@ describe("ADR 0004: propiedad de persistencia", () => {
   it.each([
     ['supabase.from("companies").select("*")', "Persistencia ajena"],
     ['supabase.from("deals").select("*, companies(id, name)")', "JOIN ajeno"],
+    ['supabase.rpc("soft_delete_company", { _id: "x" })', "RPC ajena"],
     ["supabase.from(table)", "Tabla dinámica"],
     ['supabase["from"]("deals")', "Acceso calculado"],
     ['import { db } from "@/modules/relationships/private";', "Importación privada"],

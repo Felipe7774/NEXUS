@@ -85,6 +85,8 @@ async function stackStatus(workdir) {
 async function up() {
   console.log("Iniciando Supabase local en Docker (migraciones del repositorio)...");
   await supabase(["start", "-x", exclude]);
+  // Existing development volumes may predate the latest versioned functions.
+  await supabase(["migration", "up", "--local"]);
   const status = await stackStatus(root);
   const api = new URL(status.API_URL);
   const serverUrl = `http://host.docker.internal:${api.port}`;
