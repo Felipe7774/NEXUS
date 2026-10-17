@@ -83,3 +83,7 @@ Publica resultados de pruebas como artefactos sin requerir un Pull Request.
 
 Referencias: [Supabase local](https://supabase.com/docs/guides/local-development)
 y [Docker para desarrollo Node](https://docs.docker.com/guides/nodejs/develop/).
+
+## Módulo 6
+
+`npm run docker:test` incluye EXP-004, fitness de resiliencia y propiedad de persistencia con ArchUnitTS, además de integración CRUD/RLS y build. `npm run docker:growth` ejecuta k6 real en un stack separado, puertos 56321/56322, calentamiento descartado y tres corridas. Resultados en `artifacts/growth/`; el CI usa `GROWTH_SECONDS=3` como humo, mientras la evidencia local usa 30 s por meseta. Ver [protocolo y límites](../experimentos/crecimiento-S11/README.md).

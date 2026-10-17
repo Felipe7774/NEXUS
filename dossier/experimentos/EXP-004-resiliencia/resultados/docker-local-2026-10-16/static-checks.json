@@ -1,0 +1,29 @@
+{
+  "eslint": {
+    "scope": [
+      "src/lib/read-circuit-breaker.ts",
+      "src/lib/supabase-fetch.ts",
+      "src/lib/read-circuit-breaker.test.ts",
+      "src/architecture/resilience-fitness.test.ts"
+    ],
+    "status": "passed"
+  },
+  "typescript": {
+    "status": "failed-preexisting",
+    "errors": [
+      {
+        "file": "src/routes/auth.tsx",
+        "line": 189,
+        "message": "\"email\" is not assignable to Path<T>"
+      },
+      {
+        "file": "src/routes/auth.tsx",
+        "line": 202,
+        "message": "\"password\" is not assignable to Path<T>"
+      }
+    ],
+    "unchangedAuthBlobAtBaselineAndMeasuredCommit": "222a31b2d2a04a298eac1a21bb3fb29a54582ac0",
+    "baseline": "a8ab11282ebaac223ff10b1fcc39229e7b25d85f"
+  },
+  "note": "Ningún diagnóstico TypeScript en los nuevos archivos; build y pruebas separados de tsc."
+}

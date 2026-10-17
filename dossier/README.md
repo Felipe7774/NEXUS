@@ -88,7 +88,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 
 ## Trazabilidad Git
 
-Todo el trabajo semanal quedó en Pull Requests contra `main`, revisables en el historial del repo:
+El trabajo histórico se revisó mediante Pull Requests contra `main`. Los avances M5/M6 se subieron a ramas; el usuario indicó no abrir PR ni mezclar en main:
 
 ```bash
 git log --oneline --merges main
@@ -103,3 +103,7 @@ Cada entrega semanal se abre como un Pull Request contra `main`. Desde la semana
 ## Historial
 
 Este dossier vivió originalmente en un repositorio aparte ([`NEXUS-dossier`](https://github.com/santiago1500K/NEXUS-dossier)) y se migró acá para mantener todo en un solo lugar junto con el código. La numeración de archivos (`01-04`) se reestructuró en la semana 4 para alinearse con la nomenclatura del tutor de la cátedra (antes: `01-contexto-sistema.md`, `02-riesgos-drivers.md`, `03-atributos-calidad.md`, `04-escenarios-calidad.md` — contenido preservado en el historial de Git).
+
+## Avance M6 — 17/10/2026
+
+[Distribución y resiliencia](07-distribucion-y-resiliencia.md), [material actualizado](../docs/modulo-6-material-actualizado.md), [crecimiento k6](../experimentos/crecimiento-S11/README.md) y [ADR 0004](../docs/adr/0004-distribucion-y-resiliencia.md). Comité y defensa humana pendientes.

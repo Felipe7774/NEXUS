@@ -44,3 +44,7 @@
 - Supabase Auth y una consulta anónima protegida por RLS deben responder HTTP 200.
 - No exponer ni registrar `SUPABASE_SERVICE_ROLE_KEY` en el repositorio, el bundle del navegador o las evidencias.
 - Resultado observado el 18/09/2026: verificación satisfactoria. Email Auth habilitado; Google Auth deshabilitado por decisión/configuración vigente del equipo.
+
+## Módulo 6 — 17/10/2026
+
+Ver [dossier 07](07-distribucion-y-resiliencia.md). Se incorporan EXP-004, crecimiento S11, matrices, propiedad de persistencia/ArchUnitTS y ADR 0004. Veredicto técnico propuesto; comité humano pendiente.

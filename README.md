@@ -101,9 +101,13 @@ supabase/
 docs/                      Documentación del proyecto
 ```
 
-La lógica de acceso a datos está centralizada en `src/lib/crm.ts`. Las pantallas consumen hooks de React Query y los componentes de formularios mantienen las operaciones de creación, edición y eliminación separadas de la capa visual.
+Los hooks públicos de React Query están en `src/lib/crm.ts`; el acceso a datos pertenece a `src/modules/{identity,relationships,sales,followup}/api.ts`, protegido por pruebas de arquitectura. Las pantallas consumen hooks de React Query y los componentes de formularios mantienen las operaciones de creación, edición y eliminación separadas de la capa visual.
 
 La documentación académica de arquitectura está disponible en [docs/Arquitectura en software.docx](docs/Arquitectura%20en%20software.docx).
+
+## Módulo 6
+
+[Entrega y explicación](dossier/07-distribucion-y-resiliencia.md), [crecimiento k6](experimentos/crecimiento-S11/README.md), [matrices](docs/resilience_matrix.md) y [defensa](docs/defensa-modulo-6.md).
 
 ## Despliegue
 
