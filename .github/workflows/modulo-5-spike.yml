@@ -1,0 +1,59 @@
+name: Modulo 5 - Spike de integracion
+
+on:
+  pull_request:
+    paths:
+      - 'dossier/experimentos/spike-01-integracion/**'
+      - 'supabase/migrations/**'
+      - '.github/workflows/modulo-5-spike.yml'
+      - 'package.json'
+      - 'package-lock.json'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  spike-local:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm install -g npm@11
+      - run: npm ci
+      - run: npm run test:spike-m5
+      - name: Levantar Supabase local con las migraciones del CRM
+        run: npx supabase start -x studio,edge-runtime,vector,logflare,imgproxy,mailpit,realtime,storage-api,postgres-meta,supavisor
+      - name: Cargar fixture solo en el contenedor PostgreSQL local
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t db_ids < <(docker ps --filter name=supabase_db_ --format '{{.ID}}')
+          test "${#db_ids[@]}" -eq 1
+          docker exec -i "${db_ids[0]}" psql -U postgres -d postgres -v ON_ERROR_STOP=1 \
+            < dossier/experimentos/spike-01-integracion/fixture.sql
+      - name: Ejecutar las dos modalidades y pruebas de fallos sobre el stack local
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx supabase status -o json > "$RUNNER_TEMP/m5-supabase-status.json"
+          export SUPABASE_URL_TEST=$(jq -r '.API_URL' "$RUNNER_TEMP/m5-supabase-status.json")
+          export SUPABASE_ANON_KEY_TEST=$(jq -r '.ANON_KEY' "$RUNNER_TEMP/m5-supabase-status.json")
+          export SUPABASE_SERVICE_ROLE_KEY_TEST=$(jq -r '.SERVICE_ROLE_KEY' "$RUNNER_TEMP/m5-supabase-status.json")
+          echo "::add-mask::$SUPABASE_ANON_KEY_TEST"
+          echo "::add-mask::$SUPABASE_SERVICE_ROLE_KEY_TEST"
+          npm run spike:m5 -- --output artifacts/modulo-5/results.json
+      - name: Conservar solo resultados sin credenciales
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: modulo-5-spike-${{ github.sha }}
+          path: artifacts/modulo-5/*.json
+          if-no-files-found: warn
+      - name: Detener Supabase local
+        if: always()
+        run: npx supabase stop

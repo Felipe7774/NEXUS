@@ -36,6 +36,19 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
 
 ## Pendientes declarados
 
+### Módulo 5 — dominio e integración (avance del 16/10/2026)
+
+- [Mapa de dominio, límites propuestos y contratos](06-dominio-e-integracion.md).
+- [Spike 1: coordinaciones síncrona y asíncrona](experimentos/spike-01-integracion/README.md),
+  con plan previo, fixture sobre Supabase local, prueba de fallos e idempotencia.
+- [ADR-0003 de integración](../docs/adr/0003-integracion-oportunidades-actividades.md),
+  propuesta para revisión; distinto del ADR-003 histórico sobre RLS.
+- Primera corrida y conclusión: pendientes en esta versión inicial; el workflow
+  publica el resultado real para incorporarlo con su SHA y enlace.
+
+Las propuestas de límites no se presentan como módulos ya extraídos, y el spike no
+activa seguimiento automático en la aplicación desplegada.
+
 Campos abiertos a propósito, porque son decisiones de autoría del equipo y no se delegan a la IA. **Los tres pendientes del Módulo 3 quedaron cerrados el 15/09/2026:**
 
 | Dónde | Estado |

@@ -1,5 +1,27 @@
 # Log EDAV — Auditoría de contenido generado por IA
 
+## Ampliación del Módulo 5 — 16/10/2026
+
+El usuario autorizó en Codex preparar los pendientes del módulo 5 y abrir un PR
+desde su cuenta. Se usó IA para inspeccionar el flujo real de oportunidades,
+proponer límites de dominio y contratos, implementar un spike aislado y redactar
+documentación. El plan del experimento quedó commiteado en `e348616` antes del
+código y de medir. La autoría Git identifica la cuenta que presenta el cambio;
+no afirma que el texto o la implementación se escribieran sin asistencia.
+
+| Propuesta o afirmación | Estado de auditoría en este PR | Evidencia y límite |
+|---|---|---|
+| El cambio actual de etapa ya crea una tarea automáticamente | Rechazada en la inspección técnica | `useMoveDeal` solo actualiza `deals`; la automatización es propuesta del spike |
+| Cinco contextos lógicos para el CRM | Propuesta para revisión humana | Mapa y símbolos en `06-dominio-e-integracion.md`; no están extraídos como módulos independientes |
+| Incorporar Kafka/RabbitMQ por el ejemplo docente | No adoptada | El laboratorio usa PostgreSQL local y receptor HTTP; no existe necesidad productiva confirmada |
+| Asincronía implica menor tiempo al efecto final | No asumida | Se medirán aceptación y finalización por separado |
+| Un reintento debe generar una sola actividad | Criterio verificable | UUID estable, transacción y prueba de entrega repetida en el spike |
+| El equipo y el comité ya aprobaron la integración | No afirmada | ADR propuesto y PR para revisión; no se inventan participantes ni veredictos |
+
+La corrida real se registrará con SHA, condiciones y datos después de CI. Esta tabla
+declara la intervención de la herramienta y su verificación técnica; no se presenta
+como una clasificación EDAV realizada personalmente por los tres integrantes.
+
 > Registro honesto de qué contenido del dossier fue delegado a un LLM (Claude, vía Claude Code) y cuál es su estado real de auditoría. Este log existe porque gran parte del contenido de `01-contexto-y-drivers.md` y `02-escenarios-de-calidad.md` fue producido en sesiones de trabajo con IA **antes** de que el equipo tuviera el ciclo EDAV formal (E-D-A-V) documentado por la cátedra. Se declara explícitamente para cumplir con el criterio "Auditoría de IA" de la rúbrica, en vez de ocultarlo.
 
 ## Qué pasó, en orden
