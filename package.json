@@ -4,6 +4,8 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
+    "experiment:m6": "node --experimental-strip-types dossier/experimentos/EXP-004-resiliencia/run.mjs",
+    "fitness:m6": "node dossier/experimentos/EXP-004-resiliencia/fitness.mjs",
     "docker:up": "node scripts/docker-local.mjs up",
     "docker:test": "node scripts/docker-local.mjs test",
     "docker:down": "node scripts/docker-local.mjs down",

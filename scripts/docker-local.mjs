@@ -3,6 +3,7 @@ import { spawn } from "node:child_process";
 import { cp, mkdir, readFile, writeFile, access, rm } from "node:fs/promises";
 import { delimiter, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { setTimeout as pause } from "node:timers/promises";
 import { localBaseUrl } from "../dossier/experimentos/spike-01-integracion/metrics.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
@@ -154,7 +155,13 @@ async function up() {
 
 async function test() {
   await mkdir(artifacts, { recursive: true });
-  for (const filename of ["vitest.json", "spike.json", "summary.json"]) {
+  for (const filename of [
+    "vitest.json",
+    "spike.json",
+    "summary.json",
+    "m6-results.json",
+    "m6-resources.json",
+  ]) {
     await rm(join(artifacts, filename), { force: true });
   }
   await mkdir(join(testRoot, "supabase"), { recursive: true });
@@ -266,6 +273,77 @@ async function test() {
       "--output",
       "artifacts/docker/spike.json",
     ]);
+    const resourceSamples = [];
+    let sampling = true;
+    const sampler = (async () => {
+      while (sampling) {
+        try {
+          const readings = await run(
+            "docker",
+            [
+              "stats",
+              "--no-stream",
+              "--format",
+              "{{json .}}",
+              db,
+              gateway,
+              `supabase_rest_${testProject}`,
+              `supabase_auth_${testProject}`,
+            ],
+            { quiet: true },
+          );
+          resourceSamples.push({
+            at: new Date().toISOString(),
+            containers: readings
+              .split(/\r?\n/)
+              .filter(Boolean)
+              .map((line) => JSON.parse(line)),
+          });
+        } catch {
+          resourceSamples.push({
+            at: new Date().toISOString(),
+            error: "No se pudo leer docker stats",
+          });
+        }
+        if (sampling) await pause(1000);
+      }
+    })();
+    try {
+      await check("resiliencia-m6", [
+        "npm",
+        "run",
+        "experiment:m6",
+        "--",
+        "--output",
+        "artifacts/docker/m6-results.json",
+      ]);
+    } finally {
+      sampling = false;
+      await sampler;
+      await writeFile(
+        join(artifacts, "m6-resources.json"),
+        JSON.stringify(
+          {
+            scope:
+              "Muestras esporádicas durante EXP-004; no son pico real ni promedio por variante",
+            samples: resourceSamples,
+          },
+          null,
+          2,
+        ) + "\n",
+      );
+    }
+    assert.ok(
+      resourceSamples.some((sample) => sample.containers?.length === 4),
+      "Se requieren recursos observados de los cuatro servicios",
+    );
+    await check("fitness-m6", [
+      "npm",
+      "run",
+      "fitness:m6",
+      "--",
+      "artifacts/docker/m6-results.json",
+    ]);
     await check("compilacion", ["npm", "run", "build"]);
     const vitest = JSON.parse(await readFile(join(artifacts, "vitest.json"), "utf8"));
     summary.vitest = {
@@ -282,6 +360,16 @@ async function test() {
       samples: spike.runs.reduce((n, round) => n + round.samples.length, 0),
       checks: spike.checks.length,
       cleanup: spike.cleanup,
+    };
+    const m6 = JSON.parse(await readFile(join(artifacts, "m6-results.json"), "utf8"));
+    assert.equal(m6.fitness?.passed, true);
+    assert.equal(m6.cleanup, "passed");
+    summary.module6 = {
+      status: m6.status,
+      fitness: m6.fitness.passed,
+      samples: m6.runs.length * 240,
+      resources: resourceSamples.length,
+      cleanup: m6.cleanup,
     };
     summary.status = "passed";
   } catch (error) {
