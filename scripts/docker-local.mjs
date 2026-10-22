@@ -257,6 +257,7 @@ async function test() {
       await writeFile(join(artifacts, `${name}.log`), redact(output) + "\n");
       summary.checks.push({ name, status: "passed" });
     }
+    await check("tipos", ["npm", "run", "typecheck"]);
     await check("unitarias-y-rls", [
       "npx",
       "--no-install",

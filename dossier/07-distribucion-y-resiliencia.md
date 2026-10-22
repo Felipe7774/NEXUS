@@ -1,5 +1,12 @@
 # 07 — Distribución y resiliencia: módulo 6
 
+Actualización 22/10/2026: se corrigieron los dos errores de tipos del formulario
+de acceso con campos vinculados a `FieldPath<T>`, sin conversiones a `never`.
+`npm run typecheck` se incorpora a Docker y al CI. Los registros del 16/17 de
+octubre conservan lo observado entonces; no se reescriben sus resultados.
+Los materiales locales históricos se publican con índice en
+[`entregables/README.md`](../entregables/README.md).
+
 Fecha inicial: 16/10/2026; ampliado el 17/10/2026, Colombia. **Avance técnico implementado y medido**; el veredicto
 del mini-comité 2 requiere una sesión real del equipo y está pendiente.
 

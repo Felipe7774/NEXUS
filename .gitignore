@@ -23,6 +23,8 @@ dist-ssr
 *.local
 .docker/
 artifacts/
+.word-build/
+.nexo-slides-build/
 
 # Wrangler / Cloudflare
 .wrangler/

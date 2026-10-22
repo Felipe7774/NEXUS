@@ -17,6 +17,7 @@ jobs:
       - name: Actualizar npm (el lock file esta generado con npm 11, el runner trae npm 10)
         run: npm install -g npm@11
       - run: npm ci
+      - run: npm run typecheck
       - run: npm test
 
   rls-integration-test:

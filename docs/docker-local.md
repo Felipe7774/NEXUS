@@ -86,4 +86,7 @@ y [Docker para desarrollo Node](https://docs.docker.com/guides/nodejs/develop/).
 
 ## Módulo 6
 
+Desde el 22/10/2026, `npm run docker:test` también ejecuta `npm run typecheck`
+antes de las pruebas. Los errores anteriores del formulario de acceso se corrigieron.
+
 `npm run docker:test` incluye EXP-004, fitness de resiliencia y propiedad de persistencia con ArchUnitTS, además de integración CRUD/RLS y build. `npm run docker:growth` ejecuta k6 real en un stack separado, puertos 56321/56322, calentamiento descartado y tres corridas. Resultados en `artifacts/growth/`; el CI usa `GROWTH_SECONDS=3` como humo, mientras la evidencia local usa 30 s por meseta. Ver [protocolo y límites](../experimentos/crecimiento-S11/README.md).
