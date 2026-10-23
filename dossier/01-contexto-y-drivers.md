@@ -9,7 +9,7 @@
 
 ## 2. Contexto
 
-El frontend original del equipo se perdió cuando el compañero a cargo del backend reescribió el proyecto; el repositorio actual es la única fuente de verdad. El sistema ya tiene 11 tablas con RLS habilitado (companies, contacts, deals, activities, pipelines/stages, stakeholders, etc.) y 31+ políticas.
+El frontend original del equipo se perdió cuando el compañero a cargo del backend reescribió el proyecto; el repositorio actual es la única fuente de verdad. El sistema ya tiene **14 tablas con RLS habilitado** (companies, contacts, deals, activities, pipelines/stages, stakeholders, etc.) y **40 políticas**, contadas el 22/10/2026 (eran 11 y 31+ en la semana 1, antes de la migración de stakeholders).
 
 ## 3. Stakeholders y sus preocupaciones
 
@@ -45,7 +45,7 @@ Resumen: 4 válidos (R1, R3, R4: fuga de `service_role`, dependencia organizacio
 
 - Se asume que el proyecto Supabase seguirá siendo administrado por el mismo integrante durante el resto del curso.
 - Se asume que no habrá usuarios concurrentes reales antes de la semana 4 (sin datos de producción).
-- Se asume que las 31+ políticas RLS existentes son funcionalmente correctas — **no verificado**, ver punto 9.
+- Se asume que las **40** políticas RLS existentes son funcionalmente correctas — **no verificado** política por política, ver punto 9.
 
 ## 8. Referencia a la hipótesis inicial
 

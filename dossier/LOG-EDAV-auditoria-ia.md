@@ -25,6 +25,8 @@
 | Migración de esquema (`stakeholders`, salud de cuenta) | Claude, propuesta técnica | Sí — validada corriendo Postgres real vía Supabase local, RLS y `security_invoker` verificados | Ninguna — es implementación, no decisión arquitectónica |
 | Suite de tests (Vitest + Docker) | Claude, propuesta técnica | Sí — 12 tests corridos y verificados en local y Docker | Ninguna — es implementación |
 
+> **Nota de actualización (22/10/2026).** La cifra de "12 tests" que aparece en esta tabla y en la justificación del riesgo R2 **se conserva sin modificar**: era correcta cuando se auditó y la justificación de R2 es una cita textual del equipo. Al 22/10/2026 la suite tiene **16 pruebas que pasan y 2 que se saltan** (las de integración RLS, que requieren variables de entorno). El crecimiento viene de la fitness function de la frontera `service_role` (PR #25). Se deja constancia acá en vez de reescribir el registro histórico.
+
 ## Matriz de auditoría de escenarios de IA (ciclo EDAV — paso A)
 
 Clasificación y justificación del equipo, no de la IA. Se completa a medida que se audita cada escenario — no todos están auditados todavía (ver tabla de arriba).
