@@ -12,6 +12,7 @@
 | [004](ADR-004-arquitectura-monolitica.md) | Arquitectura monolítica | Confirmado por el equipo | Módulo 4 |
 | [005](ADR-005-integracion-oportunidades-actividades.md) | Conservar el cambio síncrono y evaluar outbox para el seguimiento diferido | Propuesta para revisión; respaldada por el spike 1 | Módulo 5 |
 | [006](ADR-006-distribucion-y-resiliencia.md) | Mantener una app y contener fallos de lectura de Supabase | Propuesta con evidencia de EXP-004 | Módulo 6 |
+| [007](ADR-007-particion-por-dominio.md) | Partición por dominio con propiedad exclusiva de tablas | **Propuesto** — decisión y trade-offs pendientes del equipo | Módulo 6 |
 
 ## Qué cambió en la consolidación
 
@@ -37,7 +38,8 @@ El material del curso pide `/docs/adr/0001-decision-estilo.md` y `0002-aislamien
 
 ## Pendientes conocidos de este conjunto
 
-- Los ADR 001 a 004 **no registran alternativas reales, costo en horas de ingeniería ni reversibilidad**. Declaran explícitamente que no se inventa una alternativa retroactiva, lo cual es honesto, pero la rúbrica pide esos tres campos.
+- Los ADR 001 a 004 **no registran alternativas reales, costo en horas de ingeniería ni reversibilidad**. Declaran explícitamente que no se inventa una alternativa retroactiva, lo cual es honesto, pero la rúbrica pide esos tres campos. El `ADR-007` sí trae esas secciones, con la huella de reversibilidad ya medida.
+- El `ADR-001` sigue vigente, pero **su sección de Contexto quedó desactualizada**: nombra `src/lib/crm.ts` como "Operaciones del CRM", y desde el PR #35 ese archivo es la capa de composición mientras las operaciones viven en los módulos.
 - Ningún ADR tiene **veredicto de comité**: los primeros cuatro dicen "confirmado por el equipo", que no es lo mismo.
 
 ## Plantilla mínima
