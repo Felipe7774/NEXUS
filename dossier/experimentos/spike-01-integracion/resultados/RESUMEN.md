@@ -71,7 +71,7 @@ en general.
 
 El ensayo demuestra el corte propuesto, persistencia de pendientes, aislamiento y
 efecto idempotente. Agrega operación de pendientes, consumidor, espera y contrato.
-La recomendación del [ADR de integración](../../../../docs/adr/0003-integracion-oportunidades-actividades.md)
+La recomendación del [ADR de integración](../../../adrs/ADR-005-integracion-oportunidades-actividades.md)
 es conservar el comportamiento actual hasta aprobar la necesidad de seguimiento
 automático y definir el plazo aceptable para el efecto. La outbox queda como
 alternativa ensayada para ese requisito; no se instala en producción por este PR.

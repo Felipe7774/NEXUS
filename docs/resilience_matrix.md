@@ -1,6 +1,6 @@
 # Matrices de fallos y resiliencia — módulo 6
 
-Actualización: 17/10/2026. Referencia: [ADR 0004](adr/0004-distribucion-y-resiliencia.md).
+Actualización: 17/10/2026. Referencia: [ADR-006](../dossier/adrs/ADR-006-distribucion-y-resiliencia.md).
 «Implementado» describe código; «medido» exige evidencia del escenario indicado.
 
 | Fallo / componente                       | Efecto en NEXUS                                            | Contención actual                                                      | Evidencia / límite                                                                                 |

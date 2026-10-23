@@ -1,4 +1,6 @@
-# ADR-0004 — Mantener una app y contener fallos de lectura de Supabase
+# ADR-006 — Mantener una app y contener fallos de lectura de Supabase
+
+> **Renumerado el 23/10/2026.** Nació como `docs/adr/0004-distribucion-y-resiliencia.md`. Pasó de 0004 a **006** al consolidar los ADR en una sola carpeta, para eliminar el choque con `ADR-004 — Arquitectura monolítica`, que es una decisión distinta. El contenido no se modificó.
 
 Fecha: 16/10/2026; revisión: 17/10/2026. Módulo 6, distribución y resiliencia.
 

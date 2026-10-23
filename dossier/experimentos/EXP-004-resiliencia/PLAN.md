@@ -93,7 +93,7 @@ con el mismo dataset, consulta, proxy y condiciones que la variante protegida.
 
 - `results.json`, recursos, suite automatizada y veredicto de fitness en CI.
 - `dossier/07-distribucion-y-resiliencia.md`: trazabilidad y matrices.
-- `docs/adr/0004-distribucion-y-resiliencia.md`: veredicto técnico sustentado,
+- `docs/../dossier/adrs/ADR-006-distribucion-y-resiliencia.md`: veredicto técnico sustentado,
   manteniendo separado el ADR-004 histórico y la aprobación humana pendiente.
 - TCO paramétrico en horas/esfuerzo, separando costos comunes, incrementales,
   supuestos y cargos cloud no consultados. No se inventan facturas ni cotizaciones.

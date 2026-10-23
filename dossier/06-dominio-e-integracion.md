@@ -124,7 +124,7 @@ sigue usando los hooks y tipos actuales; este PR no publica una API productiva n
 
 Plan previo: [`PLAN.md`](experimentos/spike-01-integracion/PLAN.md), commit `e348616`.
 Implementación y reproducción: [Spike 1](experimentos/spike-01-integracion/README.md).
-Decisión propuesta: [ADR-0003 de integración](../docs/adr/0003-integracion-oportunidades-actividades.md).
+Decisión propuesta: [ADR-005 de integración](adrs/ADR-005-integracion-oportunidades-actividades.md).
 
 La [corrida válida y su interpretación](experimentos/spike-01-integracion/resultados/RESUMEN.md)
 quedaron registradas con su SHA y URL de CI. Hubo 48 muestras y cinco verificaciones

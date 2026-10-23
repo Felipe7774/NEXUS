@@ -99,6 +99,9 @@ Los estados describen la evidencia encontrada, no calificaciones: **presente**, 
 | Fitness function | `src/architecture/service-role-boundary.test.ts`, ejecutada por `npm test` en CI. | **Presente con alcance concreto.** Protege referencias/importaciones directas del cliente privilegiado; no es un verificador completo de módulos o de todas las rutas transitivas. |
 | Evidencia de contribución | PR #32 y documento 18; otros PR del equipo en el historial. | **Presente.** El documento distingue correctamente integración, autoría y auditoría posterior. |
 
+> **Nota posterior (23/10/2026).** Las dos filas de ADR 1 y ADR 2 describen un estado que ya no existe: los esqueletos vacios `docs/adr/0001-decision-estilo.md` y `0002-aislamiento-persistencia.md` fueron eliminados y todos los ADR quedaron consolidados en `dossier/adrs/`. Este analisis no se reescribe porque era correcto en su fecha; ver `dossier/adrs/README.md` para el estado vigente.
+
+
 ## Hallazgos que requieren más atención
 
 ### 1. Hay dos conjuntos de ADR con estados diferentes

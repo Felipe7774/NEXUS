@@ -26,7 +26,7 @@ Sus cifras de e-commerce y sus tecnologías son ejemplos, no requisitos de NEXUS
 | Matriz de fallos/resiliencia                  | Sección 5; controles implementados separados de propuestas                                                                                 |
 | Alternativas de distribución, costos y riesgo | Secciones 6–7; TCO paramétrico con supuestos explícitos                                                                                    |
 | Fitness function en CI                        | `fitness.mjs`, pruebas negativas y workflow `docker-local.yml`                                                                             |
-| ADR 4 con evidencia y veredicto               | [ADR-0004 de distribución/resiliencia](../docs/adr/0004-distribucion-y-resiliencia.md): veredicto técnico **ajustada**, comité pendiente   |
+| ADR 4 con evidencia y veredicto               | [ADR-006 de distribución/resiliencia](adrs/ADR-006-distribucion-y-resiliencia.md): veredicto técnico **ajustada**, comité pendiente   |
 | Uso crítico de IA y preparación de defensa    | [Log EDAV](LOG-EDAV-auditoria-ia.md) y sección 9                                                                                           |
 | PR/participación por integrante               | No se atribuyen aportes a otros integrantes. El usuario indicó subir a rama, sin abrir PR; la revisión académica por pares queda pendiente |
 
@@ -211,7 +211,7 @@ antes de ofrecer capacidad de 50 VUs; distribuir no está justificado como remed
 se añade la protección local de lecturas y se mantiene el deadline. La evidencia
 sustenta contener intentos fallidos, no microservicios, mayor uptime, escalado
 horizontal o un RTO/RPO. Detalle y condiciones para reabrir:
-[ADR-0004](../docs/adr/0004-distribucion-y-resiliencia.md).
+[ADR-006](adrs/ADR-006-distribucion-y-resiliencia.md).
 
 `npm run docker:test` ejecuta Vitest, RLS, M5, EXP-004, su fitness y el build. La
 regla rechaza un protocolo incompleto, un presupuesto sano incumplido, menos de

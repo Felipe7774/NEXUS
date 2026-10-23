@@ -41,7 +41,7 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
 - [Mapa de dominio, límites propuestos y contratos](06-dominio-e-integracion.md).
 - [Spike 1: coordinaciones síncrona y asíncrona](experimentos/spike-01-integracion/README.md),
   con plan previo, fixture sobre Supabase local, prueba de fallos e idempotencia.
-- [ADR-0003 de integración](../docs/adr/0003-integracion-oportunidades-actividades.md),
+- [ADR-005 de integración](adrs/ADR-005-integracion-oportunidades-actividades.md),
   propuesta para revisión; distinto del ADR-003 histórico sobre RLS.
 - [Resultados reales](experimentos/spike-01-integracion/resultados/RESUMEN.md):
   48 muestras, cinco verificaciones funcionales exitosas, menor tiempo de aceptación
@@ -106,4 +106,4 @@ Este dossier vivió originalmente en un repositorio aparte ([`NEXUS-dossier`](ht
 
 ## Avance M6 — 17/10/2026
 
-[Distribución y resiliencia](07-distribucion-y-resiliencia.md), [material actualizado](../docs/modulo-6-material-actualizado.md), [crecimiento k6](../experimentos/crecimiento-S11/README.md) y [ADR 0004](../docs/adr/0004-distribucion-y-resiliencia.md). Comité y defensa humana pendientes.
+[Distribución y resiliencia](07-distribucion-y-resiliencia.md), [material actualizado](../docs/modulo-6-material-actualizado.md), [crecimiento k6](../experimentos/crecimiento-S11/README.md) y [ADR-006](adrs/ADR-006-distribucion-y-resiliencia.md). Comité y defensa humana pendientes.

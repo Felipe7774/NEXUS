@@ -1,4 +1,6 @@
-# ADR-0003 — Conservar el cambio síncrono actual y evaluar outbox para seguimiento diferido
+# ADR-005 — Conservar el cambio síncrono actual y evaluar outbox para seguimiento diferido
+
+> **Renumerado el 23/10/2026.** Nació como `docs/adr/0003-integracion-oportunidades-actividades.md`. Pasó de 0003 a **005** al consolidar los ADR en una sola carpeta, para eliminar el choque con `ADR-003 — Aislamiento de datos mediante RLS`, que es una decisión distinta. El contenido no se modificó.
 
 **Fecha:** 16/10/2026. **Estado:** propuesta para revisión mediante PR.
 **Veredicto de comité:** no registrado; este documento no afirma aprobación del equipo.
