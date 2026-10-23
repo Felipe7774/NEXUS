@@ -100,9 +100,26 @@ C4Container
 | 4 | Gestión de actividades | Registra y consulta tareas, llamadas, reuniones, correos y notas | `src/routes/_authenticated/activities.tsx`, `src/components/crm/activity-dialog.tsx` |
 | 5 | Dashboard y reportes | Presenta indicadores, oportunidades recientes, resultados comerciales y datos del embudo | `src/routes/_authenticated/dashboard.tsx`, `src/routes/_authenticated/reports.tsx` |
 | 6 | Configuración administrativa | Muestra usuarios, roles, pipelines y etapas para los administradores | `src/routes/_authenticated/settings.tsx`, `src/hooks/use-auth.ts` |
-| 7 | Acceso a datos del CRM | Ejecuta consultas y operaciones de creación, actualización y eliminación sobre los datos del CRM | `src/lib/crm.ts`, `src/integrations/supabase/client.ts`, `src/integrations/supabase/types.ts` |
+| 7 | Acceso a datos del CRM | Ejecuta consultas y operaciones sobre los datos del CRM. **Dejó de ser el único punto de acceso**: desde el PR #35 el acceso por dominio vive en los módulos 10 a 13, y este archivo bajó de 419 a 216 líneas | `src/lib/crm.ts`, `src/integrations/supabase/client.ts`, `src/integrations/supabase/types.ts` |
 | 8 | Procesamiento del servidor | Procesa solicitudes SSR, adjunta la sesión de Supabase y presenta páginas de error | `src/server.ts`, `src/start.ts`, `src/integrations/supabase/auth-attacher.ts`, `src/integrations/supabase/auth-middleware.ts` |
 | 9 | Acceso administrativo a datos (sin RLS) | Instancia un cliente Supabase con `service_role` para operaciones administrativas del lado servidor. **Bypassa las políticas RLS.** Presente en el código y cableado al entorno, pero sin consumidores: ningún módulo de `src/` lo importa (verificado 15/09/2026) | `src/integrations/supabase/client.server.ts` |
+| 10 | Módulo de dominio **Ventas** | Posee las oportunidades y el pipeline; expone su API y es el único que consulta sus tablas | `src/modules/sales/api.ts` |
+| 11 | Módulo de dominio **Relaciones** | Posee empresas y contactos | `src/modules/relationships/api.ts` |
+| 12 | Módulo de dominio **Identidad** | Posee perfiles y roles de usuario | `src/modules/identity/api.ts` |
+| 13 | Módulo de dominio **Seguimiento** | Posee las actividades comerciales | `src/modules/followup/api.ts` |
+
+#### Propiedad de tablas por módulo (actualizado 23/10/2026)
+
+La modularización llegó con el PR #35. Cada módulo es **dueño exclusivo** de sus tablas: no hay solapamiento entre columnas de esta tabla.
+
+| Módulo | Tablas que posee |
+|---|---|
+| `sales` | `deals`, `pipelines`, `stages` |
+| `relationships` | `companies`, `contacts` |
+| `identity` | `profiles`, `user_roles` |
+| `followup` | `activities` |
+
+Estas fronteras **no son una intención documentada: están verificadas en cada PR**. `src/architecture/persistence-fitness.test.ts` comprueba que las consultas productivas respeten al propietario y sus JOINs, que no existan ciclos entre módulos y que los módulos no dependan de composición ni de presentación. La prueba incluye un caso que introduce un ciclo deliberado para confirmar que la regla falla cuando debe.
 
 ```mermaid
 C4Component
@@ -118,6 +135,10 @@ C4Component
     Component(data_comp, "Acceso a datos del CRM", "React Query + Supabase client", "Ejecuta consultas y operaciones de creacion, actualizacion y eliminacion sobre los datos del CRM")
     Component(server_comp, "Procesamiento del servidor", "Nitro / TanStack Start", "Procesa solicitudes SSR, adjunta la sesion de Supabase y presenta paginas de error")
     Component(admin_comp, "Acceso administrativo a datos (sin RLS)", "Supabase service_role", "Cliente privilegiado para operaciones administrativas del lado servidor. Bypassa RLS. Sin consumidores: ningun modulo de src/ lo importa hoy")
+    Component(sales_mod, "Modulo Ventas", "src/modules/sales", "Dueno exclusivo de deals, pipelines y stages")
+    Component(rel_mod, "Modulo Relaciones", "src/modules/relationships", "Dueno exclusivo de companies y contacts")
+    Component(ident_mod, "Modulo Identidad", "src/modules/identity", "Dueno exclusivo de profiles y user_roles")
+    Component(follow_mod, "Modulo Seguimiento", "src/modules/followup", "Dueno exclusivo de activities")
   }
 
   Rel(auth_comp, data_comp, "Usa")
