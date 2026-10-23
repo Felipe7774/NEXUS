@@ -88,6 +88,9 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 - [`adrs/README.md`](adrs/README.md) — plantilla y criterio para ADRs aún no documentados.
 - [`19-ensayo-de-defensa.md`](19-ensayo-de-defensa.md) — las repreguntas del comité y cómo se responden con evidencia, a partir de un ensayo real.
 - [`17-preparacion-defensa.md`](17-preparacion-defensa.md) — estructura de presentación, preguntas críticas y límites de cada respuesta.
+- [`18-evidencia-participacion-carlos-correa.md`](18-evidencia-participacion-carlos-correa.md) — participación individual verificada contra el historial.
+- [`20-evidencia-participacion-santiago-roman.md`](20-evidencia-participacion-santiago-roman.md) — participación individual, con la normalización de identidad en `.mailmap`.
+- [`21-seguridad-y-operacion.md`](21-seguridad-y-operacion.md) — Módulo 7: inventario de controles verificados, brecha de detección y plantillas de STRIDE, observabilidad y riesgos operativos.
 
 ## Trazabilidad Git
 
