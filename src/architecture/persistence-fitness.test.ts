@@ -16,7 +16,7 @@ function productionFiles(path: string): string[] {
         : [];
   });
 }
-describe("ADR 0004: propiedad de persistencia", () => {
+describe("ADR-006: propiedad de persistencia", () => {
   it("todas las consultas productivas respetan al propietario y sus JOINs", () => {
     const violations = productionFiles("src").flatMap((path) =>
       persistenceViolations(path, readFileSync(path, "utf8")).map((error) => path + ": " + error),
