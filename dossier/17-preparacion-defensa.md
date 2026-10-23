@@ -1,6 +1,8 @@
 # 17 — Preparación para la defensa
 
 > **Estado:** guía de ensayo. Las respuestas deben ser validadas por el equipo y acompañadas por los archivos citados durante la defensa.
+>
+> **Complemento obligatorio:** este documento cubre las preguntas esperables. Las **repreguntas** —las que llegan después de contestar bien, que es donde se define la banda alta— están en [`19-ensayo-de-defensa.md`](19-ensayo-de-defensa.md), armadas a partir de un ensayo real contra las debilidades del dossier.
 
 ## Estructura sugerida de presentación (15–20 minutos)
 
