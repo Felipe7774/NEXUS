@@ -86,6 +86,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 - [`15-evidencia-ejecutable-consolidada.md`](15-evidencia-ejecutable-consolidada.md) — índice de pruebas, experimentos y registros reproducibles.
 - [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md) — plantilla de cierre basada en el Log EDAV.
 - [`adrs/README.md`](adrs/README.md) — plantilla y criterio para ADRs aún no documentados.
+- [`19-ensayo-de-defensa.md`](19-ensayo-de-defensa.md) — las repreguntas del comité y cómo se responden con evidencia, a partir de un ensayo real.
 - [`17-preparacion-defensa.md`](17-preparacion-defensa.md) — estructura de presentación, preguntas críticas y límites de cada respuesta.
 
 ## Trazabilidad Git
