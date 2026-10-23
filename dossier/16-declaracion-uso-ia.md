@@ -14,7 +14,9 @@ Los commits producidos con asistencia de IA en sesiones de Claude Code llevan el
 git log --grep="Co-Authored-By: Claude" -i --format="%h  %s" main
 ```
 
-Al 23/10/2026 devuelve **14 commits**. Ninguno toca lógica de negocio: son documentación, pruebas y una actualización de dependencia por seguridad.
+Al 23/10/2026 devuelve **19 commits** — el número crece a medida que se trabaja, así que conviene correr el comando en vez de confiar en esta cifra. Ninguno toca lógica de negocio: son documentación, pruebas y una actualización de dependencia por seguridad.
+
+La tabla siguiente lista los primeros 14; los posteriores corresponden al mismo tipo de trabajo (documentación de pendientes, ensayo de defensa y evidencia de participación).
 
 | Commit | Qué aportó |
 |---|---|
