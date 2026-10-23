@@ -6,7 +6,7 @@
 >
 > **Ninguna respuesta de acá se memoriza.** Se practican en voz alta hasta que salga el reflejo de citar la evidencia. Una respuesta recitada se cae en la segunda repregunta, que es exactamente lo que la rúbrica mide.
 
-## Las tres reglas que salieron del ensayo
+## Las cinco reglas que salieron del ensayo
 
 **1. Nombrá el límite antes de que te lo nombren.**
 Cuando uno declara la limitación, es riguroso. Cuando se la encuentran, es descuidado. El dato es el mismo. Este dossier tiene casi todos sus límites declarados por escrito — hay que saberlos de memoria y decirlos primero.
@@ -16,6 +16,12 @@ Cuando uno declara la limitación, es riguroso. Cuando se la encuentran, es desc
 
 **3. Decir qué medirías es lo que separa "aceptable" de "sobresaliente".**
 Casi nadie lo dice, porque exige admitir que no se sabe algo. Es justo lo que la rúbrica pide ante una restricción nueva.
+
+**4. Conceder sin acotar es regalar.**
+Cuando el comité señala un hueco, hay que admitir **el hueco exacto**, no uno más grande. "No está verificado" concede mucho más que "la prueba cubre una tabla de catorce, y el mecanismo está activo en las catorce". La forma honesta es también la más precisa.
+
+**5. Nunca afirmes nada que tu propio repositorio pueda desmentir.**
+Antes de responder sobre el proceso, preguntate si hay un comando que te contradiga. El dossier publica el comando para auditarse: es su mayor fortaleza y, si se dice algo inexacto, el arma con la que lo desarman.
 
 ---
 
@@ -121,6 +127,71 @@ La respuesta tiene **tres partes y van en este orden**. Saltarse la tercera es l
 **Y después, la concesión acotada:** el estado de los cuatro dice *"Confirmado"*, y sería más preciso *"Vigente"* o *"Registrado"*. Confirmado sugiere una deliberación que no ocurrió.
 
 > Conceder un punto **específico y menor**, después de haber defendido el fondo, demuestra dominio del propio trabajo y corta la búsqueda de errores.
+
+---
+
+## Pregunta 5 — El driver número uno con una prueba de una tabla
+
+> *"Seguridad es su driver número uno. Su evidencia es una prueba que valida que un usuario no pueda leer la empresa de otro: una tabla, dos casos. Ustedes tienen **cuarenta políticas sobre catorce tablas**. ¿Su prioridad número uno está respaldada por una prueba que cubre el dos por ciento de sus políticas?"*
+
+**Por qué duele:** el dato es exacto. `rls-isolation.integration.test.ts` prueba `companies` con dos casos.
+
+**Respuesta débil:** *"No lo cubre, solo probamos una tabla."* — Cierta, pero es puro repliegue: concede todo y no deja nada en pie. Invita a la repregunta *"entonces su driver número uno no está verificado, ¿por qué debería creerles el resto?"*.
+
+**El error de método: conceder sin acotar es regalar.** Hay que admitir el hueco exacto, no uno más grande que el real.
+
+| Lo que sí tienen | Por qué importa |
+|---|---|
+| RLS está **activo en las 14 tablas**, no solo en la probada | El mecanismo cubre todo; lo que no cubre todo es la *prueba* |
+| La prueba corre **en cada PR** | Es protección contra regresiones, no una verificación de una sola vez |
+| La limitación está **declarada por escrito** | `13-evaluacion-arquitectonica.md` ya dice que no sustituye una auditoría política por política |
+| **R4 figura como riesgo vigente** desde la semana 2 | No lo descubrió el comité |
+| Hay una **segunda capa en CI** | La fitness function impide que el cliente `service_role` llegue al navegador |
+
+**Cómo cerrar:** *"Lo que falta es auditar las cuarenta políticas una por una. Es un hueco real, lo tenemos identificado, y no lo hicimos."*
+
+---
+
+## Pregunta 6 — ¿Qué parte de este dossier escribieron ustedes?
+
+> *"Veo catorce commits firmados con `Co-Authored-By: Claude`, tres ramas `codex/` y un documento entero dedicado a declarar uso de IA. ¿Qué parte de este dossier escribieron ustedes?"*
+
+**Por qué es la más peligrosa de todas:** la respuesta intuitiva —*"el código lo escribimos nosotros, la documentación fue asistida"*— **es falsa y el propio repositorio la desmiente en diez segundos.**
+
+Tres commits con el trailer tocan código:
+
+| Commit | Qué tocó |
+|---|---|
+| `fea5036` | `service-role-boundary.test.ts` — la fitness function |
+| `ca70927` | El parche del CVE y un cambio de tipos en `__root.tsx` |
+| `65fb1fa` | `persistence-fitness.test.ts` |
+
+Y la propia declaración dice que la IA actuó como *"ejecutora técnica: suite de Vitest con Docker, prueba de integración de aislamiento RLS, workflow de CI, timeout defensivo y la fitness function"*.
+
+> **En el momento en que el comité encuentra una afirmación que el dossier desmiente, deja de creer todo lo demás: las mediciones, los ADR, la auditoría.** Y el comando que lo revela está escrito en el propio documento, como invitación a auditar.
+
+**La distinción correcta no es código contra documentación: es decisiones contra implementación.**
+
+1. La IA escribió implementación —tests, CI, fitness function, parche del CVE— y documentación, y propuso contenido como los riesgos iniciales y los escenarios.
+2. Lo que no hizo fue decidir: drivers, clasificación de riesgos, semilla y umbrales, fronteras del C4, los ADR. Y está registrado que **se negó dos veces** a decidir las fronteras del C4.
+3. El cierre que gana la pregunta: **la implementación asistida se verifica sola.** Los tests corren en cada PR y la fitness function se probó rompiéndola a propósito. No hace falta confiar en quién la escribió.
+
+---
+
+## Pregunta 7 — Un control de seguridad que depende de un nombre de archivo
+
+> *"Su fitness function garantiza que el cliente `service_role` no llegue al navegador. La regla es: ningún archivo puede importarlo salvo los que terminan en `.server.ts`. O sea que su control de seguridad depende de cómo se llama un archivo. ¿Qué pasa si alguien lo renombra, o crea un `.server.ts` nuevo con una consulta que exponga datos?"*
+
+**Por qué duele:** es una crítica técnica legítima a la pieza que el equipo presenta como fortaleza.
+
+**Hay tres capas, no una.** La respuesta concede el punto exacto y después las enumera:
+
+1. **Conceder lo justo.** La regla se apoya en una convención de nombre; si alguien renombra el archivo, esa regla puntual deja de aplicarse. Es una limitación real.
+2. **La convención no es decorativa.** El sufijo `.server.ts` es la frontera que el framework usa para separar servidor de cliente. Renombrarlo no esquiva el control: rompe el build.
+3. **La clave no puede viajar al navegador aunque el código viajara.** El cliente privilegiado lee `process.env["SUPABASE_SERVICE_ROLE_KEY"]`, **sin prefijo `VITE_`**, y Vite solo inyecta al bundle las variables con ese prefijo. No existe ninguna variante prefijada de esa clave. Si el archivo terminara en el navegador, la clave sería `undefined`.
+4. **El escenario del archivo nuevo ya está cubierto por otro control.** `persistence-fitness.test.ts` recorre **todos los archivos de producción**, no solo los de cliente, y verifica que toda consulta respete al propietario y sus JOINs. Un archivo nuevo con una consulta sin filtro de propiedad falla el CI, se llame como se llame.
+
+**Lo que de verdad queda afuera, y conviene decirlo:** una consulta que respete la propiedad pero exponga un campo que no debería. Eso no lo detecta una regla estructural; requiere revisión humana. Es un hueco real y no está cerrado.
 
 ---
 
