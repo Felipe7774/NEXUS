@@ -39,7 +39,7 @@ El material del curso pide `/docs/adr/0001-decision-estilo.md` y `0002-aislamien
 ## Pendientes conocidos de este conjunto
 
 - Los ADR 001 a 004 **no registran alternativas reales, costo en horas de ingeniería ni reversibilidad**. Declaran explícitamente que no se inventa una alternativa retroactiva, lo cual es honesto, pero la rúbrica pide esos tres campos. El `ADR-007` sí trae esas secciones, con la huella de reversibilidad ya medida.
-- El `ADR-001` sigue vigente, pero **su sección de Contexto quedó desactualizada**: nombra `src/lib/crm.ts` como "Operaciones del CRM", y desde el PR #35 ese archivo es la capa de composición mientras las operaciones viven en los módulos.
+- El `ADR-001` sigue vigente y **su Contexto se actualizó el 23/10/2026** para reflejar las cinco capas actuales: describía cuatro y ubicaba las operaciones en `src/lib/crm.ts`, que tras el PR #35 pasó a ser la capa de composición. Se corrigió la descripción, no la decisión.
 - Ningún ADR tiene **veredicto de comité**: los primeros cuatro dicen "confirmado por el equipo", que no es lo mismo.
 
 ## Plantilla mínima
