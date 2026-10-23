@@ -110,6 +110,20 @@ Cada entrega semanal se abre como un Pull Request contra `main`. Desde la semana
 
 Este dossier vivió originalmente en un repositorio aparte ([`NEXUS-dossier`](https://github.com/santiago1500K/NEXUS-dossier)) y se migró acá para mantener todo en un solo lugar junto con el código. La numeración de archivos (`01-04`) se reestructuró en la semana 4 para alinearse con la nomenclatura del tutor de la cátedra (antes: `01-contexto-sistema.md`, `02-riesgos-drivers.md`, `03-atributos-calidad.md`, `04-escenarios-calidad.md` — contenido preservado en el historial de Git).
 
+### Correspondencia con la nomenclatura del curso
+
+Los nombres de archivo del equipo no coinciden con los que nombran las láminas. La equivalencia, para que nadie busque un archivo que existe con otro nombre:
+
+| Nombre en el curso | Archivo en este dossier |
+|---|---|
+| `08-decision-estilo-arquitectonico.md` | [`adrs/ADR-001-estilo-en-capas.md`](adrs/ADR-001-estilo-en-capas.md) |
+| `09-api-eventos-integracion.md` | [`06-dominio-e-integracion.md`](06-dominio-e-integracion.md) |
+| ADR 3 (módulo 5) | [`adrs/ADR-005-integracion-oportunidades-actividades.md`](adrs/ADR-005-integracion-oportunidades-actividades.md) |
+| ADR 4 (módulo 6) | [`adrs/ADR-006-distribucion-y-resiliencia.md`](adrs/ADR-006-distribucion-y-resiliencia.md) |
+| ADR 5 (módulo 7) | `ADR-008` — por redactar, ver [`21-seguridad-y-operacion.md`](21-seguridad-y-operacion.md) |
+
+**Sobre el entregable del módulo 5:** el PR **#34** se cerró sin mergear, pero el contenido **sí llegó a `main`** en el PR **#35** del 23/10/2026. `06-dominio-e-integracion.md` está en `main` con sus seis secciones, y los contratos versionados en [`contratos/`](contratos/).
+
 ## Avance M6 — 17/10/2026
 
 [Distribución y resiliencia](07-distribucion-y-resiliencia.md), [material actualizado](../docs/modulo-6-material-actualizado.md), [crecimiento k6](../experimentos/crecimiento-S11/README.md) y [ADR-006](adrs/ADR-006-distribucion-y-resiliencia.md). Comité y defensa humana pendientes.
