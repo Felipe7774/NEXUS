@@ -36,6 +36,8 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
 
 ## Pendientes declarados
 
+> **Todo lo que falta decidir está reunido en [`PENDIENTES-DE-DECISION.md`](PENDIENTES-DE-DECISION.md)**, con la evidencia ya levantada al lado de cada punto, para resolverlo en una sola sentada.
+
 ### Módulo 5 — dominio e integración (avance del 16/10/2026)
 
 - [Mapa de dominio, límites propuestos y contratos](06-dominio-e-integracion.md).
