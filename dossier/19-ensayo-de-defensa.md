@@ -64,9 +64,9 @@ Un comando ejecutado delante del comité cierra una discusión que diez minutos 
 | El plan del spike se commiteó **antes** del código y de medir | commit `e348616` |
 | La decisión cita el spike, **no** la propuesta de la IA | `ADR-007` |
 | Pasaron **dos meses** entre una cosa y la otra | septiembre → 16-17/10/2026 |
-| La propuesta de la IA **nunca se auditó**; sigue sin clasificar | issue #29, abierto |
+| La propuesta de la IA no se usó como sustento de la decisión; la auditoría se hizo después, contrastándola con el sistema ya implementado | ADR-007 y auditoría EDAV de issue #29 |
 
-**El argumento más fuerte es el último, y es contraintuitivo:** que la auditoría siga sin completar prueba que no se usó la propuesta. Un equipo que copia a la IA no deja su recomendación sin clasificar durante dos meses — la valida primero, para respaldarse.
+**El argumento más fuerte es el último, y es contraintuitivo:** la auditoría se hizo después de la implementación y deja por escrito qué parte de la propuesta era válida y qué parte debía modificarse. Un equipo que copia a la IA la usa como justificación antes de decidir; acá la decisión cita el spike propio y la auditoría posterior conserva sus límites.
 
 **Cómo cerrar sin sobreactuar:** no decir que la IA se equivocó ni que tenía razón. Decir que dos caminos independientes llegaron a la misma estructura, y que el del equipo tiene un experimento detrás.
 
@@ -275,5 +275,5 @@ El patrón de error no fue de contenido. Fue siempre el mismo:
 
 - Los ADR 001 a 004 **no tienen costo en horas ni reversibilidad**. Es medible hoy y no se hizo.
 - Las **40 políticas RLS sobre 14 tablas** nunca se auditaron una por una, y Seguridad es el driver #1.
-- La **Matriz de Control EDAV sigue sin clasificar** (issue #29).
+- La Matriz de Control EDAV fue clasificada después de la implementación; esto corrige el proceso de auditoría, pero no convierte la propuesta de septiembre en la fuente de la decisión del ADR-007.
 - El **riesgo R3 no está cerrado**: se mitigó para Supabase y reapareció con Vercel el 23/10, cuando no se pudo leer el log de build porque la cuenta la administra un solo integrante.
