@@ -1,6 +1,6 @@
 # 16 — Declaración de uso crítico de IA
 
-> **Estado:** redactada el 16/10/2026 a partir de hechos verificables en el repositorio. Las respuestas de la sección A citan evidencia comprobable; la sección B solo puede completarla el equipo.
+> **Estado:** redactada el 16/10/2026 y **corregida el 23/10/2026** a partir de hechos verificables en el repositorio. Las respuestas de la sección A citan evidencia comprobable; la sección B solo puede completarla el equipo.
 
 ## Registro disponible
 
@@ -14,17 +14,24 @@ Los commits producidos con asistencia de IA en sesiones de Claude Code llevan el
 git log --grep="Co-Authored-By: Claude" -i --format="%h  %s" main
 ```
 
-Al 16/10/2026 devuelve **7 commits**, todos de documentación o de pruebas:
+Al 23/10/2026 devuelve **14 commits**. Ninguno toca lógica de negocio: son documentación, pruebas y una actualización de dependencia por seguridad.
 
 | Commit | Qué aportó |
 |---|---|
-| `fea5036` | Fitness function de la frontera `service_role` |
 | `eeb9409` | Re-verificación de trazabilidad C4 y declaración de uso de IA del módulo |
 | `27227d1` | Audiencia de la vista de componentes y modelado de `client.server.ts` |
 | `7ebc7aa` | Audiencia de las vistas de contexto y contenedores |
 | `a792d25` | Actualización del README del dossier |
 | `939c738` | Cierre de la declaración de uso de IA del Módulo 3 |
+| `fea5036` | Fitness function de la frontera `service_role` |
 | `f94c99e` | Esqueleto de ADR en `docs/adr/` |
+| `3fd8473` | Restauración de los 6 escenarios de calidad y corrección de cifras |
+| `ae1ce34` | Unificación de los ADR y fin del choque de numeración |
+| `ca70927` | **Actualización de `@tanstack/react-start` por CVE-2026-102989 (XSS)** |
+| `65fb1fa` | Representación de los módulos de dominio en el C4 |
+| `c84d9c9` | Registro de la partición por dominio como `ADR-007` |
+| `62ec195` | Actualización del contexto del `ADR-001` |
+| `8e536f6` | Re-ejecución de la línea base del Escenario 3 |
 
 ## Sección A — Declaración basada en evidencia del repositorio
 
@@ -45,13 +52,13 @@ En cuatro modos distintos, con grados de delegación distintos:
 - Las fronteras del modelo C4. La IA **se negó dos veces** a decidirlas cuando el equipo se lo pidió; queda registrado en el Log EDAV.
 - La audiencia de cada vista C4 y, derivada de ella, la inclusión de `client.server.ts` como componente #9.
 - Los cuatro ADR confirmados y los veredictos de `12-matriz-trade-offs.md`.
-- **La decisión de estilo final**, que no coincide con la que propuso la IA (ver punto 3).
+- **La decisión de estilo final.** Se tomó sin auditar la propuesta de la IA y, meses después, convergió con ella por otra vía: un spike y mediciones propias. Ver la corrección del 23/10 en el punto 3.
 
 ### 3. ¿Qué contenido de IA fue corregido, rechazado o limitado?
 
 | Contenido de la IA | Qué pasó | Dónde consta |
 |---|---|---|
-| Propuesta de estilo "Monolito Modular" | **Rechazada de hecho.** El equipo documentó estilo en capas (ADR-001) y arquitectura monolítica (ADR-004). | `dossier/adrs/` |
+| Propuesta de estilo "Monolito Modular" | **No adoptada en su momento; convergente después.** Ver la nota al pie de esta tabla: esta fila se corrigió el 23/10/2026. | `dossier/adrs/`, `src/modules/` |
 | Clasificación inicial de tres riesgos | **Corregida por el equipo:** R2 de Falso a Modificado, R8 de Falso a Genérico, R9 de Genérico a Falso. | Log EDAV, matriz de riesgos |
 | Dos mediciones del Escenario 2 (11,5 s y 46 s) | **Descartadas por error de método de la propia IA** antes de llegar al dato real de 2,1 s. | Log EDAV, Escenario 2 |
 | Dos pedidos de que la IA decidiera las fronteras del C4 | **Rechazados por la IA.** | Log EDAV, declaración del Módulo 3 |
@@ -60,6 +67,22 @@ En cuatro modos distintos, con grados de delegación distintos:
 | Etiqueta "Válido" en los Escenarios 2 y 4 | **Inconsistencia señalada y corregida:** la etiqueta contradecía el texto de la propia justificación. | ⚠️ Solo en sesión — el repositorio conserva ya la versión corregida, no el intercambio |
 
 Las dos últimas filas se declaran con su limitación a la vista: ocurrieron durante el trabajo, pero **no dejaron rastro commiteado**, así que no pueden presentarse como evidencia verificable. Se incluyen porque omitirlas sería una declaración incompleta; afirmarlas como evidencia sería una declaración falsa.
+
+#### Corrección del 23/10/2026 — la propuesta de estilo
+
+La versión anterior de esta declaración afirmaba que la propuesta de la IA había sido **"rechazada de hecho"**. Esa afirmación era correcta en octubre, cuando se redactó, y **dejó de serlo**. Se corrige en vez de dejarla pasar.
+
+Qué ocurrió, en orden:
+
+1. **Septiembre.** La IA propuso evolucionar a un *Monolito Modular (Domain-Partitioned)*: mantener una sola unidad de despliegue y particionar `src/lib/crm.ts` en módulos por dominio con interfaces explícitas. El equipo **no la adoptó ni la auditó**; la Matriz de Control quedó sin completar (issue #29).
+2. **Octubre.** El equipo documentó `ADR-001` (estilo en capas) y `ADR-004` (arquitectura monolítica), sin referencia a esa propuesta.
+3. **16-17/10.** Trabajando el Módulo 6, el equipo implementó una partición por dominio con propiedad exclusiva de tablas, respaldada por un spike y por mediciones propias, y la protegió con una fitness function en CI. Quedó registrada en `ADR-007`.
+
+El resultado final **coincide con lo que la IA había propuesto**: partición por dominio dentro de un monolito, con APIs explícitas por módulo.
+
+**Lo que esto no significa.** No significa que la IA "tuviera razón" ni que el equipo haya seguido su recomendación. La decisión de octubre se tomó por otra vía —un experimento propio— y su justificación no cita la propuesta de septiembre. Significa que **dos caminos independientes llegaron a la misma estructura**, y que el camino del equipo es el que tiene evidencia detrás.
+
+**Lo que sigue pendiente.** Que la propuesta coincida con el resultado no sustituye la auditoría: las 10 filas de la Matriz de Control siguen sin clasificar, y el issue #29 continúa abierto. Una coincidencia posterior no es una verificación.
 
 ### 4. ¿Cómo se verificaron las afirmaciones conservadas?
 
@@ -75,14 +98,16 @@ Las dos últimas filas se declaran con su limitación a la vista: ocurrieron dur
 
 ## Sección B — Uso de herramientas en commits fuera de estas sesiones
 
-`[COMPLETAR — EQUIPO]`
+Esta declaración solo puede cubrir con evidencia el trabajo trazable por el trailer `Co-Authored-By`. El resto se produjo en commits sin ese trailer, de modo que **únicamente sus autores pueden declarar qué herramientas usaron**.
 
-Esta declaración solo puede cubrir con evidencia el trabajo trazable por el trailer `Co-Authored-By`. Los documentos `12` a `18` y la consolidación del Módulo 8 se produjeron en commits sin ese trailer, de modo que **únicamente sus autores pueden declarar qué herramientas usaron**.
+**Parte de esta sección ya está respondida por el propio repositorio.** El `LOG-EDAV-auditoria-ia.md` declara, en su ampliación del Módulo 5, que *"el usuario autorizó en Codex preparar los pendientes del módulo 5"*, y describe qué hizo la herramienta y qué afirmaciones suyas se rechazaron. Esa autodeclaración es el modelo a seguir para las filas que faltan.
 
-Dato público que conviene no omitir: la rama `codex/carlos-auditoria-participacion`, mergeada en el PR #32, deja el nombre de una herramienta visible en el historial del repositorio de forma permanente. Si hubo asistencia de IA en ese trabajo y la declaración no la menciona, cualquier revisor puede encontrar la discrepancia por su cuenta — y eso pondría en duda el resto de este documento, que sí está respaldado.
+Además, el historial deja **tres ramas con el nombre de la herramienta a la vista de forma permanente**: `codex/carlos-auditoria-participacion` (PR #32), `codex/modulo-5-dominio-integracion` y `codex/modulo-6-distribucion-resiliencia` (PR #35). Si hubo asistencia de IA en ese trabajo y la declaración no la menciona, cualquier revisor encuentra la discrepancia solo — y eso pondría en duda el resto de este documento, que sí está respaldado.
 
 | Trabajo | Herramienta utilizada | Qué decidió el equipo |
 |---|---|---|
+| Módulo 5 — dominio, contratos y spike (PR #35) | **Codex**, ya declarado en el Log EDAV | Ver la tabla de afirmaciones rechazadas en el Log EDAV |
+| Módulo 6 — distribución y resiliencia (PR #35) | `[COMPLETAR]` | `[COMPLETAR]` |
 | Documentos `12` a `17` (consolidación del Módulo 8) | `[COMPLETAR]` | `[COMPLETAR]` |
 | Documento `18` y rama `codex/...` (PR #32) | `[COMPLETAR]` | `[COMPLETAR]` |
 
