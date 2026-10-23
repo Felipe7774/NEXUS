@@ -21,14 +21,85 @@ Ver `01-contexto-y-drivers.md` (secciones 3-4). Seguridad y Disponibilidad se de
 
 ## 5. Escenarios de calidad
 
-Estructura SEI de 6 partes. Los 6 escenarios completos (fuente, estímulo, artefacto, entorno, respuesta, medida de respuesta) están en el histórico de este dossier — **pendientes de re-auditar con el ciclo EDAV formal antes de darlos por definitivos**:
+Estructura SEI de 6 partes (Bass, Clements &amp; Kazman): **fuente del estímulo, estímulo, artefacto, entorno, respuesta y medida de la respuesta.**
 
-1. Seguridad — aislamiento entre organizaciones vía RLS.
-2. Disponibilidad — caída del proveedor externo (Supabase).
-3. Rendimiento — carga del tablero Kanban de pipeline.
-4. Mantenibilidad — agregar un campo sin romper tests existentes.
-5. Usabilidad — un vendedor nuevo crea su primera oportunidad sin ayuda.
-6. Escalabilidad — crecimiento a 5.000 contactos / 1.000 oportunidades.
+> **Nota de restauración (22/10/2026).** Hasta hoy esta sección contenía solo una lista de seis títulos y remitía al historial de Git. Los seis escenarios completos se restauran abajo **transcritos verbatim de como el equipo los redactó en la semana 3** (archivo `03-atributos-calidad.md`, previo a la reestructuración del commit `27668e2`). No se corrigen sus cifras ni su estado: lo que cambió después se registra aparte, al final de la sección, para no alterar el texto original.
+>
+> Los primeros 3 fueron propuestos por IA y reformulados por el equipo para que la medida de respuesta fuera concreta y no un placeholder. Los 3 siguientes son RNF definidos para Nexo CRM en ese mismo ciclo, derivados del esquema y el código real.
+
+### Escenario 1 — Seguridad (aislamiento entre organizaciones)
+
+- **Fuente:** un usuario autenticado del CRM.
+- **Estímulo:** intenta leer, vía la API de Supabase, contactos que pertenecen a otra organización/usuario.
+- **Artefacto:** capa de datos (PostgreSQL + políticas RLS).
+- **Entorno:** operación normal.
+- **Respuesta:** la política RLS bloquea la consulta; no se devuelve ninguna fila ajena.
+- **Medida de respuesta:** 0 filas ajenas devueltas en el 100% de los intentos, verificado con una prueba automatizada sobre las 11+ tablas con RLS, corrida en cada PR (no manual).
+
+### Escenario 2 — Disponibilidad (caída del proveedor)
+
+- **Fuente:** Supabase (proveedor externo).
+- **Estímulo:** degradación o corte del servicio.
+- **Artefacto:** la aplicación completa (frontend + server functions).
+- **Entorno:** producción, horario laboral.
+- **Respuesta:** la app muestra un estado de error identificable en vez de una pantalla en blanco o un crash silencioso.
+- **Medida de respuesta:** el usuario ve un mensaje de error identificable en ≤3 segundos desde el fallo del proveedor, sin pantalla en blanco.
+
+### Escenario 3 — Rendimiento (carga del pipeline)
+
+- **Fuente:** usuario comercial.
+- **Estímulo:** abre el tablero Kanban de pipeline con oportunidades cargadas.
+- **Artefacto:** vista de pipeline (React Query + consulta a Supabase).
+- **Entorno:** carga normal, conexión de oficina.
+- **Respuesta:** el tablero termina de renderizarse e interactivo.
+- **Medida de respuesta:** con 200 oportunidades cargadas, el tablero queda interactivo en ≤2 segundos, medido contra el build de producción (`npm run preview`), no contra `npm run dev`. Se contrasta con el dato real en la semana 4.
+
+### Escenario 4 — Mantenibilidad (agregar un campo sin romper nada)
+
+- **Fuente:** desarrollador del equipo.
+- **Estímulo:** necesita agregar un campo nuevo a una tabla existente (como se hizo esta semana con los campos de salud de cuenta en `companies`).
+- **Artefacto:** migración de base de datos + suite de tests.
+- **Entorno:** desarrollo, antes de mergear a `main`.
+- **Respuesta:** el cambio se implementa y el suite de tests corre sin fallos antes del merge.
+- **Medida de respuesta:** `npm test` pasa al 100% antes de cada merge a `main`, y el cambio completo (migración + validación) toma menos de 1 día-persona.
+
+### Escenario 5 — Usabilidad (primer uso sin capacitación)
+
+- **Fuente:** un vendedor nuevo (rol `vendedor`, recién dado de alta en el sistema).
+- **Estímulo:** necesita cargar su primera oportunidad comercial sin ayuda de un compañero.
+- **Artefacto:** formulario de creación de oportunidad (pipeline).
+- **Entorno:** primer uso, sin capacitación formal previa.
+- **Respuesta:** logra crear la oportunidad completando el formulario por su cuenta.
+- **Medida de respuesta:** lo logra en menos de 5 minutos desde el primer login, sin pedir ayuda — a validar con una prueba de usuario real, todavía no ejecutada.
+
+### Escenario 6 — Escalabilidad (crecimiento de datos)
+
+- **Fuente:** crecimiento normal del negocio.
+- **Estímulo:** la base de una empresa crece a 5.000 contactos y 1.000 oportunidades.
+- **Artefacto:** vistas de listado de `contacts` y `deals`.
+- **Entorno:** uso normal, sin cambios de infraestructura.
+- **Respuesta:** las vistas de listado siguen respondiendo sin degradación perceptible.
+- **Medida de respuesta:** tiempo de respuesta del listado ≤2 segundos con ese volumen — a medir cuando exista un dataset de ese tamaño (no aplica todavía con datos reales).
+
+### Estado de cada escenario al 22/10/2026
+
+Lo que se midió después de redactarlos. El texto de arriba no se modificó.
+
+| # | Umbral redactado en la semana 3 | Resultado real | Dónde |
+|---|---|---|---|
+| 1 | 0 filas ajenas en el 100% de los intentos | Cumplido; la prueba corre en cada PR | `rls-isolation.integration.test.ts` |
+| 2 | ≤3 s para ver el error | 2,1 s medidos | Log EDAV, Escenario 2 |
+| 3 | ≤2 s con 200 oportunidades | p95 = 92,62 ms | `experimentos/EXP-001-linea-base/` |
+| 4 | Tests al 100% antes de cada merge | Cumplido; branch protection probada bloqueando un merge real | Log EDAV, Escenario 4 |
+| 5 | <5 min sin pedir ayuda | 3 min 28 s, con una persona real | Log EDAV, Escenario 5 |
+| 6 | ≤2 s con 5.000/1.000 | p95 = 127,16 ms | `experimentos/EXP-002-escalabilidad/` |
+
+### Cifras del texto original que envejecieron
+
+Se dejan a la vista en lugar de corregirlas dentro del texto de la semana 3:
+
+- El Escenario 1 dice *"las 11+ tablas con RLS"*. Al 22/10/2026 son **14 tablas y 40 políticas**, contadas sobre `supabase/migrations/`.
+- Los Escenarios 5 y 6 dicen *"todavía no ejecutada"* y *"no aplica todavía"*. **Ambos se ejecutaron en la semana 4**, con los resultados de la tabla anterior.
 
 ## 6. Escenario seleccionado para semana 4
 
