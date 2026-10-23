@@ -36,6 +36,25 @@ Detalle completo de cada auditoría (clasificación, justificación propia del e
 
 ## Pendientes declarados
 
+### Módulo 5 — dominio e integración (avance del 16/10/2026)
+
+- [Mapa de dominio, límites propuestos y contratos](06-dominio-e-integracion.md).
+- [Spike 1: coordinaciones síncrona y asíncrona](experimentos/spike-01-integracion/README.md),
+  con plan previo, fixture sobre Supabase local, prueba de fallos e idempotencia.
+- [ADR-005 de integración](adrs/ADR-005-integracion-oportunidades-actividades.md),
+  propuesta para revisión; distinto del ADR-003 histórico sobre RLS.
+- [Resultados reales](experimentos/spike-01-integracion/resultados/RESUMEN.md):
+  48 muestras, cinco verificaciones funcionales exitosas, menor tiempo de aceptación
+  asíncrona y mayor tiempo al efecto final en el ensayo controlado. Incluye SHA y CI.
+
+Las propuestas de límites no se presentan como módulos ya extraídos, y el spike no
+activa seguimiento automático en la aplicación desplegada.
+
+La [validación local con Docker Desktop](experimentos/spike-01-integracion/resultados/docker-local-2026-10-16/README.md)
+añade suite NEXUS completa (18/18, incluidas RLS), cuatro controles del spike,
+48 mediciones, compilación y conexión de la app con Auth/PostgREST.
+Se reproduce con `npm run docker:test`; ver [entorno Docker](../docs/docker-local.md).
+
 Campos abiertos a propósito, porque son decisiones de autoría del equipo y no se delegan a la IA. **Los tres pendientes del Módulo 3 quedaron cerrados el 15/09/2026:**
 
 | Dónde | Estado |
@@ -69,7 +88,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 
 ## Trazabilidad Git
 
-Todo el trabajo semanal quedó en Pull Requests contra `main`, revisables en el historial del repo:
+El trabajo histórico se revisó mediante Pull Requests contra `main`. Los avances M5/M6 se subieron a ramas; el usuario indicó no abrir PR ni mezclar en main:
 
 ```bash
 git log --oneline --merges main
@@ -84,3 +103,7 @@ Cada entrega semanal se abre como un Pull Request contra `main`. Desde la semana
 ## Historial
 
 Este dossier vivió originalmente en un repositorio aparte ([`NEXUS-dossier`](https://github.com/santiago1500K/NEXUS-dossier)) y se migró acá para mantener todo en un solo lugar junto con el código. La numeración de archivos (`01-04`) se reestructuró en la semana 4 para alinearse con la nomenclatura del tutor de la cátedra (antes: `01-contexto-sistema.md`, `02-riesgos-drivers.md`, `03-atributos-calidad.md`, `04-escenarios-calidad.md` — contenido preservado en el historial de Git).
+
+## Avance M6 — 17/10/2026
+
+[Distribución y resiliencia](07-distribucion-y-resiliencia.md), [material actualizado](../docs/modulo-6-material-actualizado.md), [crecimiento k6](../experimentos/crecimiento-S11/README.md) y [ADR-006](adrs/ADR-006-distribucion-y-resiliencia.md). Comité y defensa humana pendientes.

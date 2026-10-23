@@ -1,0 +1,109 @@
+{
+  "status": "passed",
+  "startedAt": "2026-10-17T14:11:31.223Z",
+  "sourceCommit": "ed7ff5bb10e083cdf74f462c35084437455727cf",
+  "workingTreeDirty": true,
+  "docker": {
+    "Platform": {
+      "Name": "Docker Desktop 4.95.0 (242831)"
+    },
+    "Version": "29.8.2",
+    "ApiVersion": "1.56",
+    "MinAPIVersion": "1.40",
+    "Os": "linux",
+    "Arch": "amd64",
+    "Components": [
+      {
+        "Name": "Engine",
+        "Version": "29.8.2",
+        "Details": {
+          "ApiVersion": "1.56",
+          "Arch": "amd64",
+          "BuildTime": "Wed Sep 30 19:32:25 2026",
+          "Experimental": "false",
+          "GitCommit": "8af9fe3",
+          "GoVersion": "go1.26.8",
+          "KernelVersion": "6.18.54.1-microsoft-standard-WSL2",
+          "MinAPIVersion": "1.40",
+          "Module": "github.com/moby/moby/v2",
+          "ModuleVersion": "v2.0.0+unknown",
+          "Os": "linux"
+        }
+      },
+      {
+        "Name": "containerd",
+        "Version": "v2.3.6",
+        "Details": {
+          "GitCommit": "ee2735368117d2eb259779949d5e75cdafec9761"
+        }
+      },
+      {
+        "Name": "runc",
+        "Version": "1.5.1",
+        "Details": {
+          "GitCommit": "v1.5.1-0-g8f2685a4"
+        }
+      },
+      {
+        "Name": "docker-init",
+        "Version": "0.19.0",
+        "Details": {
+          "GitCommit": "de40ad0"
+        }
+      }
+    ],
+    "GitCommit": "8af9fe3",
+    "GoVersion": "go1.26.8",
+    "KernelVersion": "6.18.54.1-microsoft-standard-WSL2",
+    "BuildTime": "2026-09-30T19:32:25.000000000+00:00"
+  },
+  "supabaseCli": "2.121.0",
+  "testProject": "nexus-docker-tests",
+  "checks": [
+    {
+      "name": "unitarias-y-rls",
+      "status": "passed"
+    },
+    {
+      "name": "metricas-spike",
+      "status": "passed"
+    },
+    {
+      "name": "spike-integracion",
+      "status": "passed"
+    },
+    {
+      "name": "resiliencia-m6",
+      "status": "passed"
+    },
+    {
+      "name": "fitness-m6",
+      "status": "passed"
+    },
+    {
+      "name": "compilacion",
+      "status": "passed"
+    }
+  ],
+  "imageId": "sha256:940ab97eb2717f40901232ba8456b47d8d5393720682d7797a2c1e110f1e47e6",
+  "vitest": {
+    "passed": 40,
+    "failed": 0,
+    "pending": 0
+  },
+  "spike": {
+    "status": "passed",
+    "samples": 48,
+    "checks": 5,
+    "cleanup": "passed"
+  },
+  "module6": {
+    "status": "passed",
+    "fitness": true,
+    "samples": 1440,
+    "resources": 9,
+    "cleanup": "passed"
+  },
+  "testStackCleanup": "passed",
+  "finishedAt": "2026-10-17T14:13:03.722Z"
+}

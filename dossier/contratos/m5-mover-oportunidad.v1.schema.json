@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Comando experimental de cambio de etapa v1",
+  "description": "Argumentos de m5_spike_move en Supabase local; no es una API productiva nueva.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["p_deal_id", "p_stage_id", "p_mode", "p_event_id"],
+  "properties": {
+    "p_deal_id": { "type": "string", "format": "uuid" },
+    "p_stage_id": { "type": "string", "format": "uuid" },
+    "p_mode": { "enum": ["sync", "async"] },
+    "p_event_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Clave idempotente estable durante reintentos del mismo comando."
+    }
+  }
+}

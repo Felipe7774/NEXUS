@@ -41,6 +41,18 @@ En Windows, crea el archivo `.env` manualmente a partir de `.env.example`.
 
 ## Variables de entorno
 
+Para ejecutar la app y las pruebas con Docker Desktop y Supabase local:
+
+```bash
+npm ci
+npm run docker:up    # App en http://localhost:3000
+npm run docker:test  # Suite, RLS, spike y compilación dentro de Docker
+npm run docker:down  # Detiene desarrollo y conserva sus datos locales
+```
+
+Consulta [el entorno Docker](docs/docker-local.md) para requisitos, aislamiento de
+datos y resultados. No requiere credenciales de Supabase Cloud.
+
 ```env
 VITE_SUPABASE_URL=https://<project-ref>.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_<key>
@@ -89,9 +101,13 @@ supabase/
 docs/                      Documentación del proyecto
 ```
 
-La lógica de acceso a datos está centralizada en `src/lib/crm.ts`. Las pantallas consumen hooks de React Query y los componentes de formularios mantienen las operaciones de creación, edición y eliminación separadas de la capa visual.
+Los hooks públicos de React Query están en `src/lib/crm.ts`; el acceso a datos pertenece a `src/modules/{identity,relationships,sales,followup}/api.ts`, protegido por pruebas de arquitectura. Las pantallas consumen hooks de React Query y los componentes de formularios mantienen las operaciones de creación, edición y eliminación separadas de la capa visual.
 
 La documentación académica de arquitectura está disponible en [docs/Arquitectura en software.docx](docs/Arquitectura%20en%20software.docx).
+
+## Módulo 6
+
+[Entrega y explicación](dossier/07-distribucion-y-resiliencia.md), [crecimiento k6](experimentos/crecimiento-S11/README.md), [matrices](docs/resilience_matrix.md) y [defensa](docs/defensa-modulo-6.md).
 
 ## Despliegue
 

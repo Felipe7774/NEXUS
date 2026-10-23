@@ -1,22 +1,16 @@
-# Registros de Decisión Arquitectónica (ADR)
+# ADRs — movidos a `dossier/adrs/`
 
-Evidencias 1 y 2 del Mini-comité Técnico 1 (Módulo 4, semanas 7-8).
+Esta carpeta ya no contiene ADRs. **Todos viven en [`dossier/adrs/`](../../dossier/adrs/README.md)** desde el 23/10/2026.
 
-| ADR | Decisión | Estado | Veredicto del comité |
-|---|---|---|---|
-| [0001](0001-decision-estilo.md) | Estilo arquitectónico | Borrador | Pendiente |
-| [0002](0002-aislamiento-persistencia.md) | Frontera entre dominio y persistencia | Borrador · depende de 0001 | Pendiente |
+## Por qué
 
-## Estructura obligatoria de cada ADR
+Existían dos juegos de ADR en paralelo, con números que chocaban y contenidos distintos: había dos documentos llamados "ADR 3" y dos llamados "ADR 4". Al consolidar se eliminó la ambigüedad.
 
-1. Contexto y drivers — con los datos empíricos de la Semana 4
-2. Alternativas consideradas — mínimo dos, con punto de sensibilidad ATAM
-3. Decisión — en voz activa: *"Nosotros implementaremos…"*
-4. Consecuencias y trade-offs — atributos ISO/IEC 25010 favorecidos **y degradados**, costo de reversibilidad en horas
-5. Supuestos y condición de revisión — con la métrica exacta que obliga a reabrir el ADR
-6. Mecanismo de gobernanza — regla automatizada en CI, con la ruta del test de control
-7. Veredicto del comité — Confirmed, Adjusted o Reconsidered
+| Archivo que estaba acá | Dónde está ahora |
+|---|---|
+| `0003-integracion-oportunidades-actividades.md` | [`ADR-005-integracion-oportunidades-actividades.md`](../../dossier/adrs/ADR-005-integracion-oportunidades-actividades.md) |
+| `0004-distribucion-y-resiliencia.md` | [`ADR-006-distribucion-y-resiliencia.md`](../../dossier/adrs/ADR-006-distribucion-y-resiliencia.md) |
+| `0001-decision-estilo.md` | Eliminado: era un esqueleto sin completar. La decisión de estilo está en [`ADR-001`](../../dossier/adrs/ADR-001-estilo-en-capas.md) |
+| `0002-aislamiento-persistencia.md` | Eliminado: era un esqueleto sin completar. La frontera de persistencia está en [`ADR-003`](../../dossier/adrs/ADR-003-aislamiento-de-datos-con-rls.md) |
 
-## Qué está precargado y qué no
-
-Los datos que ya existían (mediciones, drivers, restricciones, hechos verificables del código) están cargados en la sección 1 de cada ADR. **Las alternativas, la decisión, los trade-offs y el título son del equipo** y están marcados `[COMPLETAR]`.
+La correspondencia completa con la nomenclatura que pide la cátedra está en el [índice de ADRs](../../dossier/adrs/README.md).

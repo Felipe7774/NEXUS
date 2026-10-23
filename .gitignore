@@ -21,6 +21,10 @@ dist-ssr
 .tanstack/**
 .nitro
 *.local
+.docker/
+artifacts/
+.word-build/
+.nexo-slides-build/
 
 # Wrangler / Cloudflare
 .wrangler/

@@ -1,0 +1,2 @@
+src/routes/auth.tsx(189,11): error TS2322: Type '"email"' is not assignable to type 'Path<T>'.
+src/routes/auth.tsx(202,11): error TS2322: Type '"password"' is not assignable to type 'Path<T>'.
