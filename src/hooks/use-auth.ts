@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 
 import { supabase } from "@/integrations/supabase/client";
+import { readProfile, readRoles } from "@/modules/identity/api";
 import type { Tables } from "@/integrations/supabase/types";
 
 export type AppRole = "admin" | "gerente" | "vendedor";
@@ -34,13 +35,7 @@ export function useProfile() {
     queryKey: ["profile", userId],
     enabled: Boolean(userId),
     queryFn: async (): Promise<Tables<"profiles"> | null> => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", userId!)
-        .maybeSingle();
-      if (error) throw error;
-      return data;
+      return readProfile(userId!);
     },
   });
 }
@@ -53,12 +48,7 @@ export function useRoles() {
     queryKey: ["roles", userId],
     enabled: Boolean(userId),
     queryFn: async (): Promise<AppRole[]> => {
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId!);
-      if (error) throw error;
-      return (data ?? []).map((row) => row.role as AppRole);
+      return readRoles(userId!);
     },
   });
 

@@ -1,0 +1,234 @@
+{
+  "protocol": "docs/apuesta-crecimiento-S11.md; e2dc488",
+  "sourceCommit": "0c4ca72e38b9dbedbb5898c119ea7273fcd17c12",
+  "seconds": 30,
+  "warmupExcluded": true,
+  "levels": [
+    {
+      "vus": 5,
+      "runs": [
+        {
+          "run": "run-1",
+          "p95": 56,
+          "p99": 66,
+          "errorRate": 0,
+          "samples": 1221,
+          "useful": 1221,
+          "usefulPerScheduledSecond": 40.7
+        },
+        {
+          "run": "run-2",
+          "p95": 63,
+          "p99": 82,
+          "errorRate": 0,
+          "samples": 1205,
+          "useful": 1205,
+          "usefulPerScheduledSecond": 40.166666666666664
+        },
+        {
+          "run": "run-3",
+          "p95": 61,
+          "p99": 87.84999999999991,
+          "errorRate": 0,
+          "samples": 1216,
+          "useful": 1216,
+          "usefulPerScheduledSecond": 40.53333333333333
+        }
+      ],
+      "p95": 61,
+      "p99": 82,
+      "errorRate": 0,
+      "usefulPerScheduledSecond": 40.53333333333333,
+      "violations": 0
+    },
+    {
+      "vus": 50,
+      "runs": [
+        {
+          "run": "run-1",
+          "p95": 347,
+          "p99": 3032,
+          "errorRate": 0.015171137835337651,
+          "samples": 5405,
+          "useful": 5323,
+          "usefulPerScheduledSecond": 177.43333333333334
+        },
+        {
+          "run": "run-2",
+          "p95": 254.04999999999927,
+          "p99": 384.21000000000004,
+          "errorRate": 0,
+          "samples": 7380,
+          "useful": 7380,
+          "usefulPerScheduledSecond": 246
+        },
+        {
+          "run": "run-3",
+          "p95": 611.3999999999996,
+          "p99": 2998.16,
+          "errorRate": 0.011190015063481816,
+          "samples": 4647,
+          "useful": 4595,
+          "usefulPerScheduledSecond": 153.16666666666666
+        }
+      ],
+      "p95": 347,
+      "p99": 2998.16,
+      "errorRate": 0.011190015063481816,
+      "usefulPerScheduledSecond": 177.43333333333334,
+      "violations": 2
+    },
+    {
+      "vus": 100,
+      "runs": [
+        {
+          "run": "run-1",
+          "p95": 3000,
+          "p99": 3021,
+          "errorRate": 0.05044136191677175,
+          "samples": 4758,
+          "useful": 4518,
+          "usefulPerScheduledSecond": 150.6
+        },
+        {
+          "run": "run-2",
+          "p95": 3006,
+          "p99": 3230.579999999997,
+          "errorRate": 0.07198342827550493,
+          "samples": 3862,
+          "useful": 3584,
+          "usefulPerScheduledSecond": 119.46666666666667
+        },
+        {
+          "run": "run-3",
+          "p95": 2996,
+          "p99": 3046.0599999999995,
+          "errorRate": 0.05749770009199632,
+          "samples": 4348,
+          "useful": 4098,
+          "usefulPerScheduledSecond": 136.6
+        }
+      ],
+      "p95": 3000,
+      "p99": 3046.0599999999995,
+      "errorRate": 0.05749770009199632,
+      "usefulPerScheduledSecond": 136.6,
+      "violations": 3
+    },
+    {
+      "vus": 150,
+      "runs": [
+        {
+          "run": "run-1",
+          "p95": 3001,
+          "p99": 3019.0600000000004,
+          "errorRate": 0.058923512747875356,
+          "samples": 5295,
+          "useful": 4983,
+          "usefulPerScheduledSecond": 166.1
+        },
+        {
+          "run": "run-2",
+          "p95": 3005,
+          "p99": 3140.7900000000036,
+          "errorRate": 0.09153318077803203,
+          "samples": 4370,
+          "useful": 3970,
+          "usefulPerScheduledSecond": 132.33333333333334
+        },
+        {
+          "run": "run-3",
+          "p95": 3003,
+          "p99": 3037.4799999999996,
+          "errorRate": 0.10454645288820558,
+          "samples": 4553,
+          "useful": 4077,
+          "usefulPerScheduledSecond": 135.9
+        }
+      ],
+      "p95": 3003,
+      "p99": 3037.4799999999996,
+      "errorRate": 0.09153318077803203,
+      "usefulPerScheduledSecond": 135.9,
+      "violations": 3
+    },
+    {
+      "vus": 200,
+      "runs": [
+        {
+          "run": "run-1",
+          "p95": 3034,
+          "p99": 3496.6399999999994,
+          "errorRate": 0.16430834213305173,
+          "samples": 4735,
+          "useful": 3957,
+          "usefulPerScheduledSecond": 131.9
+        },
+        {
+          "run": "run-2",
+          "p95": 3038,
+          "p99": 3256.4799999999996,
+          "errorRate": 0.24043715846994534,
+          "samples": 3843,
+          "useful": 2919,
+          "usefulPerScheduledSecond": 97.3
+        },
+        {
+          "run": "run-3",
+          "p95": 3020.8,
+          "p99": 3475.5200000000004,
+          "errorRate": 0.1430393198724761,
+          "samples": 4705,
+          "useful": 4032,
+          "usefulPerScheduledSecond": 134.4
+        }
+      ],
+      "p95": 3034,
+      "p99": 3475.5200000000004,
+      "errorRate": 0.16430834213305173,
+      "usefulPerScheduledSecond": 131.9,
+      "violations": 3
+    }
+  ],
+  "firstViolation": 50,
+  "predictionVus": 150,
+  "predictionConfirmed": false,
+  "resources": {
+    "nexus-growth-generator": {
+      "maxObservedCpuPercent": 437.83,
+      "lastMemory": "114.4MiB / 7.621GiB",
+      "samples": 180
+    },
+    "supabase_db_nexus-growth-tests": {
+      "maxObservedCpuPercent": 1498.14,
+      "lastMemory": "135.2MiB / 7.621GiB",
+      "samples": 180
+    },
+    "supabase_rest_nexus-growth-tests": {
+      "maxObservedCpuPercent": 834.81,
+      "lastMemory": "156.4MiB / 7.621GiB",
+      "samples": 180
+    },
+    "supabase_kong_nexus-growth-tests": {
+      "maxObservedCpuPercent": 237.51,
+      "lastMemory": "183.2MiB / 7.621GiB",
+      "samples": 180
+    },
+    "supabase_auth_nexus-growth-tests": {
+      "maxObservedCpuPercent": 95.08,
+      "lastMemory": "11.2MiB / 7.621GiB",
+      "samples": 180
+    }
+  },
+  "docker": {
+    "cpus": 16,
+    "memory": 8182984704
+  },
+  "limits": [
+    "Laboratorio local, modelo cerrado; no equivale a capacidad de producción",
+    "CPU y memoria compartidas con el generador y herramientas de desarrollo del mismo host",
+    "No se instrumentaron esperas del pool ni pg_stat_activity; causa exacta no identificada",
+    "Throughput útil dividido por duración programada; graceful stop puede añadir hasta 3 s",
+    "Docker stats son muestras, no picos reales ni prueba suficiente para excluir un límite del generador"
+  ]
+}

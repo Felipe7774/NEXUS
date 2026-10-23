@@ -2,43 +2,8 @@
 import { createMiddleware } from "@tanstack/react-start";
 import { getRequest } from "@tanstack/react-start/server";
 import { createClient } from "@supabase/supabase-js";
+import { createSupabaseFetch } from "@/lib/supabase-fetch";
 import type { Database } from "./types";
-
-function isNewSupabaseApiKey(value: string): boolean {
-  return value.startsWith("sb_publishable_") || value.startsWith("sb_secret_");
-}
-
-// Escenario 2 (dossier/02-escenarios-de-calidad.md): sin este timeout, una caida del
-// proveedor tarda ~11.5s en mostrar error (reintentos con backoff de @supabase/auth-js).
-// Limita cada request a Supabase para que el estado de error aparezca rapido.
-const SUPABASE_FETCH_TIMEOUT_MS = 3000;
-
-function createSupabaseFetch(supabaseKey: string): typeof fetch {
-  return (input, init) => {
-    const headers = new Headers(
-      typeof Request !== "undefined" && input instanceof Request ? input.headers : undefined,
-    );
-
-    if (init?.headers) {
-      new Headers(init.headers).forEach((value, key) => headers.set(key, value));
-    }
-
-    // New Supabase API keys are opaque strings, not bearer JWTs.
-    if (
-      isNewSupabaseApiKey(supabaseKey) &&
-      headers.get("Authorization") === `Bearer ${supabaseKey}`
-    ) {
-      headers.delete("Authorization");
-    }
-
-    headers.set("apikey", supabaseKey);
-
-    const timeoutSignal = AbortSignal.timeout(SUPABASE_FETCH_TIMEOUT_MS);
-    const signal = init?.signal ? AbortSignal.any([init.signal, timeoutSignal]) : timeoutSignal;
-
-    return fetch(input, { ...init, headers, signal });
-  };
-}
 
 export const requireSupabaseAuth = createMiddleware({ type: "function" }).server(
   async ({ next }) => {

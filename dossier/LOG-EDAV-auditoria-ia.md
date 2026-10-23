@@ -1,5 +1,56 @@
 # Log EDAV — Auditoría de contenido generado por IA
 
+## Ampliación M6 — 17/10/2026
+
+El usuario pidió analizar e implementar el módulo y revisar el material añadido
+en AVATA. Codex leyó las fuentes disponibles, propuso hipótesis, implementó el
+breaker, la modularización, los experimentos y esta documentación. La cuenta Git
+identifica quién presenta el avance; no declara autoría humana sin asistencia.
+
+**EDAV 2: clasificación técnica propuesta por la IA, pendiente de auditoría del
+estudiante/equipo.** No se atribuye esta clasificación al comité.
+
+| Propuesta inicial de distribución | Clasificación técnica propuesta | Contraste con evidencia propia |
+| --- | --- | --- |
+| Un microservicio por tabla: empresas, contactos, oportunidades y actividades | Rechazada | Aumentaría contratos y coordinación; el crecimiento local no aisló un cuello que esa separación resolvería. Empresas/contactos comparten responsabilidad en un módulo |
+| Separar Ventas y Seguimiento por HTTP para ganar autonomía | Modificada | Se implementan propietarios y APIs internas primero; conservar FKs y despliegue compartidos exige admitir acoplamiento SQL. No se demostraron equipos/despliegues autónomos necesarios |
+| Extraer notificaciones con outbox y worker | Modificada | Spike M5 muestra aceptación desacoplada, no mejor tiempo al efecto final. Dejar worker como alternativa condicionada a negocio, idempotencia y operación |
+| Contener lecturas fallidas con circuit breaker local | Aceptada técnicamente | EXP-004, 120→5 intentos (95,83% menos); sano sin errores. Ambas variantes fallan durante caída: no se afirma mayor disponibilidad |
+| Predicción de primer incumplimiento a 150 VUs | Rechazada por el resultado | Prerregistro e2dc488; 50 VUs incumple errores en 2/3 corridas. No se altera la predicción después de medir |
+| Afirmar que el pool de PostgreSQL es la causa | Rechazada por falta de evidencia | CPU alta es indicio; faltan métricas de espera y generador separado. No extrapolar la fábula del docente al CRM |
+
+Verificación automatizada: fitness de resiliencia, propiedad de persistencia con
+ArchUnitTS/AST, fixture negativo de ciclos y CRUD/composición con RLS real.
+El CI usa k6 de 3 s como humo; las mediciones conservadas usan 30 s. La defensa,
+los costos reales, la revisión por pares y el mini-comité siguen pendientes.
+
+## Ampliación del Módulo 5 — 16/10/2026
+
+El usuario autorizó en Codex preparar los pendientes del módulo 5 y subir el avance
+desde su cuenta. La herramienta interpretó inicialmente que debía abrir un PR (#34);
+el usuario corrigió esa interpretación y el PR quedó cerrado sin merge. Se usó IA para inspeccionar el flujo real de oportunidades,
+proponer límites de dominio y contratos, implementar un spike aislado y redactar
+documentación. El plan del experimento quedó commiteado en `e348616` antes del
+código y de medir. La autoría Git identifica la cuenta que presenta el cambio;
+no afirma que el texto o la implementación se escribieran sin asistencia.
+
+| Propuesta o afirmación | Estado de auditoría de este avance | Evidencia y límite |
+|---|---|---|
+| El cambio actual de etapa ya crea una tarea automáticamente | Rechazada en la inspección técnica | `useMoveDeal` solo actualiza `deals`; la automatización es propuesta del spike |
+| Cinco contextos lógicos para el CRM | Propuesta para revisión humana | Mapa y símbolos en `06-dominio-e-integracion.md`; no están extraídos como módulos independientes |
+| Incorporar Kafka/RabbitMQ por el ejemplo docente | No adoptada | El laboratorio usa PostgreSQL local y receptor HTTP; no existe necesidad productiva confirmada |
+| Asincronía implica menor tiempo al efecto final | No asumida | Se medirán aceptación y finalización por separado |
+| Un reintento debe generar una sola actividad | Criterio verificable | UUID estable, transacción y prueba de entrega repetida en el spike |
+| El equipo y el comité ya aprobaron la integración | No afirmada | ADR propuesto y rama para revisión; no se inventan participantes ni veredictos |
+
+La corrida real está en `experimentos/spike-01-integracion/resultados/RESUMEN.md`,
+con SHA, condiciones, 48 muestras y cinco verificaciones funcionales exitosas.
+Se conserva el intento inicial fallido por la semilla y su corrección. La menor
+latencia de aceptación no se presenta como una mejora del tiempo al efecto final.
+Esta tabla
+declara la intervención de la herramienta y su verificación técnica; no se presenta
+como una clasificación EDAV realizada personalmente por los tres integrantes.
+
 > Registro honesto de qué contenido del dossier fue delegado a un LLM (Claude, vía Claude Code) y cuál es su estado real de auditoría. Este log existe porque gran parte del contenido de `01-contexto-y-drivers.md` y `02-escenarios-de-calidad.md` fue producido en sesiones de trabajo con IA **antes** de que el equipo tuviera el ciclo EDAV formal (E-D-A-V) documentado por la cátedra. Se declara explícitamente para cumplir con el criterio "Auditoría de IA" de la rúbrica, en vez de ocultarlo.
 
 ## Qué pasó, en orden

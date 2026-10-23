@@ -1,0 +1,352 @@
+{
+  "status": "passed",
+  "protocol": "PLAN.md; preregistro e348616",
+  "startedAt": "2026-10-17T00:46:54.686Z",
+  "sourceCommit": "14307fc14507ff56ad8a4bff1b2463af7dc6d55a",
+  "headCommit": "47dcb1f6ad99f0dcaa84cdb0175ed63ce29eb5b9",
+  "environment": {
+    "node": "v22.23.3",
+    "platform": "linux",
+    "arch": "x64",
+    "cpus": 4,
+    "memoryBytes": 16765374464,
+    "target": "Supabase local en loopback",
+    "receiverDelayMs": 40,
+    "consumerDelayMs": 20,
+    "concurrency": 1,
+    "warmupPerMode": 2,
+    "runsPerMode": 3,
+    "samplesPerRun": 8
+  },
+  "runs": [
+    {
+      "round": 1,
+      "mode": "sync",
+      "samples": [
+        {
+          "ackMs": 51.87874399999998,
+          "completionMs": 51.88352700000007,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 50.81800700000008,
+          "completionMs": 50.82213899999999,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.82641100000001,
+          "completionMs": 49.83036100000004,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 50.78413699999999,
+          "completionMs": 50.78861400000005,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 50.52583200000004,
+          "completionMs": 50.58057000000008,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.83432000000005,
+          "completionMs": 49.84157700000003,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 50.852055000000064,
+          "completionMs": 50.85516000000007,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.67689199999995,
+          "completionMs": 49.680095000000165,
+          "windowMs": 0
+        }
+      ],
+      "elapsedMs": 454.9652279999999
+    },
+    {
+      "round": 1,
+      "mode": "async",
+      "samples": [
+        {
+          "ackMs": 4.49432899999988,
+          "completionMs": 71.83753899999988,
+          "windowMs": 67.34321
+        },
+        {
+          "ackMs": 4.270934000000125,
+          "completionMs": 71.00889700000016,
+          "windowMs": 66.73796300000004
+        },
+        {
+          "ackMs": 4.040548999999828,
+          "completionMs": 69.56739799999991,
+          "windowMs": 65.52684900000008
+        },
+        {
+          "ackMs": 3.96827200000007,
+          "completionMs": 71.56700599999999,
+          "windowMs": 67.59873399999992
+        },
+        {
+          "ackMs": 4.305305999999973,
+          "completionMs": 69.67648099999997,
+          "windowMs": 65.371175
+        },
+        {
+          "ackMs": 4.297160000000076,
+          "completionMs": 70.26282700000002,
+          "windowMs": 65.96566699999994
+        },
+        {
+          "ackMs": 3.9466429999999946,
+          "completionMs": 70.1863380000002,
+          "windowMs": 66.23969500000021
+        },
+        {
+          "ackMs": 4.116366999999855,
+          "completionMs": 70.28118999999992,
+          "windowMs": 66.16482300000007
+        }
+      ],
+      "elapsedMs": 615.2204039999999
+    },
+    {
+      "round": 2,
+      "mode": "async",
+      "samples": [
+        {
+          "ackMs": 3.92445100000009,
+          "completionMs": 70.08493900000008,
+          "windowMs": 66.16048799999999
+        },
+        {
+          "ackMs": 4.129947000000129,
+          "completionMs": 70.26353000000017,
+          "windowMs": 66.13358300000004
+        },
+        {
+          "ackMs": 4.367986999999857,
+          "completionMs": 70.1334589999999,
+          "windowMs": 65.76547200000005
+        },
+        {
+          "ackMs": 3.9611919999999827,
+          "completionMs": 70.21217199999978,
+          "windowMs": 66.2509799999998
+        },
+        {
+          "ackMs": 4.2653150000001006,
+          "completionMs": 70.59603600000037,
+          "windowMs": 66.33072100000027
+        },
+        {
+          "ackMs": 4.127301999999872,
+          "completionMs": 70.00273500000003,
+          "windowMs": 65.87543300000016
+        },
+        {
+          "ackMs": 4.332292000000052,
+          "completionMs": 70.30665500000032,
+          "windowMs": 65.97436300000027
+        },
+        {
+          "ackMs": 4.065759999999955,
+          "completionMs": 70.14443399999982,
+          "windowMs": 66.07867399999986
+        }
+      ],
+      "elapsedMs": 613.7170730000003
+    },
+    {
+      "round": 2,
+      "mode": "sync",
+      "samples": [
+        {
+          "ackMs": 49.237466999999924,
+          "completionMs": 49.23982500000011,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.20346400000017,
+          "completionMs": 49.205907000000025,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 48.47749399999975,
+          "completionMs": 48.48034899999993,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.1244200000001,
+          "completionMs": 49.127488000000085,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 50.99868000000015,
+          "completionMs": 51.00153,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.28181399999994,
+          "completionMs": 49.28451300000006,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.140821000000415,
+          "completionMs": 49.1435290000004,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.13989599999968,
+          "completionMs": 49.14300699999967,
+          "windowMs": 0
+        }
+      ],
+      "elapsedMs": 442.5736200000001
+    },
+    {
+      "round": 3,
+      "mode": "sync",
+      "samples": [
+        {
+          "ackMs": 49.640308000000005,
+          "completionMs": 49.64395800000011,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.07819100000006,
+          "completionMs": 49.08104800000001,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.5290229999996,
+          "completionMs": 49.53249599999981,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 48.16726800000015,
+          "completionMs": 48.169834000000264,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.101582999999664,
+          "completionMs": 49.104379999999765,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.08060599999999,
+          "completionMs": 49.082888999999795,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.4752040000003,
+          "completionMs": 49.478086000000076,
+          "windowMs": 0
+        },
+        {
+          "ackMs": 49.86273799999981,
+          "completionMs": 49.86561299999994,
+          "windowMs": 0
+        }
+      ],
+      "elapsedMs": 439.213984
+    },
+    {
+      "round": 3,
+      "mode": "async",
+      "samples": [
+        {
+          "ackMs": 4.033345000000281,
+          "completionMs": 70.16255600000022,
+          "windowMs": 66.12921099999994
+        },
+        {
+          "ackMs": 4.847180999999637,
+          "completionMs": 71.12022999999999,
+          "windowMs": 66.27304900000036
+        },
+        {
+          "ackMs": 4.254286999999749,
+          "completionMs": 69.22943999999961,
+          "windowMs": 64.97515299999986
+        },
+        {
+          "ackMs": 4.9845540000001165,
+          "completionMs": 71.88808800000015,
+          "windowMs": 66.90353400000004
+        },
+        {
+          "ackMs": 4.477187999999842,
+          "completionMs": 71.21910499999967,
+          "windowMs": 66.74191699999983
+        },
+        {
+          "ackMs": 3.820791999999983,
+          "completionMs": 69.82823199999984,
+          "windowMs": 66.00743999999986
+        },
+        {
+          "ackMs": 4.069981000000098,
+          "completionMs": 70.21633999999995,
+          "windowMs": 66.14635899999985
+        },
+        {
+          "ackMs": 4.087186000000202,
+          "completionMs": 69.1802190000003,
+          "windowMs": 65.0930330000001
+        }
+      ],
+      "elapsedMs": 612.2181809999997
+    }
+  ],
+  "checks": [
+    {
+      "name": "sync: caida, reintento de comando, reinicio y entrega duplicada",
+      "passed": true,
+      "initialStatus": 503,
+      "activityCountAfterDuplicate": 1
+    },
+    {
+      "name": "async: caida, reintento de comando, reinicio y entrega duplicada",
+      "passed": true,
+      "initialStatus": 202,
+      "activityCountAfterDuplicate": 1
+    },
+    {
+      "name": "etapa de otro pipeline: rechazo sin cambio ni evento",
+      "passed": true
+    },
+    {
+      "name": "otro vendedor no mueve la oportunidad, no ve ni entrega eventos",
+      "passed": true
+    },
+    {
+      "name": "triggers reales conservan probabilidad e historial con identidad",
+      "passed": true
+    }
+  ],
+  "summary": {
+    "sync": {
+      "runs": 3,
+      "samples": 24,
+      "medianP95AckMs": 50.99868000000015,
+      "medianP95CompletionMs": 51.00153,
+      "medianP95WindowMs": 0,
+      "medianCompletedOpsPerSecond": 18.076088674241355
+    },
+    "async": {
+      "runs": 3,
+      "samples": 24,
+      "medianP95AckMs": 4.49432899999988,
+      "medianP95CompletionMs": 71.83753899999988,
+      "medianP95WindowMs": 66.90353400000004,
+      "medianCompletedOpsPerSecond": 13.035322548375637
+    }
+  },
+  "hypothesisH1": "confirmada en este entorno controlado",
+  "cleanup": "passed",
+  "finishedAt": "2026-10-17T00:46:59.007Z"
+}

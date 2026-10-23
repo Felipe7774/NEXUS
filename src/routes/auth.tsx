@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type FieldPath, type FieldValues, type UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -131,6 +131,21 @@ function AuthPage() {
               <TabsContent value="login" className="pt-4">
                 <CredentialsForm
                   form={loginForm}
+                  fields={[
+                    {
+                      name: "email",
+                      label: "Correo",
+                      type: "email",
+                      autoComplete: "email",
+                      placeholder: "tu@empresa.com",
+                    },
+                    {
+                      name: "password",
+                      label: "Contraseña",
+                      type: "password",
+                      autoComplete: "current-password",
+                    },
+                  ]}
                   submitLabel="Iniciar sesión"
                   submittingLabel="Ingresando..."
                   onSubmit={onLogin}
@@ -139,7 +154,28 @@ function AuthPage() {
               <TabsContent value="signup" className="pt-4">
                 <CredentialsForm
                   form={signupForm}
-                  includeName
+                  fields={[
+                    {
+                      name: "fullName",
+                      label: "Nombre completo",
+                      type: "text",
+                      autoComplete: "name",
+                      placeholder: "Ana Ramírez",
+                    },
+                    {
+                      name: "email",
+                      label: "Correo",
+                      type: "email",
+                      autoComplete: "email",
+                      placeholder: "tu@empresa.com",
+                    },
+                    {
+                      name: "password",
+                      label: "Contraseña",
+                      type: "password",
+                      autoComplete: "new-password",
+                    },
+                  ]}
                   submitLabel="Crear cuenta"
                   submittingLabel="Creando cuenta..."
                   onSubmit={onSignup}
@@ -153,15 +189,21 @@ function AuthPage() {
   );
 }
 
-function CredentialsForm<T extends z.infer<typeof loginSchema> | z.infer<typeof signupSchema>>({
+function CredentialsForm<T extends FieldValues>({
   form,
-  includeName = false,
+  fields,
   submitLabel,
   submittingLabel,
   onSubmit,
 }: {
-  form: ReturnType<typeof useForm<T>>;
-  includeName?: boolean;
+  form: UseFormReturn<T>;
+  fields: {
+    name: FieldPath<T>;
+    label: string;
+    type: "text" | "email" | "password";
+    autoComplete: string;
+    placeholder?: string;
+  }[];
   submitLabel: string;
   submittingLabel: string;
   onSubmit: (values: T) => Promise<void>;
@@ -169,51 +211,22 @@ function CredentialsForm<T extends z.infer<typeof loginSchema> | z.infer<typeof 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {includeName ? (
+        {fields.map(({ name, label, ...inputProps }) => (
           <FormField
+            key={name}
             control={form.control}
-            name={"fullName" as never}
+            name={name}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nombre completo</FormLabel>
+                <FormLabel>{label}</FormLabel>
                 <FormControl>
-                  <Input autoComplete="name" placeholder="Ana Ramírez" {...field} />
+                  <Input {...inputProps} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        ) : null}
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Correo</FormLabel>
-              <FormControl>
-                <Input type="email" autoComplete="email" placeholder="tu@empresa.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Contraseña</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  autoComplete={includeName ? "new-password" : "current-password"}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        ))}
         <Button type="submit" className="w-full rounded-lg" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? submittingLabel : submitLabel}
         </Button>

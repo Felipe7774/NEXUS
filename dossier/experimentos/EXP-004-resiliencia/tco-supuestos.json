@@ -1,0 +1,92 @@
+{
+  "status": "supuestos de planificación; no cotización ni tiempo trabajado",
+  "horizonMonths": 12,
+  "hourlyRate": null,
+  "currency": null,
+  "commonHostingAndSupabaseCost": "no consultado; común a las alternativas",
+  "formula": "C_comun + R * (H_desarrollo + 12 * (H_operacion_mensual + H_coordinacion_mensual)) + 12 * I",
+  "alternatives": [
+    {
+      "name": "app actual + breaker",
+      "developmentHours": [
+        8,
+        16
+      ],
+      "monthlyOperationsHours": [
+        1,
+        3
+      ],
+      "totalHours12Months": [
+        20,
+        52
+      ],
+      "extraInfrastructureMonthly": 0,
+      "infrastructureAssumption": "sin proceso nuevo; debe validarse con carga y plan contratado",
+      "monthlyCoordinationHours": [
+        0.5,
+        1
+      ],
+      "totalHoursWithCoordination12Months": [
+        26,
+        64
+      ]
+    },
+    {
+      "name": "dos contextos extraídos en servicios",
+      "developmentHours": [
+        80,
+        160
+      ],
+      "monthlyOperationsHours": [
+        8,
+        16
+      ],
+      "totalHours12Months": [
+        176,
+        352
+      ],
+      "extraInfrastructureMonthly": null,
+      "monthlyCoordinationHours": [
+        2,
+        4
+      ],
+      "totalHoursWithCoordination12Months": [
+        200,
+        400
+      ]
+    },
+    {
+      "name": "outbox y worker de seguimiento",
+      "developmentHours": [
+        40,
+        80
+      ],
+      "monthlyOperationsHours": [
+        4,
+        8
+      ],
+      "totalHours12Months": [
+        88,
+        176
+      ],
+      "extraInfrastructureMonthly": null,
+      "monthlyCoordinationHours": [
+        1,
+        2
+      ],
+      "totalHoursWithCoordination12Months": [
+        100,
+        200
+      ]
+    }
+  ],
+  "unmeasured": [
+    "tarifa del equipo",
+    "cargos contratados",
+    "demanda real",
+    "SLA",
+    "volumen de migración",
+    "ahorro monetario"
+  ],
+  "authorship": "estimación propuesta con asistencia de IA, pendiente de validación de Finanzas/equipo"
+}

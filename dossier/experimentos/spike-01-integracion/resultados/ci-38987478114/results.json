@@ -1,0 +1,25 @@
+{
+  "status": "failed",
+  "protocol": "PLAN.md; preregistro e348616",
+  "startedAt": "2026-10-17T00:42:51.056Z",
+  "sourceCommit": "17b1e6a7e35f79b1ae870b1d6096ee07ea155102",
+  "environment": {
+    "node": "v22.23.3",
+    "platform": "linux",
+    "arch": "x64",
+    "cpus": 4,
+    "memoryBytes": 16766414848,
+    "target": "Supabase local en loopback",
+    "receiverDelayMs": 40,
+    "consumerDelayMs": 20,
+    "concurrency": 1,
+    "warmupPerMode": 2,
+    "runsPerMode": 3,
+    "samplesPerRun": 8
+  },
+  "runs": [],
+  "checks": [],
+  "error": "POST /rest/v1/stages: HTTP 400",
+  "cleanup": "passed",
+  "finishedAt": "2026-10-17T00:42:51.370Z"
+}

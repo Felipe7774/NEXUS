@@ -1,0 +1,446 @@
+{
+  "scope": "Muestras esporádicas durante EXP-004; no son pico real ni promedio por variante",
+  "samples": [
+    {
+      "at": "2026-10-17T14:12:28.397Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 90.3MB",
+          "CPUPerc": "176.93%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.53%",
+          "MemUsage": "119.3MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "2.53MB / 9.38MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "12.61%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.27%",
+          "MemUsage": "99.36MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "7.7MB / 1.22MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "3.64%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "0.97%",
+          "MemUsage": "75.62MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "3.27MB / 2.78MB",
+          "PIDs": "51"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.00%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.17%",
+          "MemUsage": "13.33MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "190kB / 158kB",
+          "PIDs": "16"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-17T14:12:31.642Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 90.3MB",
+          "CPUPerc": "0.05%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.52%",
+          "MemUsage": "118.4MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "2.54MB / 9.62MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "0.06%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.27%",
+          "MemUsage": "98.9MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "7.94MB / 1.23MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.13%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "1.08%",
+          "MemUsage": "83.91MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "10.4MB / 9.75MB",
+          "PIDs": "62"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "2.15%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.19%",
+          "MemUsage": "14.76MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "190kB / 158kB",
+          "PIDs": "16"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-17T14:12:34.705Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 90.3MB",
+          "CPUPerc": "63.52%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.52%",
+          "MemUsage": "118.8MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "2.89MB / 17.1MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "2.43%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.29%",
+          "MemUsage": "100.6MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "15.1MB / 1.45MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "4.29%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "1.11%",
+          "MemUsage": "86.42MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "18.1MB / 17.3MB",
+          "PIDs": "65"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.05%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.18%",
+          "MemUsage": "14.04MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "190kB / 158kB",
+          "PIDs": "16"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-17T14:12:37.910Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 90.3MB",
+          "CPUPerc": "2.73%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.52%",
+          "MemUsage": "118.6MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "3.24MB / 24.5MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "0.07%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.30%",
+          "MemUsage": "101.1MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "22.2MB / 1.66MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.56%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "1.12%",
+          "MemUsage": "87.66MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "25.7MB / 24.7MB",
+          "PIDs": "66"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.00%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.18%",
+          "MemUsage": "14.04MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "190kB / 158kB",
+          "PIDs": "16"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-17T14:12:41.131Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 90.8MB",
+          "CPUPerc": "0.05%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.55%",
+          "MemUsage": "121.3MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "3.59MB / 31.8MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "3.42%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.31%",
+          "MemUsage": "102.2MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "29.2MB / 1.87MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.19%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "1.14%",
+          "MemUsage": "89.05MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "33.3MB / 32.1MB",
+          "PIDs": "67"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "2.06%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.19%",
+          "MemUsage": "14.44MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "190kB / 158kB",
+          "PIDs": "16"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-17T14:12:44.195Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 90.8MB",
+          "CPUPerc": "9.40%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.55%",
+          "MemUsage": "120.8MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "3.6MB / 32MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "0.42%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.31%",
+          "MemUsage": "102.6MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "29.3MB / 1.88MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "1.42%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "1.10%",
+          "MemUsage": "85.67MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "33.4MB / 32.2MB",
+          "PIDs": "67"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.00%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.18%",
+          "MemUsage": "14.36MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "190kB / 158kB",
+          "PIDs": "16"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-17T14:12:47.231Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 90.8MB",
+          "CPUPerc": "0.06%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.55%",
+          "MemUsage": "121MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "3.94MB / 39.3MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "0.05%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.34%",
+          "MemUsage": "104.3MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "36.4MB / 2.09MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.75%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "1.12%",
+          "MemUsage": "87.48MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "41MB / 39.6MB",
+          "PIDs": "69"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.04%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.18%",
+          "MemUsage": "14.11MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "190kB / 158kB",
+          "PIDs": "16"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-17T14:12:50.428Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 90.9MB",
+          "CPUPerc": "135.50%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.55%",
+          "MemUsage": "121.1MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "4.16MB / 44MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "4.90%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.34%",
+          "MemUsage": "104.9MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "40.8MB / 2.23MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.67%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "1.10%",
+          "MemUsage": "86.01MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "41MB / 39.6MB",
+          "PIDs": "69"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.00%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.17%",
+          "MemUsage": "13.48MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "190kB / 158kB",
+          "PIDs": "16"
+        }
+      ]
+    },
+    {
+      "at": "2026-10-17T14:12:53.480Z",
+      "containers": [
+        {
+          "BlockIO": "81.9kB / 92.1MB",
+          "CPUPerc": "15.47%",
+          "Container": "supabase_db_nexus-docker-tests",
+          "ID": "7b76e2befd45",
+          "MemPerc": "1.55%",
+          "MemUsage": "120.8MiB / 7.621GiB",
+          "Name": "supabase_db_nexus-docker-tests",
+          "NetIO": "4.34MB / 48.2MB",
+          "PIDs": "16"
+        },
+        {
+          "BlockIO": "0B / 86kB",
+          "CPUPerc": "0.90%",
+          "Container": "supabase_kong_nexus-docker-tests",
+          "ID": "0d60fb9e4d98",
+          "MemPerc": "1.34%",
+          "MemUsage": "104.3MiB / 7.621GiB",
+          "Name": "supabase_kong_nexus-docker-tests",
+          "NetIO": "44.9MB / 2.34MB",
+          "PIDs": "2"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "1.59%",
+          "Container": "supabase_rest_nexus-docker-tests",
+          "ID": "b682ead50c90",
+          "MemPerc": "1.15%",
+          "MemUsage": "89.67MiB / 7.621GiB",
+          "Name": "supabase_rest_nexus-docker-tests",
+          "NetIO": "50.1MB / 48.5MB",
+          "PIDs": "70"
+        },
+        {
+          "BlockIO": "0B / 0B",
+          "CPUPerc": "0.59%",
+          "Container": "supabase_auth_nexus-docker-tests",
+          "ID": "5555b605b748",
+          "MemPerc": "0.17%",
+          "MemUsage": "13.27MiB / 7.621GiB",
+          "Name": "supabase_auth_nexus-docker-tests",
+          "NetIO": "199kB / 162kB",
+          "PIDs": "16"
+        }
+      ]
+    }
+  ]
+}

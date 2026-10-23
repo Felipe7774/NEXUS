@@ -5,6 +5,7 @@
 | Evidencia | Qué permite demostrar | Ubicación | Commit o trazabilidad disponible |
 |---|---|---|---|
 | Pruebas unitarias | Comportamiento de utilidades y formato cubierto por Vitest. | `src/lib/*.test.ts`; `package.json` | CI en `.github/workflows/ci.yml` |
+| Spike 1 de integración | Coordinación síncrona/diferida entre cambio de etapa y tarea de seguimiento propuesta; fallos, aislamiento e idempotencia. | `experimentos/spike-01-integracion/` | Plan `e348616`, código `47dcb1f`, ejecución CI `38987811793`; límites y JSON en `resultados/RESUMEN.md` |
 | Prueba RLS | Aislamiento entre dos usuarios en una instancia local de Supabase. | `src/integrations/supabase/rls-isolation.integration.test.ts` | Escenario 1, `LOG-EDAV-auditoria-ia.md` |
 | Línea base de rendimiento | Resultado k6 bajo semilla y condiciones registradas. | `experimentos/EXP-001-linea-base/` | Escenario 3, `04-evidencia-ejecutable.md` |
 | Escalabilidad | Resultado k6 con semilla ampliada y condiciones registradas. | `experimentos/EXP-002-escalabilidad/` | Escenario 6, `LOG-EDAV-auditoria-ia.md` |
@@ -43,3 +44,7 @@
 - Supabase Auth y una consulta anónima protegida por RLS deben responder HTTP 200.
 - No exponer ni registrar `SUPABASE_SERVICE_ROLE_KEY` en el repositorio, el bundle del navegador o las evidencias.
 - Resultado observado el 18/09/2026: verificación satisfactoria. Email Auth habilitado; Google Auth deshabilitado por decisión/configuración vigente del equipo.
+
+## Módulo 6 — 17/10/2026
+
+Ver [dossier 07](07-distribucion-y-resiliencia.md). Se incorporan EXP-004, crecimiento S11, matrices, propiedad de persistencia/ArchUnitTS y ADR 0004. Veredicto técnico propuesto; comité humano pendiente.

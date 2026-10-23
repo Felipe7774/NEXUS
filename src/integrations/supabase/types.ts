@@ -763,6 +763,9 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      soft_delete_company: { Args: { _id: string }; Returns: boolean };
+      soft_delete_contact: { Args: { _id: string }; Returns: boolean };
+      soft_delete_deal: { Args: { _id: string }; Returns: boolean };
       can_access_owner: { Args: { _owner: string }; Returns: boolean };
       has_role: {
         Args: {

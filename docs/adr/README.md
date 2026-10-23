@@ -20,3 +20,7 @@ Evidencias 1 y 2 del Mini-comité Técnico 1 (Módulo 4, semanas 7-8).
 ## Qué está precargado y qué no
 
 Los datos que ya existían (mediciones, drivers, restricciones, hechos verificables del código) están cargados en la sección 1 de cada ADR. **Las alternativas, la decisión, los trade-offs y el título son del equipo** y están marcados `[COMPLETAR]`.
+
+## Módulo 6 — 17/10/2026
+
+Ver [dossier 07](../../dossier/07-distribucion-y-resiliencia.md). Se incorporan EXP-004, crecimiento S11, matrices, propiedad de persistencia/ArchUnitTS y ADR 0004. Veredicto técnico propuesto; comité humano pendiente.

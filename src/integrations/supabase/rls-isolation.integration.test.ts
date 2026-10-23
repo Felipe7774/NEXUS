@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { Database } from "./types";
 
 // Prueba de integracion real contra Postgres (via `npx supabase start` local).
@@ -18,6 +18,8 @@ const hasLocalStack = Boolean(SUPABASE_URL && ANON_KEY && SERVICE_ROLE_KEY);
 const describeIfLocalStack = hasLocalStack ? describe : describe.skip;
 
 describeIfLocalStack("RLS: aislamiento entre usuarios (Escenario 1)", () => {
+  let admin: ReturnType<typeof createClient<Database>> | undefined;
+  const createdUsers: string[] = [];
   let userAId: string;
   let userBId: string;
   let userAClient: ReturnType<typeof createClient<Database>>;
@@ -25,7 +27,17 @@ describeIfLocalStack("RLS: aislamiento entre usuarios (Escenario 1)", () => {
   let companyAId: string;
 
   beforeAll(async () => {
-    const admin = createClient<Database>(SUPABASE_URL!, SERVICE_ROLE_KEY!);
+    const target = new URL(SUPABASE_URL!);
+    if (
+      target.protocol !== "http:" ||
+      !["localhost", "127.0.0.1", "[::1]"].includes(target.hostname) ||
+      target.username ||
+      target.password ||
+      target.search ||
+      target.hash
+    )
+      throw new Error("Las pruebas RLS solo admiten un Supabase local en loopback");
+    admin = createClient<Database>(SUPABASE_URL!, SERVICE_ROLE_KEY!);
     const suffix = Date.now();
     const passwordA = `TestPass-A-${suffix}!`;
     const passwordB = `TestPass-B-${suffix}!`;
@@ -37,6 +49,7 @@ describeIfLocalStack("RLS: aislamiento entre usuarios (Escenario 1)", () => {
     });
     if (errA || !userA.user) throw new Error(`No se pudo crear usuario A: ${errA?.message}`);
     userAId = userA.user.id;
+    createdUsers.push(userAId);
 
     const { data: userB, error: errB } = await admin.auth.admin.createUser({
       email: `rls-test-b-${suffix}@nexo.invalid`,
@@ -45,6 +58,7 @@ describeIfLocalStack("RLS: aislamiento entre usuarios (Escenario 1)", () => {
     });
     if (errB || !userB.user) throw new Error(`No se pudo crear usuario B: ${errB?.message}`);
     userBId = userB.user.id;
+    createdUsers.push(userBId);
 
     userAClient = createClient<Database>(SUPABASE_URL!, ANON_KEY!);
     const { error: signInAErr } = await userAClient.auth.signInWithPassword({
@@ -65,9 +79,25 @@ describeIfLocalStack("RLS: aislamiento entre usuarios (Escenario 1)", () => {
       .insert({ name: `Empresa privada de A ${suffix}`, owner_id: userAId })
       .select("id")
       .single();
-    if (companyErr || !company) throw new Error(`No se pudo crear la company de A: ${companyErr?.message}`);
+    if (companyErr || !company)
+      throw new Error(`No se pudo crear la company de A: ${companyErr?.message}`);
     companyAId = company.id;
-  });
+  }, 30000);
+
+  afterAll(async () => {
+    if (!admin) return;
+    if (companyAId) {
+      const { error } = await admin.from("companies").delete().eq("id", companyAId);
+      if (error) throw new Error(`No se pudo limpiar la empresa sintética: ${error.message}`);
+    }
+    for (const id of createdUsers) {
+      const roles = await admin.from("user_roles").delete().eq("user_id", id);
+      const profile = await admin.from("profiles").delete().eq("id", id);
+      const auth = await admin.auth.admin.deleteUser(id);
+      if (roles.error || profile.error || auth.error)
+        throw new Error("Falló la limpieza del usuario sintético RLS");
+    }
+  }, 30000);
 
   it("el dueño puede ver su propia empresa", async () => {
     const { data, error } = await userAClient.from("companies").select("id").eq("id", companyAId);

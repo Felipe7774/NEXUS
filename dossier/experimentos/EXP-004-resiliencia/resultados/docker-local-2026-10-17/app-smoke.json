@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-10-17T14:14:16.817Z",
+  "sourceCommit": "ed7ff5bb10e083cdf74f462c35084437455727cf",
+  "workingTreeDirty": true,
+  "page": {
+    "url": "http://127.0.0.1:3000/auth",
+    "status": 200
+  },
+  "containerToSupabase": [
+    {
+      "path": "/auth/v1/health",
+      "status": 200
+    },
+    {
+      "path": "/rest/v1/companies?select=id&limit=0",
+      "status": 200
+    }
+  ]
+}
