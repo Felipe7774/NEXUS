@@ -37,6 +37,8 @@
 
 > **Advertencia de método.** Ya pasó antes en este dossier: en los Escenarios 2 y 4 se escribió "Válido" mientras la justificación decía "parcialmente cumplido", y hubo que corregirlo. En varias filas de abajo conviene **separar el hecho verificable de la interpretación que la IA montó encima** — suele ser ahí donde está la clasificación correcta.
 
+> **Decisión del equipo.** Las clasificaciones y acciones siguientes fueron aprobadas por el equipo a partir de la evidencia citada. No atribuyen las decisiones arquitectónicas a la IA: registran el resultado de auditar sus afirmaciones frente al sistema real.
+
 ---
 
 ## Fila 1 — Elección de estilo (recomendación final)
@@ -58,9 +60,9 @@
 
 **La pregunta real:** ¿una propuesta que no se auditó y que después resultó coincidir es Válida, o es Genérica porque en su momento no aportó evidencia que la sostuviera?
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Válido**
+**Justificación del equipo:** La recomendación coincide con la solución que hoy existe: una partición por dominio dentro de una única unidad de despliegue, documentada en ADR-007 y protegida por pruebas de fronteras. Es válida por el resultado observable actual, no porque la propuesta de septiembre haya sido la fuente de la decisión ni porque la IA haya sido "la autora" del diseño.
+**Acción correctiva:** Conservar la decisión y su evidencia independiente (spike, PR #35, ADR-007 y fitness functions); no atribuir la decisión al texto de la IA.
 
 ---
 
@@ -80,9 +82,9 @@
 
 La IA **no estimó ese costo a partir de este código**: tomó una cifra de un ejemplo genérico en una unidad —"clases"— que acá no existe. Es el patrón que el propio material llama *"alucinación de IA"*.
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Modificado**
+**Justificación del equipo:** Es correcto que no hay medición que demuestre que el acoplamiento a Supabase justifique migrar a Hexagonal hoy. Sin embargo, el costo de "~14 clases nuevas por módulo" no proviene del código TypeScript de Nexus: es una extrapolación de un ejemplo Java/Spring y usa una unidad que el repositorio no tiene.
+**Acción correctiva:** Mantener el descarte condicionado y reemplazar la cifra por un spike propio si se reabre la alternativa: archivos, funciones, contratos, pruebas y horas reales que requeriría aislar un módulo de Supabase.
 
 ---
 
@@ -94,9 +96,9 @@ La IA **no estimó ese costo a partir de este código**: tomó una cifra de un e
 
 **La tensión:** el argumento es correcto, pero ¿aporta algo específico de **este** sistema, o es la observación obvia de que no se adopta un estilo que resuelve un problema que no se tiene? Ahí se juega entre `Válido` y `Genérico`.
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Válido**
+**Justificación del equipo:** El descarte está vinculado a datos concretos de Nexus: ninguno de los drivers o riesgos priorizados demanda plug-ins de terceros, extensiones por cliente o variabilidad de reglas. Por ello Microkernel no responde a una necesidad actual del sistema.
+**Acción correctiva:** Mantener el descarte explícitamente acotado al alcance actual y reabrirlo solo si aparece un driver verificable de extensibilidad por cliente, territorio o terceros.
 
 ---
 
@@ -108,9 +110,9 @@ La IA **no estimó ese costo a partir de este código**: tomó una cifra de un e
 
 **La tensión, igual que la anterior:** descartar un estilo por incompatibilidad de forma es correcto, pero es casi una definición, no un hallazgo. Y conviene mirar un matiz: el spike del Módulo 5 evaluó **coordinación diferida** con un patrón outbox, que sí tiene algo de flujo. ¿Eso cambia la lectura?
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Modificado**
+**Justificación del equipo:** Es cierto que el núcleo del sistema es CRUD transaccional con RLS y no un ETL o una cadena de transformaciones. Pero el análisis debe reconocer que el spike del Módulo 5 evaluó coordinación diferida mediante outbox; eso no convierte a Nexus en Pipes & Filters, pero evita tratar cualquier flujo diferido como inexistente.
+**Acción correctiva:** Conservar el descarte para el CRUD principal y documentar que un outbox/evento diferido, si se adopta, se evalúa como integración asíncrona y no como prueba automática de que Pipes & Filters sea el estilo del sistema.
 
 ---
 
@@ -124,9 +126,9 @@ La IA **no estimó ese costo a partir de este código**: tomó una cifra de un e
 
 **Dato a favor del equipo:** `14-plan-evolucion.md` ya declara por su cuenta que *"no se presupone que microservicios sean necesarios hoy"*, con criterio propio.
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Modificado**
+**Justificación del equipo:** La conclusión es compatible con la evidencia propia: equipo de tres personas, 6–8 horas semanales, una unidad de despliegue y mediciones dentro del umbral no justifican distribuir el sistema. Pero la advertencia usada como fundamento procede del caso de apertura de la cátedra y no de una medición de Nexus; debe reforzarse con los datos del proyecto, no presentarse como demostración suficiente por sí sola.
+**Acción correctiva:** Mantener el monolito y registrar criterios medibles de reapertura: necesidad de despliegue independiente, cuello de botella por módulo o capacidad que no pueda resolverse con optimización dentro del monolito.
 
 ---
 
@@ -148,9 +150,9 @@ La cita dice *"p95 real"*, pero su propia documentación dice que es un piso en 
 
 **Un supuesto que nadie enunció:** los estilos comparados organizan **el código de la app**; lo medido es el costo de la consulta a Postgres con RLS. Cambiar de estilo no toca ese camino. La conclusión puede ser correcta **por una razón más fuerte que la que da la cita**.
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Modificado**
+**Justificación del equipo:** Los resultados k6 respaldan que, bajo las condiciones medidas, no hay señal de que el rendimiento exija cambiar de estilo: p95 de 92.62 ms y 127.16 ms, y una repetición de 64.45 ms. Pero no son un "p95 real" de experiencia de usuario: miden PostgREST local, localhost y cinco VUs. Además, cambiar el estilo de la aplicación no modifica por sí solo la consulta PostgreSQL/RLS medida.
+**Acción correctiva:** Reescribir la afirmación con el alcance exacto de k6 y, si rendimiento pasa a ser un driver, medir el flujo navegador–producción con carga y red representativas antes de atribuir el problema al estilo.
 
 ---
 
@@ -170,9 +172,9 @@ La cita dice *"p95 real"*, pero su propia documentación dice que es un piso en 
 
 **Dato nuevo que refuerza la fila:** el 23/10 volvió a pasar lo mismo con **otro proveedor** — no se pudo leer el log de Vercel porque la cuenta la administra un solo integrante. R3 no está cerrado, se mudó.
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Modificado**
+**Justificación del equipo:** Ninguno de los estilos internos por sí solo evita que un proyecto Supabase se borre, así que esa parte se sostiene. La frase es incompleta al llamar el riesgo solamente organizacional: las migraciones facilitaron reconstruir el esquema, la ausencia de respaldo impidió recuperar los datos y la configuración repartida en Supabase/Vercel aumentó la recuperación. El acceso de un solo integrante a Vercel confirma que el riesgo socio-técnico sigue abierto.
+**Acción correctiva:** Tratar R3 como riesgo socio-técnico: probar respaldo/restauración, documentar responsables y acceso administrativo de Supabase/Vercel, y centralizar/inventariar configuraciones y variables necesarias para recuperar el entorno.
 
 ---
 
@@ -186,9 +188,9 @@ La cita dice *"p95 real"*, pero su propia documentación dice que es un piso en 
 
 **Lo que cambió:** hoy `crm.ts` tiene **216 líneas** y es la capa de composición; el acceso por dominio vive en `src/modules/`. El diagnóstico describía un problema que **el equipo efectivamente resolvió**, aunque por su cuenta.
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Modificado**
+**Justificación del equipo:** El hecho histórico era correcto en septiembre: seis entidades y acceso a datos concentrados en un `crm.ts` de 419 líneas. Sin embargo, "cohesión comunicacional" es una interpretación discutible, no una medición; también podía describirse como una capa con una responsabilidad definida. Hoy el diagnóstico quedó superado: `crm.ts` tiene 216 líneas, compone datos y los accesos viven en módulos de dominio.
+**Acción correctiva:** Conservarlo como hallazgo histórico y actualizar la documentación para que el estado actual sea la partición por dominio y la composición; no usar la etiqueta de cohesión como hecho comprobado.
 
 ---
 
@@ -202,9 +204,9 @@ La cita dice *"p95 real"*, pero su propia documentación dice que es un piso en 
 
 **El contraargumento que la cita no considera:** los estilos no se diferencian en *si* hay RLS, pero sí en **qué tan fácil es hacer cumplir una frontera**. La fitness function se apoya en una convención de nombre (`*.server.ts`): si alguien renombra el archivo, la regla se debilita. En hexagonal, esa frontera estaría en la estructura.
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Modificado**
+**Justificación del equipo:** RLS sigue viviendo en PostgreSQL y no depende del estilo, por lo que esa parte es válida. Pero ya no es cierto que ningún control atienda R1: existe una fitness function para `service_role`. También importa cómo el estilo permite hacer cumplir fronteras; la regla actual depende parcialmente de la convención `*.server.ts`, mientras una estructura de puertos/adaptadores podría reforzarla.
+**Acción correctiva:** Actualizar la afirmación con el control existente, auditar de forma trazable las 40 políticas RLS y endurecer la frontera de `service_role` para que no dependa solo del nombre de archivo.
 
 ---
 
@@ -226,9 +228,26 @@ La cita dice *"p95 real"*, pero su propia documentación dice que es un piso en 
 
 Al mismo tiempo, se hizo en dos días y salió bien, así que "bajo" no era descabellado como orden de magnitud.
 
-**Clasificación:** `[  ]`
-**Justificación del equipo:** `[  ]`
-**Acción correctiva:** `[  ]`
+**Clasificación:** **Modificado**
+**Justificación del equipo:** La comparación real sostiene que la modularización fue viable en dos días, por lo que un costo bajo es defendible como orden de magnitud para este alcance. Sin embargo, no fue solo "reorganizar código": el commit `e5e6a80` registra +1.810/−378 líneas en 17 archivos, nueve archivos nuevos y pruebas de gobernanza que la estimación omitía.
+**Acción correctiva:** Sustituir la estimación genérica por el costo observado (dos días, 17 archivos, +1.810/−378 líneas) y separar en cualquier estimación futura la migración funcional de las pruebas y reglas de gobernanza.
+
+## Registro de deliberación del equipo
+
+> Completar únicamente con desacuerdos que hayan ocurrido. Si una fila se aprueba sin desacuerdo, anotar "sin desacuerdo registrado"; no inventar debate para cumplir una plantilla.
+
+| Fila | Posiciones consideradas | Decisión final y responsables | Evidencia adicional o condición acordada |
+|---|---|---|---|
+| 1 | Sin desacuerdo registrado | Aprobada: Válido | No atribuir la decisión a la IA; respaldarla con ADR-007 y PR #35. |
+| 2 | Sin desacuerdo registrado | Aprobada: Modificado | El costo de Hexagonal exige un spike TypeScript propio si se reabre. |
+| 3 | Sin desacuerdo registrado | Aprobada: Válido | Reabrir solo ante un driver verificable de extensibilidad. |
+| 4 | Sin desacuerdo registrado | Aprobada: Modificado | Diferenciar outbox de adoptar Pipes & Filters. |
+| 5 | Sin desacuerdo registrado | Aprobada: Modificado | Definir métricas de reapertura para distribución. |
+| 6 | Sin desacuerdo registrado | Aprobada: Modificado | Reportar k6 con su alcance acotado. |
+| 7 | Sin desacuerdo registrado | Aprobada: Modificado | Gestionar R3 como riesgo socio-técnico. |
+| 8 | Sin desacuerdo registrado | Aprobada: Modificado | Tratar el diagnóstico como histórico y describir el estado actual. |
+| 9 | Sin desacuerdo registrado | Aprobada: Modificado | Mantener la fitness function y auditar RLS. |
+| 10 | Sin desacuerdo registrado | Aprobada: Modificado | Usar el costo real observado en estimaciones posteriores. |
 
 ---
 
