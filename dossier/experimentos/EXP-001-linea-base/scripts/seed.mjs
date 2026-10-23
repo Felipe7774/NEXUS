@@ -121,7 +121,10 @@ async function main() {
     coldStageIds,
     hotDealCount: hotDealIds.length,
     coldDealCount: coldDealIds.length,
-    userJwt: signIn.session.access_token,
+    // El JWT no se persiste: este archivo se versiona en Git y un token real
+    // quedaria en el historial para siempre. Se escribe un marcador y el token
+    // vive solo en memoria durante la corrida.
+    userJwt: "<redacted-test-token>",
   };
   writeFileSync(new URL("../resultados/seed-output.json", import.meta.url), JSON.stringify(output, null, 2));
   console.log("Listo. Resumen escrito en resultados/seed-output.json");
