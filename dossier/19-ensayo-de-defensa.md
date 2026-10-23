@@ -6,7 +6,7 @@
 >
 > **Ninguna respuesta de acá se memoriza.** Se practican en voz alta hasta que salga el reflejo de citar la evidencia. Una respuesta recitada se cae en la segunda repregunta, que es exactamente lo que la rúbrica mide.
 
-## Las cinco reglas que salieron del ensayo
+## Las siete reglas que salieron del ensayo
 
 **1. Nombrá el límite antes de que te lo nombren.**
 Cuando uno declara la limitación, es riguroso. Cuando se la encuentran, es descuidado. El dato es el mismo. Este dossier tiene casi todos sus límites declarados por escrito — hay que saberlos de memoria y decirlos primero.
@@ -22,6 +22,12 @@ Cuando el comité señala un hueco, hay que admitir **el hueco exacto**, no uno 
 
 **5. Nunca afirmes nada que tu propio repositorio pueda desmentir.**
 Antes de responder sobre el proceso, preguntate si hay un comando que te contradiga. El dossier publica el comando para auditarse: es su mayor fortaleza y, si se dice algo inexacto, el arma con la que lo desarman.
+
+**6. No inventes controles retroactivos.**
+Si el control fue automático, decí que fue automático. Afirmar un control humano que no dejó rastro es peor que admitir que no lo hubo, porque convierte un trade-off defendible en una afirmación no verificable.
+
+**7. Cuando puedas demostrarlo en vivo, demostralo.**
+Un comando ejecutado delante del comité cierra una discusión que diez minutos de explicación no cierran.
 
 ---
 
@@ -192,6 +198,64 @@ Y la propia declaración dice que la IA actuó como *"ejecutora técnica: suite 
 4. **El escenario del archivo nuevo ya está cubierto por otro control.** `persistence-fitness.test.ts` recorre **todos los archivos de producción**, no solo los de cliente, y verifica que toda consulta respete al propietario y sus JOINs. Un archivo nuevo con una consulta sin filtro de propiedad falla el CI, se llame como se llame.
 
 **Lo que de verdad queda afuera, y conviene decirlo:** una consulta que respete la propiedad pero exponga un campo que no debería. Eso no lo detecta una regla estructural; requiere revisión humana. Es un hueco real y no está cerrado.
+
+---
+
+## Pregunta 8 — Diez PRs sin una sola revisión
+
+> *"Su dossier presenta el flujo de Pull Requests como evidencia de mantenibilidad. Revisé los últimos diez: en los diez, el autor y quien mergeó son la misma persona, y hay **cero revisiones aprobadas**. Y buena parte de ese contenido fue asistido por IA. ¿Qué control humano tuvo este trabajo antes de llegar a `main`?"*
+
+**Por qué duele:** es verificable con un comando y el dato es exacto.
+
+### La respuesta que hay que evitar
+
+Decir que los tres integrantes estuvieron presentes durante los merges, aunque sea cierto. Tres problemas:
+
+1. **No deja rastro.** Ocurrió fuera del repositorio y no hay forma de verificarlo. El comité lo trata como lo que es: una afirmación posterior sin evidencia.
+2. **Roza la regla propia del equipo.** `16-declaracion-uso-ia.md` dice: *"No declarar como evidencia histórica contenido creado después de una medición."*
+3. **Co-presencia no es revisión.** Una revisión deja rastro: un comentario, una objeción, un cambio pedido. Si todos estuvieron de acuerdo todo el tiempo, hubo acompañamiento, no control.
+
+Si hubo trabajo conjunto, se declara como lo que fue: *"trabajamos sobre un mismo equipo, pero no lo registramos y no lo voy a presentar como revisión por pares, porque no lo fue"*.
+
+### La respuesta que sí aguanta
+
+El control existió, pero **no fue humano**, y eso es verificable:
+
+| Control | Evidencia |
+|---|---|
+| Ningún PR entra sin `unit-tests` ni `rls-integration-test` | Protección de rama activa |
+| La protección está **probada en vivo** | Se subió un test roto a propósito y GitHub bloqueó el merge |
+| Tres fitness functions desde septiembre | Frontera del cliente privilegiado, propiedad de tablas y ausencia de ciclos — **todas probadas rompiéndolas adrede** |
+
+**El cierre que gana la pregunta es nombrar el costo:**
+
+> *"En un equipo de tres con seis horas semanales decidimos poner el control en la automatización y no en la revisión cruzada. Es un trade-off, y tiene un costo real: lo que la automatización no mira, nadie lo miró."*
+
+---
+
+## Pregunta 9 — El entregable que apareció dos días antes
+
+> *"Los seis escenarios de calidad —su entregable de la semana 3— no estaban en el dossier hasta hace dos días. Aparecieron el 23 de octubre, en un PR. ¿Cómo sé que no los escribieron ahora?"*
+
+**Por qué duele:** el hecho es cierto y la sospecha es razonable.
+
+**Respuesta débil:** *"El historial lo prueba, están desde agosto."* — Correcta, pero es la conclusión sin la prueba. Invita al *"pruébemelo"*.
+
+**Esta es la única pregunta del ensayo que se puede demostrar en vivo, en diez segundos:**
+
+```bash
+git show e168fbbb | grep "Medida de respuesta"
+```
+
+Ese blob es `dossier/03-atributos-calidad.md` tal como estaba en agosto, con los seis escenarios completos. Se perdieron del documento visible en el commit `27668e2`, al reestructurar el dossier para alinearlo con la nomenclatura de la cátedra: quedó una lista de títulos y una nota remitiendo al histórico.
+
+**Verificado el 23/10/2026:** el texto restaurado es **idéntico al de agosto — 36 líneas, sin una sola diferencia**.
+
+### El argumento que cierra la pregunta
+
+> *"Los dejamos sin tocar a propósito. El Escenario 1 todavía dice 'las 11+ tablas con RLS' y hoy son catorce. Esa cifra envejecida es la prueba de que es el texto de agosto y no uno escrito ahora: un texto redactado hoy diría catorce. Lo que cambió después está en una tabla aparte."*
+
+**La cifra desactualizada, que parecería un descuido, es justamente lo que demuestra autenticidad.**
 
 ---
 
