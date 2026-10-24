@@ -108,10 +108,23 @@ está en dossier 07 §7.1. Son supuestos comparativos; no multiplicadores medido
 
 ## Mini-comité 2
 
-Preparados resultados, matrices y argumentos por rol en el
-[dossier M6](../../dossier/07-distribucion-y-resiliencia.md#9-mini-comité-2-material-listo-sesión-humana-pendiente).
-Fecha, asistentes, preguntas, observaciones y decisión colegiada están pendientes.
-El equipo debe registrar si **confirma, ajusta o reconsidera** esta decisión
-técnica. No se inventan votos ni una aprobación para cerrar el documento.
+**Celebrado el 23/10/2026** con los tres integrantes. Acta completa, con las doce
+preguntas por rol y las observaciones registradas, en
+[`25-acta-mini-comite-2.md`](../25-acta-mini-comite-2.md). Material de respaldo en el
+[dossier M6](../../dossier/07-distribucion-y-resiliencia.md#9-mini-comité-2-celebrado-el-23102026).
 
-**La agenda y el acta en blanco están en [`25-acta-mini-comite-2.md`](../25-acta-mini-comite-2.md)**, con los datos que cada rol debe interrogar ya verificados. Al celebrar la sesión, reemplazar este párrafo por el veredicto y enlazar el acta.
+**Veredicto del comité: CONFIRMADA.** Mantener una sola unidad de despliegue cuesta
+1 a 4 semanas de capacidad del equipo contra 8 a 22 de extraer dos contextos, y la
+necesidad de separar no se demostró.
+
+La decisión se confirma **con una condición de revisión que antes no existía**: se
+evaluará extraer un contexto cuando, en una ventana de 8 semanas con un mínimo de
+6 commits sobre `src/modules/`, más del 40% toque más de un módulo. **No es
+disparador la carga**: el quiebre medido está en PostgreSQL y separar la aplicación
+no separa la base de datos.
+
+Decisiones asociadas: `deal_stage_history` pasa a ser propiedad de `sales`; el
+cooldown de 1.000 ms se acepta con el límite de no haber medido cuántas lecturas
+legítimas rechaza; y el SLO comprometido es `p95 < 2.000 ms` con error `< 1%`
+acotado a 5 VUs, con la capacidad de medición declarada como pendiente del plan de
+observabilidad del Módulo 7.

@@ -260,7 +260,7 @@ una cadena sin corrección disponible hacia `braces` (DoS por patrones anidados)
 estas reglas solo procesan patrones constantes del repositorio, no entrada externa.
 También hay alertas previas del stack. No se declara una auditoría de seguridad completa.
 
-## 9. Mini-comité 2: material listo; sesión humana pendiente
+## 9. Mini-comité 2: celebrado el 23/10/2026
 
 | Rol de revisión | Pregunta y posición técnica para discutir                                                      | Información pendiente de decisión humana                            |
 | --------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
@@ -269,12 +269,12 @@ También hay alertas previas del stack. No se declara una auditoría de segurida
 | Finanzas        | El modelo permite cotizar esfuerzo e infraestructura por alternativa                           | Proporcionar `R`, costos actuales, demanda y costos incrementales   |
 | Operaciones     | Hay reproducción Docker, errores explícitos y fitness automático                               | Validar tolerancia al cooldown y definir operación/SLO del módulo 7 |
 
-Acta: **fecha, asistentes, preguntas, observaciones y veredicto del comité aún no
-registrados**. No se asignan votos a Carlos, Felipe o Santiago ni se inventa una
-reunión. La agenda con los datos verificados por rol y el acta en blanco están en
-[`25-acta-mini-comite-2.md`](25-acta-mini-comite-2.md).
-Al celebrarla, adjuntar el acta y actualizar el ADR como confirmada,
-ajustada o reconsiderada según su veredicto real.
+Acta: **celebrada el 23/10/2026** con los tres integrantes, repartidos en los cuatro
+roles de la tabla. Las doce preguntas, las decisiones, las observaciones registradas y
+el veredicto están en [`25-acta-mini-comite-2.md`](25-acta-mini-comite-2.md).
+**Veredicto: CONFIRMADA**, con una condición de revisión por costo de coordinación
+que antes no existía. El [`ADR-006`](adrs/ADR-006-distribucion-y-resiliencia.md) quedó
+actualizado.
 
 ## 10. Fuentes y límites
 

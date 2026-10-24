@@ -94,7 +94,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 - [`22-cqrs-y-consistencia-eventual.md`](22-cqrs-y-consistencia-eventual.md) — semana 10: qué hay de CQRS y consistencia eventual, con los datos ya medidos y la evaluación por completar.
 - [`23-comparacion-de-estilos.md`](23-comparacion-de-estilos.md) — semana 7: tres estilos candidatos contra los cinco drivers, con la evidencia cargada y las calificaciones por completar.
 - [`24-matriz-stride.md`](24-matriz-stride.md) — Módulo 7: superficie de ataque y controles verificados por categoría STRIDE, con el modelado por completar.
-- [`25-acta-mini-comite-2.md`](25-acta-mini-comite-2.md) — Módulo 6: agenda con los datos por rol y acta en blanco. **La sesión no se ha celebrado.**
+- [`25-acta-mini-comite-2.md`](25-acta-mini-comite-2.md) — Módulo 6: acta del mini-comité 2, **celebrado el 23/10/2026**. Doce decisiones por rol y veredicto del `ADR-006`.
 
 ## Trazabilidad Git
 
