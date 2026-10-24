@@ -113,3 +113,5 @@ Preparados resultados, matrices y argumentos por rol en el
 Fecha, asistentes, preguntas, observaciones y decisión colegiada están pendientes.
 El equipo debe registrar si **confirma, ajusta o reconsidera** esta decisión
 técnica. No se inventan votos ni una aprobación para cerrar el documento.
+
+**La agenda y el acta en blanco están en [`25-acta-mini-comite-2.md`](../25-acta-mini-comite-2.md)**, con los datos que cada rol debe interrogar ya verificados. Al celebrar la sesión, reemplazar este párrafo por el veredicto y enlazar el acta.

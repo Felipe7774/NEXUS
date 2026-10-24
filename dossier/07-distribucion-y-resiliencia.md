@@ -271,7 +271,9 @@ También hay alertas previas del stack. No se declara una auditoría de segurida
 
 Acta: **fecha, asistentes, preguntas, observaciones y veredicto del comité aún no
 registrados**. No se asignan votos a Carlos, Felipe o Santiago ni se inventa una
-reunión. Al celebrarla, adjuntar el acta y actualizar el ADR como confirmada,
+reunión. La agenda con los datos verificados por rol y el acta en blanco están en
+[`25-acta-mini-comite-2.md`](25-acta-mini-comite-2.md).
+Al celebrarla, adjuntar el acta y actualizar el ADR como confirmada,
 ajustada o reconsiderada según su veredicto real.
 
 ## 10. Fuentes y límites
