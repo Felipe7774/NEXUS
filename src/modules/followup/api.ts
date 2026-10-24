@@ -49,3 +49,10 @@ export const deleteActivity = async (id: string) => {
   const { error } = await supabase.from("activities").delete().eq("id", id);
   if (error) throw error;
 };
+
+// DEMOSTRACION DELIBERADA - NO MERGEAR. Viola la propiedad de datos: followup
+// no es dueno de companies. La fitness function debe rechazar esto en CI.
+export const violacionDeliberada = async () => {
+  const { data } = await supabase.from("companies").select("id");
+  return data;
+};
