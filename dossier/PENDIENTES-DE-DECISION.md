@@ -11,6 +11,7 @@
 | # | Qué falta | Dónde se escribe | Peso |
 |---|---|---|---|
 | 1 | Clasificar las 10 filas de la Matriz de Control EDAV | Issue #29 → este documento | **Alto** |
+| 1b | Confirmar la lista corta y calificar 3 estilos × 5 drivers | `23-comparacion-de-estilos.md` | **Alto** |
 | 2 | Decisión, alternativas y trade-offs del `ADR-007` | `adrs/ADR-007-particion-por-dominio.md` | **Alto** |
 | 3 | Alternativas, reversibilidad y costo en los ADR 001-004 | `adrs/ADR-00{1,2,3,4}-*.md` | **Alto** |
 | 4 | Validar la clasificación de atributos | `13-evaluacion-arquitectonica.md` | Medio |
