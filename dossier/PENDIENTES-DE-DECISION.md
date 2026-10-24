@@ -17,7 +17,7 @@
 | 5 | Aprobar el plan de evolución | `14-plan-evolucion.md` | Medio |
 | 6 | Completar 3 filas de la sección B | `16-declaracion-uso-ia.md` | Medio |
 | 7 | Confirmar 4 columnas en borrador | `modeloc4-nivel.md` | Bajo |
-| 8 | Evaluar aplicabilidad de CQRS | sin archivo todavía | Bajo |
+| 8 | Evaluar aplicabilidad de CQRS | `22-cqrs-y-consistencia-eventual.md` | Bajo |
 | 9 | Revisión cruzada con otro equipo | Issue #30 | Externo |
 | 10 | **Módulo 7 completo**: STRIDE, observabilidad, despliegue y ADR | `21-seguridad-y-operacion.md` | **Alto** |
 
@@ -273,7 +273,9 @@ Faltan: Módulo 6, documentos 12-17, y el documento 18 con su rama `codex/`.
 
 # 8. Evaluar la aplicabilidad de CQRS
 
-Ítem de la semana 10 que ningún documento cubre. Lo más cercano es la comparación síncrono/diferido del spike, que es evidencia útil pero no el análisis que pide el ítem.
+[`22-cqrs-y-consistencia-eventual.md`](22-cqrs-y-consistencia-eventual.md) — el insumo ya está levantado: qué existe hoy, qué no, y los datos del spike y de S11 que sirven para decidir. Falta **calificar los seis criterios y firmar el veredicto**.
+
+Dos cosas conviene mirarlas antes de calificar, porque desarman el argumento más obvio: la asimetría entre lecturas y escrituras **nunca se midió** —el script de carga no escribe nada— y el costo de composición que introdujo la modularización tampoco.
 
 # 9. Revisión cruzada con otro equipo
 

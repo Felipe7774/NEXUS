@@ -91,6 +91,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 - [`18-evidencia-participacion-carlos-correa.md`](18-evidencia-participacion-carlos-correa.md) — participación individual verificada contra el historial.
 - [`20-evidencia-participacion-santiago-roman.md`](20-evidencia-participacion-santiago-roman.md) — participación individual, con la normalización de identidad en `.mailmap`.
 - [`21-seguridad-y-operacion.md`](21-seguridad-y-operacion.md) — Módulo 7: inventario de controles verificados, brecha de detección y plantillas de STRIDE, observabilidad y riesgos operativos.
+- [`22-cqrs-y-consistencia-eventual.md`](22-cqrs-y-consistencia-eventual.md) — semana 10: qué hay de CQRS y consistencia eventual, con los datos ya medidos y la evaluación por completar.
 
 ## Trazabilidad Git
 
