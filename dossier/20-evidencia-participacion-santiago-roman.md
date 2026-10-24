@@ -30,7 +30,7 @@ Comprobación:
 git log --format="%aN" main | sort | uniq -c | sort -rn
 ```
 
-Devuelve **86 commits** bajo una sola identidad, en lugar de 51 + 35 repartidos.
+Al momento de la auditoría devolvía **86 commits** bajo una sola identidad, en lugar de 51 + 35 repartidos. **Al cierre del 23/10/2026 son 95**, porque el trabajo del día siguió sumando. La tabla de arriba es la foto que justificó el `.mailmap`; el comando es la cifra vigente.
 
 ## 2. Decisiones arquitectónicas tomadas por este integrante
 
@@ -65,7 +65,7 @@ Además de decidir, este integrante condujo auditorías que encontraron problema
 
 Esta sección debe declarar con qué asistencia se produjo el trabajo de arriba, en coherencia con [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md).
 
-Dato objetivo para partir: al 23/10/2026, de los 86 commits de esta identidad, **19 llevan el trailer `Co-Authored-By: Claude`**. Se listan con:
+Dato objetivo para partir: al cierre del 23/10/2026, de los **95** commits de esta identidad, **25 llevan el trailer `Co-Authored-By: Claude`**. Se listan con:
 
 ```bash
 git log --grep="Co-Authored-By: Claude" -i --format="%h  %s" main
