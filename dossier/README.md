@@ -92,6 +92,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 - [`20-evidencia-participacion-santiago-roman.md`](20-evidencia-participacion-santiago-roman.md) — participación individual, con la normalización de identidad en `.mailmap`.
 - [`21-seguridad-y-operacion.md`](21-seguridad-y-operacion.md) — Módulo 7: inventario de controles verificados, brecha de detección y plantillas de STRIDE, observabilidad y riesgos operativos.
 - [`22-cqrs-y-consistencia-eventual.md`](22-cqrs-y-consistencia-eventual.md) — semana 10: qué hay de CQRS y consistencia eventual, con los datos ya medidos y la evaluación por completar.
+- [`23-comparacion-de-estilos.md`](23-comparacion-de-estilos.md) — semana 7: tres estilos candidatos contra los cinco drivers, con la evidencia cargada y las calificaciones por completar.
 
 ## Trazabilidad Git
 
@@ -117,7 +118,7 @@ Los nombres de archivo del equipo no coinciden con los que nombran las láminas.
 
 | Nombre en el curso | Archivo en este dossier |
 |---|---|
-| `08-decision-estilo-arquitectonico.md` | [`adrs/ADR-001-estilo-en-capas.md`](adrs/ADR-001-estilo-en-capas.md) |
+| `08-decision-estilo-arquitectonico.md` | [`adrs/ADR-001-estilo-en-capas.md`](adrs/ADR-001-estilo-en-capas.md) — la comparación de candidatos que pide la semana 7 está en [`23-comparacion-de-estilos.md`](23-comparacion-de-estilos.md) |
 | `09-api-eventos-integracion.md` | [`06-dominio-e-integracion.md`](06-dominio-e-integracion.md) |
 | ADR 3 (módulo 5) | [`adrs/ADR-005-integracion-oportunidades-actividades.md`](adrs/ADR-005-integracion-oportunidades-actividades.md) |
 | ADR 4 (módulo 6) | [`adrs/ADR-006-distribucion-y-resiliencia.md`](adrs/ADR-006-distribucion-y-resiliencia.md) |
