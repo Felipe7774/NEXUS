@@ -93,6 +93,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 - [`21-seguridad-y-operacion.md`](21-seguridad-y-operacion.md) — Módulo 7: inventario de controles verificados, brecha de detección y plantillas de STRIDE, observabilidad y riesgos operativos.
 - [`22-cqrs-y-consistencia-eventual.md`](22-cqrs-y-consistencia-eventual.md) — semana 10: qué hay de CQRS y consistencia eventual, con los datos ya medidos y la evaluación por completar.
 - [`23-comparacion-de-estilos.md`](23-comparacion-de-estilos.md) — semana 7: tres estilos candidatos contra los cinco drivers, con la evidencia cargada y las calificaciones por completar.
+- [`24-matriz-stride.md`](24-matriz-stride.md) — Módulo 7: superficie de ataque y controles verificados por categoría STRIDE, con el modelado por completar.
 
 ## Trazabilidad Git
 
