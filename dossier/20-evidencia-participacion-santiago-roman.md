@@ -30,7 +30,9 @@ Comprobación:
 git log --format="%aN" main | sort | uniq -c | sort -rn
 ```
 
-Al momento de la auditoría devolvía **86 commits** bajo una sola identidad, en lugar de 51 + 35 repartidos. **Al cierre del 23/10/2026 son 95**, porque el trabajo del día siguió sumando. La tabla de arriba es la foto que justificó el `.mailmap`; el comando es la cifra vigente.
+Devuelve **una sola identidad** donde antes había dos, que es lo que el `.mailmap` tenía que arreglar y lo único que esta comprobación necesita demostrar.
+
+La tabla de arriba —51 + 35— es la foto del 23/10/2026 que justificó el cambio, y como describe un estado pasado no envejece. **El total vigente no se escribe acá**: crece con cada commit y lo da el comando. Ver la nota de método en [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md#cómo-auditar-esta-declaración).
 
 ## 2. Decisiones arquitectónicas tomadas por este integrante
 
@@ -65,10 +67,16 @@ Además de decidir, este integrante condujo auditorías que encontraron problema
 
 Esta sección debe declarar con qué asistencia se produjo el trabajo de arriba, en coherencia con [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md).
 
-Dato objetivo para partir: al cierre del 23/10/2026, de los **95** commits de esta identidad, **25 llevan el trailer `Co-Authored-By: Claude`**. Se listan con:
+Dato objetivo para partir, sin cifra fija por la razón explicada en el documento 16. La proporción de commits de **esta identidad** que llevan el trailer `Co-Authored-By: Claude`:
 
 ```bash
-git log --grep="Co-Authored-By: Claude" -i --format="%h  %s" main
+echo "asistidos: $(git log --use-mailmap --author=santiago1500K --grep="Co-Authored-By: Claude" -i --oneline main | wc -l) de $(git log --use-mailmap --author=santiago1500K --oneline main | wc -l)"
+```
+
+Y para leerlos uno por uno:
+
+```bash
+git log --use-mailmap --author=santiago1500K --grep="Co-Authored-By: Claude" -i --format="%h %ad %s" --date=short main
 ```
 
 > La distinción que sostiene el dossier no es código contra documentación, sino **decisiones contra implementación**: la implementación y la documentación fueron asistidas y son verificables por tests; las decisiones de la sección 2 son del integrante.
