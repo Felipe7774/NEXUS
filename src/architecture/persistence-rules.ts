@@ -8,6 +8,9 @@ export const owners: Record<string, string> = {
   deals: "sales",
   pipelines: "sales",
   stages: "sales",
+  // Solo tiene GRANT SELECT: el trigger deals_stage_history es el unico que escribe.
+  // Asignada en el mini-comite 2 del 23/10/2026 (dossier/25-acta-mini-comite-2.md).
+  deal_stage_history: "sales",
   activities: "followup",
 };
 const rpcOwners: Record<string, string> = {

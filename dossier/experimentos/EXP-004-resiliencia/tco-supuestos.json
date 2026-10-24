@@ -29,6 +29,10 @@
       "totalHoursWithCoordination12Months": [
         26,
         64
+      ],
+      "teamWeeks12Months": [
+        1.1,
+        3.6
       ]
     },
     {
@@ -53,6 +57,10 @@
       "totalHoursWithCoordination12Months": [
         200,
         400
+      ],
+      "teamWeeks12Months": [
+        8.3,
+        22.2
       ]
     },
     {
@@ -77,6 +85,10 @@
       "totalHoursWithCoordination12Months": [
         100,
         200
+      ],
+      "teamWeeks12Months": [
+        4.2,
+        11.1
       ]
     }
   ],
@@ -88,5 +100,18 @@
     "volumen de migración",
     "ahorro monetario"
   ],
-  "authorship": "estimación propuesta con asistencia de IA, pendiente de validación de Finanzas/equipo"
+  "authorship": "estimación propuesta con asistencia de IA, pendiente de validación de Finanzas/equipo",
+  "hourlyRateRationale": "Se mantiene en null por decision del mini-comite 2 del 23/10/2026: el equipo no factura horas, de modo que una tarifa de mercado seria un supuesto inventado. El costo se expresa en semanas de capacidad del equipo.",
+  "teamCapacity": {
+    "people": 3,
+    "hoursPerPersonPerWeek": [
+      6,
+      8
+    ],
+    "totalHoursPerWeek": [
+      18,
+      24
+    ],
+    "note": "Capacidad declarada en dossier/01-contexto-y-drivers.md; las semanas se derivan dividiendo totalHours12Months entre este rango."
+  }
 }

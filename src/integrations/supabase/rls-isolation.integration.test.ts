@@ -4,7 +4,11 @@ import type { Database } from "./types";
 
 // Prueba de integracion real contra Postgres (via `npx supabase start` local).
 // Verifica el Escenario 1 (Seguridad) de dossier/02-escenarios-de-calidad.md:
-// un usuario autenticado no puede leer companies/contacts de otro usuario.
+// un usuario autenticado no puede leer datos de negocio de otro usuario.
+//
+// Alcance acordado en el mini-comite 2 del 23/10/2026 (dossier/25-acta-mini-comite-2.md,
+// respuesta 4): las cuatro tablas con datos de negocio por dueno. Antes cubria solo
+// companies, y el riesgo R4 declaraba ese hueco.
 //
 // Requiere el stack local de Supabase corriendo. Se salta automaticamente
 // si SUPABASE_URL_TEST no esta configurada (no bloquea `npm test` en CI
@@ -25,6 +29,9 @@ describeIfLocalStack("RLS: aislamiento entre usuarios (Escenario 1)", () => {
   let userAClient: ReturnType<typeof createClient<Database>>;
   let userBClient: ReturnType<typeof createClient<Database>>;
   let companyAId: string;
+  let contactAId: string;
+  let dealAId: string;
+  let activityAId: string;
 
   beforeAll(async () => {
     const target = new URL(SUPABASE_URL!);
@@ -82,10 +89,69 @@ describeIfLocalStack("RLS: aislamiento entre usuarios (Escenario 1)", () => {
     if (companyErr || !company)
       throw new Error(`No se pudo crear la company de A: ${companyErr?.message}`);
     companyAId = company.id;
+
+    const { data: contact, error: contactErr } = await userAClient
+      .from("contacts")
+      .insert({ first_name: "Contacto", last_name: `privado de A ${suffix}`, owner_id: userAId })
+      .select("id")
+      .single();
+    if (contactErr || !contact)
+      throw new Error(`No se pudo crear el contact de A: ${contactErr?.message}`);
+    contactAId = contact.id;
+
+    // El pipeline y las etapas vienen sembrados por migracion y son legibles por
+    // cualquier autenticado (pipelines_select/stages_select con USING (true)).
+    const { data: stage, error: stageErr } = await userAClient
+      .from("stages")
+      .select("id, pipeline_id")
+      .order("position")
+      .limit(1)
+      .single();
+    if (stageErr || !stage) throw new Error(`No se pudo leer la etapa semilla: ${stageErr?.message}`);
+
+    const { data: deal, error: dealErr } = await userAClient
+      .from("deals")
+      .insert({
+        title: `Oportunidad privada de A ${suffix}`,
+        pipeline_id: stage.pipeline_id,
+        stage_id: stage.id,
+        owner_id: userAId,
+      })
+      .select("id")
+      .single();
+    if (dealErr || !deal) throw new Error(`No se pudo crear el deal de A: ${dealErr?.message}`);
+    dealAId = deal.id;
+
+    const { data: activity, error: activityErr } = await userAClient
+      .from("activities")
+      .insert({
+        type: "tarea",
+        subject: `Actividad privada de A ${suffix}`,
+        assigned_to: userAId,
+        created_by: userAId,
+      })
+      .select("id")
+      .single();
+    if (activityErr || !activity)
+      throw new Error(`No se pudo crear la activity de A: ${activityErr?.message}`);
+    activityAId = activity.id;
   }, 30000);
 
   afterAll(async () => {
     if (!admin) return;
+    // Orden inverso a las dependencias: actividad, oportunidad, contacto, empresa.
+    if (activityAId) {
+      const { error } = await admin.from("activities").delete().eq("id", activityAId);
+      if (error) throw new Error(`No se pudo limpiar la actividad sintética: ${error.message}`);
+    }
+    if (dealAId) {
+      const { error } = await admin.from("deals").delete().eq("id", dealAId);
+      if (error) throw new Error(`No se pudo limpiar la oportunidad sintética: ${error.message}`);
+    }
+    if (contactAId) {
+      const { error } = await admin.from("contacts").delete().eq("id", contactAId);
+      if (error) throw new Error(`No se pudo limpiar el contacto sintético: ${error.message}`);
+    }
     if (companyAId) {
       const { error } = await admin.from("companies").delete().eq("id", companyAId);
       if (error) throw new Error(`No se pudo limpiar la empresa sintética: ${error.message}`);
@@ -107,6 +173,42 @@ describeIfLocalStack("RLS: aislamiento entre usuarios (Escenario 1)", () => {
 
   it("otro usuario autenticado NO puede ver la empresa ajena (RLS)", async () => {
     const { data, error } = await userBClient.from("companies").select("id").eq("id", companyAId);
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("el dueño puede ver su propio contacto", async () => {
+    const { data, error } = await userAClient.from("contacts").select("id").eq("id", contactAId);
+    expect(error).toBeNull();
+    expect(data).toHaveLength(1);
+  });
+
+  it("otro usuario autenticado NO puede ver el contacto ajeno (RLS)", async () => {
+    const { data, error } = await userBClient.from("contacts").select("id").eq("id", contactAId);
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("el dueño puede ver su propia oportunidad", async () => {
+    const { data, error } = await userAClient.from("deals").select("id").eq("id", dealAId);
+    expect(error).toBeNull();
+    expect(data).toHaveLength(1);
+  });
+
+  it("otro usuario autenticado NO puede ver la oportunidad ajena (RLS)", async () => {
+    const { data, error } = await userBClient.from("deals").select("id").eq("id", dealAId);
+    expect(error).toBeNull();
+    expect(data).toEqual([]);
+  });
+
+  it("el asignado puede ver su propia actividad", async () => {
+    const { data, error } = await userAClient.from("activities").select("id").eq("id", activityAId);
+    expect(error).toBeNull();
+    expect(data).toHaveLength(1);
+  });
+
+  it("otro usuario autenticado NO puede ver la actividad ajena (RLS)", async () => {
+    const { data, error } = await userBClient.from("activities").select("id").eq("id", activityAId);
     expect(error).toBeNull();
     expect(data).toEqual([]);
   });
