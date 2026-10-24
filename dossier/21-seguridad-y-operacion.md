@@ -44,9 +44,19 @@ Esto es lo que hay **hoy en el código**, con su punto de aplicación y cómo se
 | **Timeout de lectura** | 3.000 ms por request a Supabase | `supabase-fetch.ts` |
 | **Circuit breaker** | Abre tras **3 fallos**, enfría **1.000 ms** | `read-circuit-breaker.test.ts` |
 | **Captura de errores fuera de banda** | Recupera el stack que h3 descarta en un 500 genérico | `error-capture.ts` |
+| **Traza de auditoría del cambio de etapa** | Trigger `deals_stage_history` → tabla `deal_stage_history`, con `changed_by` hacia `profiles` y RLS activa | Migración inicial; verificado el 23/10/2026 |
 | **Puerta de integración** | Ningún merge sin `unit-tests` ni `rls-integration-test` | Branch protection, probada en vivo bloqueando un merge |
 
 > **Cuatro de estos controles se probaron rompiéndolos a propósito.** Es la diferencia entre un control declarado y uno verificado, y conviene decirlo en la defensa.
+
+### Superficie realmente alcanzable
+
+Hallazgo de la auditoría del 23/10/2026, que acota la superficie de ataque mejor que cualquier declaración: de las **14 tablas**, solo **8 tienen dueño declarado** en `src/architecture/persistence-rules.ts`. Como la fitness function trata cualquier `.from()` fuera de `src/modules/*/api.ts` como violación, las otras seis —`deal_stage_history`, `tags`, `taggables`, `stakeholders`, `stakeholder_relationships` y `client_documents`— **no se pueden consultar desde el código sin romper el CI**, y de hecho ninguna se consulta.
+
+La lectura correcta tiene dos caras y conviene dar las dos:
+
+- **A favor:** reduce la superficie de ataque de la aplicación a 8 tablas. Las otras seis quedan protegidas por RLS *y* por una barrera estática.
+- **En contra:** `stakeholders` se agregó como entregable en la semana 3 y hoy es **esquema sin consumidor**. No es un riesgo de seguridad, pero sí una inconsistencia entre lo entregado y lo usado.
 
 ## 3. Lo que NO existe — brecha de detección
 
@@ -58,6 +68,7 @@ Esto es lo que hay **hoy en el código**, con su punto de aplicación y cómo se
 | Alertas | **No existe** |
 | SLO definidos | **No existe** |
 | Runbooks | **No existe** |
+| Auditoría de acciones de usuario | **Parcial.** Solo el cambio de etapa queda registrado, y **ninguna parte de la aplicación lee esa tabla** |
 | Monitoreo de disponibilidad del proveedor | **No existe** — el incidente de septiembre lo demuestra |
 
 **Consecuencia directa y comprobada:** los dos incidentes reales del proyecto se detectaron por aviso humano, no por el sistema.
@@ -81,7 +92,7 @@ El modelado de amenazas es trabajo del equipo. Abajo quedan la estructura y los 
 
 **Pistas de dónde hay evidencia real para apoyarse, sin que esto sustituya el análisis:**
 
-- *Repudio* es la categoría más descubierta: no hay auditoría de quién hizo qué, porque no hay logs estructurados.
+- *Repudio* es la categoría más descubierta, pero **no está vacía, como afirmaba la primera versión de este documento**. El trigger `deals_stage_history` registra quién movió qué oportunidad, de qué etapa a cuál y cuándo. Lo que falta es alcance y uso: cubre **solo** el cambio de etapa, la aplicación **nunca la lee**, y el resto de las acciones no deja rastro. Exponer esa traza es probablemente la mitigación más barata de todo el módulo, porque el dato ya se está escribiendo.
 - *Elevación* tiene el control más fuerte y verificado: la frontera de `service_role`, con tres capas.
 - *Denegación* tiene controles parciales medidos: timeout de 3 s y circuit breaker, pero **no se midió** el comportamiento del sistema bajo ataque, solo bajo carga.
 - *Divulgación* tiene RLS, pero el hueco declarado es que **las 40 políticas nunca se auditaron una por una** (riesgo R4).

@@ -36,7 +36,7 @@ no afirma que el texto o la implementación se escribieran sin asistencia.
 
 | Propuesta o afirmación | Estado de auditoría de este avance | Evidencia y límite |
 |---|---|---|
-| El cambio actual de etapa ya crea una tarea automáticamente | Rechazada en la inspección técnica | `useMoveDeal` solo actualiza `deals`; la automatización es propuesta del spike |
+| El cambio actual de etapa ya crea una tarea automáticamente | Rechazada en la inspección técnica | `useMoveDeal` no crea ninguna actividad: escribe únicamente en `deals`. **Precisión agregada el 23/10/2026:** el cambio sí tiene un efecto en otra tabla, pero por trigger de base de datos, no por la aplicación — `deals_stage_history` inserta en `deal_stage_history`. Eso es traza de auditoría, no una tarea. La automatización sigue siendo propuesta del spike |
 | Cinco contextos lógicos para el CRM | Propuesta para revisión humana | Mapa y símbolos en `06-dominio-e-integracion.md`; no están extraídos como módulos independientes |
 | Incorporar Kafka/RabbitMQ por el ejemplo docente | No adoptada | El laboratorio usa PostgreSQL local y receptor HTTP; no existe necesidad productiva confirmada |
 | Asincronía implica menor tiempo al efecto final | No asumida | Se medirán aceptación y finalización por separado |
