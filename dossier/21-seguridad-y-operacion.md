@@ -79,6 +79,8 @@ La lectura correcta tiene dos caras y conviene dar las dos:
 
 El modelado de amenazas es trabajo del equipo. Abajo quedan la estructura y los activos ya inventariados; **la identificación, la priorización y la aceptación de riesgo residual son decisiones propias**.
 
+> **La matriz desarrollada vive en [`24-matriz-stride.md`](24-matriz-stride.md)**, con la superficie y los controles verificados desglosados por categoría. La tabla de abajo es el resumen; esa es la hoja de trabajo.
+
 > **Advertencia de método de la propia lámina:** *"la existencia de autenticación no cierra por sí sola todas las categorías de amenaza"*. Conviene no marcar una categoría como cubierta solo porque hay login.
 
 | Categoría STRIDE | Amenaza concreta sobre un activo | Prioridad | Control que aplica | Dónde se verifica | Riesgo residual |

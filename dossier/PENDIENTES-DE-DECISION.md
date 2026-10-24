@@ -20,7 +20,7 @@
 | 7 | Confirmar 4 columnas en borrador | `modeloc4-nivel.md` | Bajo |
 | 8 | Evaluar aplicabilidad de CQRS | `22-cqrs-y-consistencia-eventual.md` | Bajo |
 | 9 | Revisión cruzada con otro equipo | Issue #30 | Externo |
-| 10 | **Módulo 7 completo**: STRIDE, observabilidad, despliegue y ADR | `21-seguridad-y-operacion.md` | **Alto** |
+| 10 | **Módulo 7**: STRIDE, observabilidad, despliegue y ADR | `21-seguridad-y-operacion.md` y `24-matriz-stride.md` | **Alto** |
 
 ---
 
