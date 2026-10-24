@@ -14,7 +14,15 @@ Los commits producidos con asistencia de IA en sesiones de Claude Code llevan el
 git log --grep="Co-Authored-By: Claude" -i --format="%h  %s" main
 ```
 
-Al cierre del 23/10/2026 devuelve **25 commits** sobre un total de 133 en `main`. La cifra creció durante el propio día —de 19 a 25— así que **conviene correr el comando en vez de confiar en este número**; si en la defensa no coinciden, el comando es la fuente de verdad y esta línea es una foto. Ninguno toca lógica de negocio: son documentación, pruebas y una actualización de dependencia por seguridad.
+Para contarlos junto al total del repositorio:
+
+```bash
+echo "asistidos: $(git log --grep="Co-Authored-By: Claude" -i --oneline main | wc -l) de $(git log --oneline main | wc -l)"
+```
+
+**Este documento no declara una cifra a propósito.** Se intentó dos veces el 23/10/2026 y las dos quedaron viejas en horas: la primera versión decía 19, la corrección decía 25, y el commit que la corrigió la dejó en 26. Una cifra escrita acá envejece con cada commit y, si no coincide con lo que el comité ejecute, parece una inconsistencia del dossier en vez de lo que es. **El comando es la declaración; el número es su resultado en el momento en que se corre.**
+
+Lo que sí se afirma, y es lo que importa: **ninguno de esos commits toca lógica de negocio.** Son documentación, pruebas y una actualización de dependencia por seguridad.
 
 La tabla siguiente lista los primeros 14; los posteriores corresponden al mismo tipo de trabajo (documentación de pendientes, ensayo de defensa y evidencia de participación).
 
