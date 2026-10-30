@@ -12,7 +12,7 @@
 |---|---|---|---|
 | 1 | Clasificar las 10 filas de la Matriz de Control EDAV | Issue #29 → este documento | **Alto** |
 | 1b | Confirmar la lista corta y calificar 3 estilos × 5 drivers | `23-comparacion-de-estilos.md` | **Alto** |
-| 2 | Decisión, alternativas y trade-offs del `ADR-007` | `adrs/ADR-007-particion-por-dominio.md` | **Alto** |
+| 2 | ADR-007: decisión, alternativas y trade-offs | `adrs/ADR-007-particion-por-dominio.md` | **Cerrado el 29/10/2026** |
 | 3 | Alternativas, reversibilidad y costo en los ADR 001-004 | `adrs/ADR-00{1,2,3,4}-*.md` | **Alto** |
 | 4 | Validar la clasificación de atributos | `13-evaluacion-arquitectonica.md` | Medio |
 | 5 | Aprobar el plan de evolución | `14-plan-evolucion.md` | Medio |
@@ -236,11 +236,9 @@ Al mismo tiempo, se hizo en dos días y salió bien, así que "bajo" no era desc
 
 # 2. ADR-007 — decisión, alternativas y trade-offs
 
-Ver [`adrs/ADR-007-particion-por-dominio.md`](adrs/ADR-007-particion-por-dominio.md). Todo lo verificable está precargado: los 4 módulos con sus tablas, las 294 líneas, la huella de reversibilidad de 10 archivos y los commits del trabajo.
+**Cerrado el 29/10/2026.** El equipo confirmó la partición por dominio con propiedad exclusiva de tablas. El ADR incluye decisión en voz activa, cuatro alternativas, trade-offs con rendimiento como efecto degradado potencial, reversibilidad medida y condiciones explícitas de reapertura.
 
-Falta: **título, decisión en voz activa, alternativas, trade-offs con al menos una fila "Degradado", y el supuesto con su métrica de reapertura.**
-
-> Nota: a diferencia de los ADR 001-004, acá **sí corresponde registrar alternativas** — la decisión se tomó en octubre con opciones reales sobre la mesa. El ADR ya lista tres candidatas, ninguna elegida.
+Ver [`adrs/ADR-007-particion-por-dominio.md`](adrs/ADR-007-particion-por-dominio.md).
 
 # 3. ADR 001-004 — alternativas, reversibilidad y costo
 
