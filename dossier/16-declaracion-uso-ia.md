@@ -1,6 +1,6 @@
 # 16 — Declaración de uso crítico de IA
 
-> **Estado:** redactada el 16/10/2026 y **corregida el 23/10/2026** a partir de hechos verificables en el repositorio. Las respuestas de la sección A citan evidencia comprobable; la sección B solo puede completarla el equipo.
+> **Estado:** redactada el 16/10/2026 y corregida el 23/10 y 29/10/2026 a partir de hechos verificables en el repositorio. Las respuestas de la sección A citan evidencia comprobable; la sección B fue confirmada por el equipo.
 
 ## Registro disponible
 
@@ -73,10 +73,10 @@ En cuatro modos distintos, con grados de delegación distintos:
 | Dos mediciones del Escenario 2 (11,5 s y 46 s) | **Descartadas por error de método de la propia IA** antes de llegar al dato real de 2,1 s. | Log EDAV, Escenario 2 |
 | Dos pedidos de que la IA decidiera las fronteras del C4 | **Rechazados por la IA.** | Log EDAV, declaración del Módulo 3 |
 | Afirmación de que solo `crm.ts` usa el cliente de Supabase | **Error fáctico corregido antes de mergear:** lo importan seis archivos; uno accede a datos y cinco solo a autenticación. | PR #31 y `docs/adr/0002` |
-| Costo "~14 clases nuevas de mapeo por módulo" | **Supuesto falso detectado:** la cifra venía de un ejemplo en Java del material de cátedra, y este repositorio no tiene ninguna clase en `src/` fuera de `components/ui`. | ⚠️ Solo en sesión — la auditoría de esa fila nunca se commiteó (issue #29 abierto) |
-| Etiqueta "Válido" en los Escenarios 2 y 4 | **Inconsistencia señalada y corregida:** la etiqueta contradecía el texto de la propia justificación. | ⚠️ Solo en sesión — el repositorio conserva ya la versión corregida, no el intercambio |
+| Costo "~14 clases nuevas de mapeo por módulo" | **Supuesto falso detectado:** la cifra venía de un ejemplo en Java del material de cátedra, y este repositorio no tiene ninguna clase en `src/` fuera de `components/ui`. | `PENDIENTES-DE-DECISION.md`, Fila 2; auditoría EDAV de issue #29 |
+| Etiqueta "Válido" en los Escenarios 2 y 4 | **Inconsistencia señalada y corregida:** la etiqueta contradecía el texto de la propia justificación. | El repositorio conserva la versión corregida; el intercambio original no fue commiteado. |
 
-Las dos últimas filas se declaran con su limitación a la vista: ocurrieron durante el trabajo, pero **no dejaron rastro commiteado**, así que no pueden presentarse como evidencia verificable. Se incluyen porque omitirlas sería una declaración incompleta; afirmarlas como evidencia sería una declaración falsa.
+La corrección de los escenarios conserva una limitación: el repositorio contiene la versión corregida, pero no el intercambio original que identificó la inconsistencia. La auditoría del costo de Hexagonal, en cambio, quedó documentada y aprobada posteriormente en la Matriz de Control EDAV.
 
 #### Corrección del 23/10/2026 — la propuesta de estilo
 
@@ -84,7 +84,7 @@ La versión anterior de esta declaración afirmaba que la propuesta de la IA hab
 
 Qué ocurrió, en orden:
 
-1. **Septiembre.** La IA propuso evolucionar a un *Monolito Modular (Domain-Partitioned)*: mantener una sola unidad de despliegue y particionar `src/lib/crm.ts` en módulos por dominio con interfaces explícitas. El equipo **no la adoptó ni la auditó**; la Matriz de Control quedó sin completar (issue #29).
+1. **Septiembre.** La IA propuso evolucionar a un *Monolito Modular (Domain-Partitioned)*: mantener una sola unidad de despliegue y particionar `src/lib/crm.ts` en módulos por dominio con interfaces explícitas. El equipo **no la adoptó ni la auditó en ese momento**.
 2. **Octubre.** El equipo documentó `ADR-001` (estilo en capas) y `ADR-004` (arquitectura monolítica), sin referencia a esa propuesta.
 3. **16-17/10.** Trabajando el Módulo 6, el equipo implementó una partición por dominio con propiedad exclusiva de tablas, respaldada por un spike y por mediciones propias, y la protegió con una fitness function en CI. Quedó registrada en `ADR-007`.
 
@@ -92,7 +92,7 @@ El resultado final **coincide con lo que la IA había propuesto**: partición po
 
 **Lo que esto no significa.** No significa que la IA "tuviera razón" ni que el equipo haya seguido su recomendación. La decisión de octubre se tomó por otra vía —un experimento propio— y su justificación no cita la propuesta de septiembre. Significa que **dos caminos independientes llegaron a la misma estructura**, y que el camino del equipo es el que tiene evidencia detrás.
 
-**Lo que sigue pendiente.** Que la propuesta coincida con el resultado no sustituye la auditoría: las 10 filas de la Matriz de Control siguen sin clasificar, y el issue #29 continúa abierto. Una coincidencia posterior no es una verificación.
+**Auditoría posterior.** El equipo completó después las 10 filas de la Matriz de Control EDAV y registró qué partes de la propuesta eran válidas o requerían modificación. Esa auditoría posterior no convierte la propuesta de septiembre en la fuente de la decisión de octubre; una coincidencia posterior no sustituye la evidencia del spike propio.
 
 ### 4. ¿Cómo se verificaron las afirmaciones conservadas?
 
@@ -117,9 +117,9 @@ Además, el historial deja **tres ramas con el nombre de la herramienta a la vis
 | Trabajo | Herramienta utilizada | Qué decidió el equipo |
 |---|---|---|
 | Módulo 5 — dominio, contratos y spike (PR #35) | **Codex**, ya declarado en el Log EDAV | Ver la tabla de afirmaciones rechazadas en el Log EDAV |
-| Módulo 6 — distribución y resiliencia (PR #35) | `[COMPLETAR]` | `[COMPLETAR]` |
-| Documentos `12` a `17` (consolidación del Módulo 8) | `[COMPLETAR]` | `[COMPLETAR]` |
-| Documento `18` y rama `codex/...` (PR #32) | `[COMPLETAR]` | `[COMPLETAR]` |
+| Módulo 6 — distribución y resiliencia (PR #35) | **Codex**, como asistencia técnica y documental. | El equipo definió las fronteras por dominio y aprobó ADR-007, sus trade-offs y sus condiciones de reapertura. |
+| Documentos `12` a `17` (consolidación del Módulo 8) | **Codex**, para consolidar evidencia y redactar borradores. | El equipo aprobó las clasificaciones EDAV, los ADR, los atributos de calidad y el plan de evolución. |
+| Documento `18` y rama `codex/...` (PR #32) | **Codex**, para preparar el documento de participación y su trazabilidad. | El equipo validó qué participación y evidencia podía declararse. |
 
 ## Regla de honestidad
 

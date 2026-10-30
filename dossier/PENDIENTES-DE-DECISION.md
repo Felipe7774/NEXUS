@@ -10,13 +10,13 @@
 
 | # | Qué falta | Dónde se escribe | Peso |
 |---|---|---|---|
-| 1 | Clasificar las 10 filas de la Matriz de Control EDAV | Issue #29 → este documento | **Alto** |
+| 1 | Clasificar las 10 filas de la Matriz de Control EDAV | Issue #29 → este documento | **Cerrado el 29/10/2026** |
 | 1b | Confirmar la lista corta y calificar 3 estilos × 5 drivers | `23-comparacion-de-estilos.md` | **Alto** |
 | 2 | ADR-007: decisión, alternativas y trade-offs | `adrs/ADR-007-particion-por-dominio.md` | **Cerrado el 29/10/2026** |
 | 3 | Alternativas, reversibilidad y costo en los ADR 001-004 | `adrs/ADR-00{1,2,3,4}-*.md` | **Cerrado el 29/10/2026** |
 | 4 | Validar la clasificación de atributos | `13-evaluacion-arquitectonica.md` | **Cerrado el 29/10/2026** |
 | 5 | Aprobar el plan de evolución | `14-plan-evolucion.md` | **Cerrado el 29/10/2026** |
-| 6 | Completar 3 filas de la sección B | `16-declaracion-uso-ia.md` | Medio |
+| 6 | Completar 3 filas de la sección B | `16-declaracion-uso-ia.md` | **Cerrado el 29/10/2026** |
 | 7 | Confirmar 4 columnas en borrador | `modeloc4-nivel.md` | Bajo |
 | 8 | Evaluar aplicabilidad de CQRS | `22-cqrs-y-consistencia-eventual.md` | Bajo |
 | 9 | Revisión cruzada con otro equipo | Issue #30 | Externo |
@@ -25,6 +25,8 @@
 ---
 
 # 1. Matriz de Control EDAV — las 10 filas
+
+> **Cerrado el 29/10/2026.** El equipo aprobó las clasificaciones y acciones correctivas de las diez filas. La matriz conserva la evidencia y el registro de que no hubo desacuerdos registrados.
 
 **Qué es.** En septiembre la IA produjo una propuesta de estilo arquitectónico bajo el rol de *"Junior Engineer no verificado"*. El ciclo EDAV exige auditarla **fila por fila**, clasificando cada afirmación y respaldando la clasificación con datos reales del sistema.
 
@@ -279,9 +281,9 @@ Ver [`14-plan-evolucion.md`](14-plan-evolucion.md).
 
 # 6. Sección B de la declaración de IA
 
-[`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md) — quedan **3 filas**. La del Módulo 5 ya se respondió sola: el Log EDAV declara que se preparó con Codex.
+**Cerrado el 29/10/2026.** El equipo confirmó el uso de Codex para Módulo 6, documentos 12 a 17 y documento 18. La declaración separa la asistencia técnica y documental de las decisiones que el equipo validó y aprobó.
 
-Faltan: Módulo 6, documentos 12-17, y el documento 18 con su rama `codex/`.
+Ver [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md).
 
 # 7. Columnas en borrador del C4
 
