@@ -12,7 +12,8 @@
 | [004](ADR-004-arquitectura-monolitica.md) | Arquitectura monolítica | Confirmado por el equipo | Módulo 4 |
 | [005](ADR-005-integracion-oportunidades-actividades.md) | Conservar el cambio síncrono y evaluar outbox para el seguimiento diferido | Propuesta para revisión; respaldada por el spike 1 | Módulo 5 |
 | [006](ADR-006-distribucion-y-resiliencia.md) | Mantener una app y contener fallos de lectura de Supabase | Propuesta con evidencia de EXP-004 | Módulo 6 |
-| [007](ADR-007-particion-por-dominio.md) | Partición por dominio con propiedad exclusiva de tablas | **Propuesto** — decisión y trade-offs pendientes del equipo | Módulo 6 |
+| [007](ADR-007-particion-por-dominio.md) | Partición por dominio con propiedad exclusiva de tablas | Confirmado por el equipo | Módulo 6 |
+| [008](ADR-008-observabilidad-minima-y-operacion-compartida.md) | Observabilidad mínima y operación compartida sobre servicios gestionados | Confirmado por el equipo; implementación pendiente | Módulo 7 |
 
 ## Qué cambió en la consolidación
 
@@ -32,13 +33,13 @@ El material del curso pide `/docs/adr/0001-decision-estilo.md` y `0002-aislamien
 | Pide el curso | Está en |
 |---|---|
 | ADR 1 — decisión de estilo | [ADR-001](ADR-001-estilo-en-capas.md) |
-| ADR 2 — aislamiento de persistencia / límites de módulos | [ADR-003](ADR-003-aislamiento-de-datos-con-rls.md) · el **mapa de dependencias permitidas entre módulos sigue pendiente** |
+| ADR 2 — aislamiento de persistencia / límites de módulos | [ADR-003](ADR-003-aislamiento-de-datos-con-rls.md) · [ADR-007](ADR-007-particion-por-dominio.md) documenta el mapa de dependencias permitidas entre módulos |
 | ADR 3 — referencia al resultado del spike | [ADR-005](ADR-005-integracion-oportunidades-actividades.md) |
 | ADR 4 — datos del experimento de carga | [ADR-006](ADR-006-distribucion-y-resiliencia.md) |
 
 ## Pendientes conocidos de este conjunto
 
-- Los ADR 001 a 004 **no registran alternativas reales, costo en horas de ingeniería ni reversibilidad**. Declaran explícitamente que no se inventa una alternativa retroactiva, lo cual es honesto, pero la rúbrica pide esos tres campos. El `ADR-007` sí trae esas secciones, con la huella de reversibilidad ya medida.
+- Los ADR 001 a 004 documentan evaluaciones retrospectivas, costo y reversibilidad observables sin afirmar alternativas históricas ni inventar horas. El ADR-007 también registra su huella de reversibilidad medida.
 - El `ADR-001` sigue vigente y **su Contexto se actualizó el 23/10/2026** para reflejar las cinco capas actuales: describía cuatro y ubicaba las operaciones en `src/lib/crm.ts`, que tras el PR #35 pasó a ser la capa de composición. Se corrigió la descripción, no la decisión.
 - Ningún ADR tiene **veredicto de comité**: los primeros cuatro dicen "confirmado por el equipo", que no es lo mismo.
 

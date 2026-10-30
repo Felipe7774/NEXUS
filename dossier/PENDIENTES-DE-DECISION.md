@@ -20,7 +20,7 @@
 | 7 | Confirmar audiencia, propósito y exclusiones del C4 | `modeloc4-nivel.md` | **Cerrado el 29/10/2026** |
 | 8 | Evaluar aplicabilidad de CQRS | `22-cqrs-y-consistencia-eventual.md` | **Cerrado el 29/10/2026** |
 | 9 | Revisión cruzada con otro equipo | Issue #30 | Externo |
-| 10 | **Módulo 7**: STRIDE, observabilidad, despliegue y ADR | `21-seguridad-y-operacion.md` y `24-matriz-stride.md` | **Alto** |
+| 10 | **Módulo 7**: STRIDE, observabilidad, despliegue y ADR | `21-seguridad-y-operacion.md` y `24-matriz-stride.md` | **Cerrado el 29/10/2026** |
 
 ---
 
@@ -303,13 +303,6 @@ Issue #30. Depende de coordinar con otro grupo.
 
 # 10. Módulo 7 — seguridad, despliegue y operación
 
-[`21-seguridad-y-operacion.md`](21-seguridad-y-operacion.md) — semanas 13-14, que hasta el 23/10/2026 no tenían ningún entregable.
+**Cerrado el 29/10/2026.** El equipo aprobó la matriz STRIDE, los riesgos residuales temporales, el plan mínimo de observabilidad, la comparación de despliegue y ADR-008. La implementación futura de monitor, alertas, acceso compartido y MFA conserva seguimiento en el plan de evolución.
 
-El inventario de controles ya está verificado contra el código. Falta el trabajo que la rúbrica evalúa como propio:
-
-- **Matriz STRIDE**: identificar la amenaza concreta por categoría, priorizarla y aceptar el riesgo residual.
-- **Plan de observabilidad**: señal, umbral o SLO y acción, proporcional a 3 personas en plan gratuito.
-- **Despliegue**: la comparación de alternativas con costo relativo.
-- **ADR-008** (el "ADR 5" del curso): el tema sale del resultado del modelado.
-
-El punto de partida está servido: dos incidentes reales —el borrado del proyecto de Supabase en septiembre y el bloqueo del build de Vercel por CVE en octubre— **no los detectó el sistema sino una persona**. La brecha no hay que argumentarla, está demostrada.
+Ver [`21-seguridad-y-operacion.md`](21-seguridad-y-operacion.md), [`24-matriz-stride.md`](24-matriz-stride.md) y [`ADR-008`](adrs/ADR-008-observabilidad-minima-y-operacion-compartida.md).
