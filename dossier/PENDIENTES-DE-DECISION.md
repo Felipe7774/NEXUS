@@ -17,7 +17,7 @@
 | 4 | Validar la clasificación de atributos | `13-evaluacion-arquitectonica.md` | **Cerrado el 29/10/2026** |
 | 5 | Aprobar el plan de evolución | `14-plan-evolucion.md` | **Cerrado el 29/10/2026** |
 | 6 | Completar 3 filas de la sección B | `16-declaracion-uso-ia.md` | **Cerrado el 29/10/2026** |
-| 7 | Confirmar 4 columnas en borrador | `modeloc4-nivel.md` | Bajo |
+| 7 | Confirmar audiencia, propósito y exclusiones del C4 | `modeloc4-nivel.md` | **Cerrado el 29/10/2026** |
 | 8 | Evaluar aplicabilidad de CQRS | `22-cqrs-y-consistencia-eventual.md` | Bajo |
 | 9 | Revisión cruzada con otro equipo | Issue #30 | Externo |
 | 10 | **Módulo 7**: STRIDE, observabilidad, despliegue y ADR | `21-seguridad-y-operacion.md` y `24-matriz-stride.md` | **Alto** |
@@ -287,7 +287,9 @@ Ver [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md).
 
 # 7. Columnas en borrador del C4
 
-[`modeloc4-nivel.md`](modeloc4-nivel.md) — 4 renglones marcados `[BORRADOR — CONFIRMAR]` en la tabla de audiencia: las columnas de propósito y exclusiones.
+**Cerrado el 29/10/2026.** El equipo confirmó audiencia, propósito y exclusiones para las cuatro vistas C4 y justificó por qué Niveles 2 y 3 comparten audiencia sin ser redundantes.
+
+Ver [`modeloc4-nivel.md`](modeloc4-nivel.md).
 
 # 8. Evaluar la aplicabilidad de CQRS
 
