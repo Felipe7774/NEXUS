@@ -14,8 +14,8 @@
 | 1b | Confirmar la lista corta y calificar 3 estilos × 5 drivers | `23-comparacion-de-estilos.md` | **Alto** |
 | 2 | ADR-007: decisión, alternativas y trade-offs | `adrs/ADR-007-particion-por-dominio.md` | **Cerrado el 29/10/2026** |
 | 3 | Alternativas, reversibilidad y costo en los ADR 001-004 | `adrs/ADR-00{1,2,3,4}-*.md` | **Cerrado el 29/10/2026** |
-| 4 | Validar la clasificación de atributos | `13-evaluacion-arquitectonica.md` | Medio |
-| 5 | Aprobar el plan de evolución | `14-plan-evolucion.md` | Medio |
+| 4 | Validar la clasificación de atributos | `13-evaluacion-arquitectonica.md` | **Cerrado el 29/10/2026** |
+| 5 | Aprobar el plan de evolución | `14-plan-evolucion.md` | **Cerrado el 29/10/2026** |
 | 6 | Completar 3 filas de la sección B | `16-declaracion-uso-ia.md` | Medio |
 | 7 | Confirmar 4 columnas en borrador | `modeloc4-nivel.md` | Bajo |
 | 8 | Evaluar aplicabilidad de CQRS | `22-cqrs-y-consistencia-eventual.md` | Bajo |
@@ -267,11 +267,15 @@ La sustitución de Supabase se actualizó con el conteo actual de 16 archivos fu
 
 # 4. Validar la clasificación de atributos
 
-[`13-evaluacion-arquitectonica.md`](13-evaluacion-arquitectonica.md) clasifica 8 atributos entre *verificado con alcance acotado*, *verificado parcialmente*, *no verificado* y *no aplica*. El documento aclara que es **una propuesta pendiente de validación del equipo**.
+**Cerrado el 29/10/2026.** El equipo aprobó las ocho clasificaciones y conserva los límites de cada evidencia: seguridad, rendimiento, disponibilidad, escalabilidad y recuperación quedan verificadas con alcance acotado; mantenibilidad, verificada parcialmente; consistencia, no verificada; y multi-región, fuera del alcance actual.
+
+Ver [`13-evaluacion-arquitectonica.md`](13-evaluacion-arquitectonica.md).
 
 # 5. Aprobar el plan de evolución
 
-[`14-plan-evolucion.md`](14-plan-evolucion.md) — roadmap y metas propuestas. Antes de evaluarlas hay que definir condiciones reproducibles para cada meta.
+**Cerrado el 29/10/2026.** El equipo aprobó el roadmap y dejó explícito que las metas futuras requieren condiciones reproducibles: definición de error rate, monitoreo antes de medir disponibilidad, y semilla, concurrencia, red y flujo definidos antes de comprometer un p95.
+
+Ver [`14-plan-evolucion.md`](14-plan-evolucion.md).
 
 # 6. Sección B de la declaración de IA
 
