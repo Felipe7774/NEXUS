@@ -18,7 +18,7 @@
 | 5 | Aprobar el plan de evolución | `14-plan-evolucion.md` | **Cerrado el 29/10/2026** |
 | 6 | Completar 3 filas de la sección B | `16-declaracion-uso-ia.md` | **Cerrado el 29/10/2026** |
 | 7 | Confirmar audiencia, propósito y exclusiones del C4 | `modeloc4-nivel.md` | **Cerrado el 29/10/2026** |
-| 8 | Evaluar aplicabilidad de CQRS | `22-cqrs-y-consistencia-eventual.md` | Bajo |
+| 8 | Evaluar aplicabilidad de CQRS | `22-cqrs-y-consistencia-eventual.md` | **Cerrado el 29/10/2026** |
 | 9 | Revisión cruzada con otro equipo | Issue #30 | Externo |
 | 10 | **Módulo 7**: STRIDE, observabilidad, despliegue y ADR | `21-seguridad-y-operacion.md` y `24-matriz-stride.md` | **Alto** |
 
@@ -293,9 +293,9 @@ Ver [`modeloc4-nivel.md`](modeloc4-nivel.md).
 
 # 8. Evaluar la aplicabilidad de CQRS
 
-[`22-cqrs-y-consistencia-eventual.md`](22-cqrs-y-consistencia-eventual.md) — el insumo ya está levantado: qué existe hoy, qué no, y los datos del spike y de S11 que sirven para decidir. Falta **calificar los seis criterios y firmar el veredicto**.
+**Cerrado el 29/10/2026.** El equipo mantuvo CQS y composición de lecturas, pero decidió no adoptar CQRS ni consistencia eventual. El veredicto reconoce que la asimetría entre lecturas y escrituras y el costo de composición aún no se midieron, y define las condiciones reproducibles para reabrir la decisión.
 
-Dos cosas conviene mirarlas antes de calificar, porque desarman el argumento más obvio: la asimetría entre lecturas y escrituras **nunca se midió** —el script de carga no escribe nada— y el costo de composición que introdujo la modularización tampoco.
+Ver [`22-cqrs-y-consistencia-eventual.md`](22-cqrs-y-consistencia-eventual.md).
 
 # 9. Revisión cruzada con otro equipo
 
