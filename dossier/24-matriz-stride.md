@@ -1,6 +1,6 @@
 # 24 — Matriz STRIDE: superficie, controles y plantilla
 
-> **Estado: superficie y controles verificados + modelado por completar.** Todo lo que está abajo como *hecho verificado* se comprobó contra el código y las migraciones el 23/10/2026.
+> **Estado: modelado aprobado por el equipo el 29/10/2026.** Todo lo que está abajo como *hecho verificado* se comprobó contra el código y las migraciones el 23/10/2026. Las amenazas, prioridades y aceptaciones residuales fueron decididas por el equipo.
 >
 > **La identificación de cada amenaza, su priorización y la aceptación del riesgo residual son del equipo.** No están escritas acá a propósito: la rúbrica las evalúa como trabajo propio, y una amenaza redactada por una herramienta no es un modelado de amenazas.
 
@@ -43,7 +43,7 @@ Es decir: marcar *Suplantación* como cubierta porque hay login es exactamente e
 
 | Amenaza concreta | Prioridad | Control que aplica | Dónde se verifica | Riesgo residual |
 |---|---|---|---|---|
-| `[COMPLETAR]` | `[  ]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Una cuenta comprometida podría iniciar sesión como usuario porque MFA está habilitada, pero no es obligatoria. | Alta | Supabase Auth, JWT, MFA TOTP disponible y confirmación doble en cambios sensibles | `use-auth.ts`; `supabase/config.toml` | Medio, aceptado temporalmente mientras se exige MFA en cuentas administrativas |
 
 ---
 
@@ -65,7 +65,7 @@ Es decir: marcar *Suplantación* como cubierta porque hay login es exactamente e
 
 | Amenaza concreta | Prioridad | Control que aplica | Dónde se verifica | Riesgo residual |
 |---|---|---|---|---|
-| `[COMPLETAR]` | `[  ]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Un uso indebido del flujo con `service_role` podría modificar datos ignorando RLS. | Alta | RLS, RPC de borrado lógico, reglas de persistencia y prueba de aislamiento | Migraciones; `persistence-fitness.test.ts`; `rls-isolation.integration.test.ts` | Medio, aceptado mientras `service_role` siga limitado a servidor y protegido por fitness function |
 
 ---
 
@@ -91,7 +91,7 @@ Es decir: marcar *Suplantación* como cubierta porque hay login es exactamente e
 
 | Amenaza concreta | Prioridad | Control que aplica | Dónde se verifica | Riesgo residual |
 |---|---|---|---|---|
-| `[COMPLETAR]` | `[  ]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Un usuario podría negar crear, editar o eliminar datos porque solo los cambios de etapa tienen traza atribuible. | Alta | Trigger append-only `deal_stage_history` para cambios de etapa | Migración inicial; tabla `deal_stage_history` | Alto, aceptado temporalmente; falta traza para crear, editar y eliminar |
 
 ---
 
@@ -116,7 +116,7 @@ Es decir: marcar *Suplantación* como cubierta porque hay login es exactamente e
 
 | Amenaza concreta | Prioridad | Control que aplica | Dónde se verifica | Riesgo residual |
 |---|---|---|---|---|
-| `[COMPLETAR]` | `[  ]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Una política RLS mal configurada podría permitir leer datos de otro usuario. | Alta | RLS, frontera de `service_role`, variables sin prefijo `VITE_` y CI | Migraciones; `service-role-boundary.test.ts`; CI | Medio, aceptado con auditoría progresiva de las 40 políticas RLS |
 
 ---
 
@@ -142,7 +142,7 @@ Es decir: marcar *Suplantación* como cubierta porque hay login es exactamente e
 
 | Amenaza concreta | Prioridad | Control que aplica | Dónde se verifica | Riesgo residual |
 |---|---|---|---|---|
-| `[COMPLETAR]` | `[  ]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Una sobrecarga o límite del proveedor podría degradar la API. | Alta | Timeout de 3 s, circuit breaker y consultas por lotes | `supabase-fetch.ts`; `read-circuit-breaker.test.ts`; S11 | Alto, aceptado temporalmente mientras se implementa monitoreo y alerta |
 
 ---
 
@@ -164,22 +164,22 @@ Es decir: marcar *Suplantación* como cubierta porque hay login es exactamente e
 
 | Amenaza concreta | Prioridad | Control que aplica | Dónde se verifica | Riesgo residual |
 |---|---|---|---|---|
-| `[COMPLETAR]` | `[  ]` | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| Un fallo en el uso de `service_role` o una función privilegiada podría otorgar acceso administrativo indebido. | Alta | Frontera de `service_role`, `SECURITY DEFINER` con `search_path` fijo y roles en tabla propia | `service-role-boundary.test.ts`; migraciones | Bajo-Medio, aceptado mientras CI bloquee violaciones y se controle el acceso administrativo |
 
 ---
 
-## Resumen de cobertura — `[COMPLETAR — EQUIPO]`
+## Resumen de cobertura aprobado por el equipo
 
 Una vez llenadas las seis filas, esta tabla cierra el modelado:
 
 | Categoría | ¿Cubierta? | Riesgo residual aceptado | Quién lo acepta |
 |---|---|---|---|
-| S — Suplantación | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
-| T — Manipulación | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
-| R — Repudio | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
-| I — Divulgación | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
-| D — Denegación | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
-| E — Elevación | `[COMPLETAR]` | `[COMPLETAR]` | `[COMPLETAR]` |
+| S — Suplantación | Parcial | Medio; MFA no es obligatoria | Equipo Nexus, 29/10/2026 |
+| T — Manipulación | Parcial | Medio; el flujo privilegiado requiere protección continua | Equipo Nexus, 29/10/2026 |
+| R — Repudio | Parcial | Alto; la auditoría cubre solo cambios de etapa | Equipo Nexus, 29/10/2026 |
+| I — Divulgación | Parcial | Medio; las 40 políticas RLS aún no se auditan una por una | Equipo Nexus, 29/10/2026 |
+| D — Denegación | Parcial | Alto; no existen alertas ni monitoreo activo | Equipo Nexus, 29/10/2026 |
+| E — Elevación | Parcial | Bajo-Medio; persiste el riesgo inherente de claves privilegiadas | Equipo Nexus, 29/10/2026 |
 
 ## Cuatro formas de llenar mal esta matriz
 
