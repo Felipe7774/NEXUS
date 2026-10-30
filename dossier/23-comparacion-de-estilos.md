@@ -1,6 +1,6 @@
 # 23 — Comparación de estilos arquitectónicos contra los drivers (semana 7)
 
-> **Estado: evidencia verificada + comparación por completar.** Cada celda de la matriz trae lo que el repositorio demuestra, comprobado el 23/10/2026. **Las calificaciones y el veredicto son del equipo**: la rúbrica los evalúa como trabajo propio.
+> **Estado: aprobado por el equipo el 29/10/2026.** Cada celda conserva la evidencia que el repositorio demuestra, comprobada el 23/10/2026; las calificaciones y el veredicto fueron deliberados y aprobados por el equipo.
 
 ## Por qué faltaba este documento
 
@@ -10,7 +10,7 @@ Lo que había era otra cosa: `12-matriz-trade-offs.md` evalúa las decisiones **
 
 Este documento aporta la estructura y la evidencia. No aporta el juicio.
 
-## 1. La lista corta — `[CONFIRMAR — EQUIPO]`
+## 1. La lista corta — aprobada por el equipo
 
 La selección de los tres candidatos es, en sí misma, una decisión del equipo. Los tres propuestos abajo son los únicos sobre los que **este repositorio tiene algo que decir con datos**:
 
@@ -46,7 +46,7 @@ Esto es consistente con lo que el propio dossier ya registraba: `PENDIENTES-DE-D
 
 > **Lo que esto implica para la defensa.** Si el equipo concluye que el estilo se decide por mantenibilidad, esa conclusión **está respaldada**. Lo que no se puede sostener es que el estilo se eligió por seguridad: el driver número uno no distingue entre los candidatos, y el repositorio lo demuestra.
 
-## 3. Matriz — `[COMPLETAR — EQUIPO]`
+## 3. Matriz — aprobada por el equipo
 
 Escala sugerida: **la misma que el equipo ya acordó** en `12-matriz-trade-offs.md`, para no inventar una nueva — 🟢 favorable · 🟡 moderado · 🔴 desfavorable. Una línea de justificación por celda.
 
@@ -54,9 +54,9 @@ Escala sugerida: **la misma que el equipo ya acordó** en `12-matriz-trade-offs.
 
 | | Evidencia verificada | Calificación | Justificación |
 |---|---|---|---|
-| **A — Capas** | RLS activa, 40 políticas sobre 14 tablas, verificada en CI por `rls-isolation.integration.test.ts` | `[  ]` | `[COMPLETAR]` |
-| **B — Módulos por dominio** | Lo mismo, **más** la frontera de `service_role` y la propiedad exclusiva de tablas verificada por `persistence-fitness.test.ts` | `[  ]` | `[COMPLETAR]` |
-| **C — Hexagonal** | Idéntico: el control vive en la base, no en la aplicación | `[  ]` | `[COMPLETAR]` |
+| **A — Capas** | RLS activa, 40 políticas sobre 14 tablas, verificada en CI por `rls-isolation.integration.test.ts` | 🟡 | RLS protege igual bajo este estilo, pero la prueba de aislamiento cubre una tabla y no audita las 40 políticas individualmente. |
+| **B — Módulos por dominio** | Lo mismo, **más** la frontera de `service_role` y la propiedad exclusiva de tablas verificada por `persistence-fitness.test.ts` | 🟡 | Añade gobernanza de la frontera de persistencia, sin cambiar que el control decisivo es RLS ni el alcance acotado de su prueba. |
+| **C — Hexagonal** | Idéntico: el control vive en la base, no en la aplicación | 🟡 | Los puertos podrían hacer más explícita la frontera, pero RLS y su cobertura actual no cambian por adoptar el estilo. |
 
 > **Límite declarado que hay que tener a mano:** la prueba de aislamiento cubre **una tabla**, no las 40 políticas una por una. Es el hueco del riesgo R4 y vale igual para los tres candidatos.
 
@@ -64,9 +64,9 @@ Escala sugerida: **la misma que el equipo ya acordó** en `12-matriz-trade-offs.
 
 | | Evidencia verificada | Calificación | Justificación |
 |---|---|---|---|
-| **A — Capas** | Una unidad de despliegue; circuit breaker (3 fallos, 1.000 ms) y timeout de 3.000 ms | `[  ]` | `[COMPLETAR]` |
-| **B — Módulos por dominio** | Igual. La partición es interna, no cambia la unidad de despliegue | `[  ]` | `[COMPLETAR]` |
-| **C — Hexagonal** | Igual, con un matiz real: un adaptador de persistencia explícito **facilitaría sustituir el proveedor**, que es el riesgo que ya se materializó en septiembre | `[  ]` | `[COMPLETAR]` |
+| **A — Capas** | Una unidad de despliegue; circuit breaker (3 fallos, 1.000 ms) y timeout de 3.000 ms | 🟡 | Las tácticas limitan fallos de llamadas, pero permanecen un solo despliegue y dependencia del proveedor. |
+| **B — Módulos por dominio** | Igual. La partición es interna, no cambia la unidad de despliegue | 🟡 | La modularización es interna: no modifica la dependencia del proveedor ni agrega redundancia. |
+| **C — Hexagonal** | Igual, con un matiz real: un adaptador de persistencia explícito **facilitaría sustituir el proveedor**, que es el riesgo que ya se materializó en septiembre | 🟡 | Facilitaría una sustitución futura, pero esa sustitución no fue implementada ni medida; hoy conserva el mismo proveedor y despliegue. |
 
 > Dato para esta fila: `EXP-003` restauró el respaldo en local con conteos coincidentes de 14 tablas y 4 usuarios, el 18/09/2026. Y la táctica de timeout se midió antes/después: **2.145 ms contra 2.135 ms**, sin efecto significativo.
 
@@ -74,17 +74,17 @@ Escala sugerida: **la misma que el equipo ya acordó** en `12-matriz-trade-offs.
 
 | | Evidencia verificada | Calificación | Justificación |
 |---|---|---|---|
-| **A — Capas** | Antes de la partición, `src/lib/crm.ts` concentraba el acceso a datos de las 6 entidades | `[  ]` | `[COMPLETAR]` |
-| **B — Módulos por dominio** | **Medido, no supuesto:** 294 líneas en 4 módulos; `crm.ts` hoy tiene **cero** accesos directos a tablas; las fronteras las enforca el CI; revertirlo exige tocar **10 archivos** (`ADR-007`) | `[  ]` | `[COMPLETAR]` |
-| **C — Hexagonal** | Agregaría puertos y adaptadores sobre la partición existente. **Costo sin medir**; la cifra de "~14 clases de mapeo por módulo" que propuso la IA **es un supuesto falso detectado**: venía de un ejemplo en Java y este repositorio no tiene clases en `src/` fuera de `components/ui` | `[  ]` | `[COMPLETAR]` |
+| **A — Capas** | Antes de la partición, `src/lib/crm.ts` concentraba el acceso a datos de las 6 entidades | 🟡 | Separa presentación, lógica y datos, pero el acceso centralizado mostró menor cohesión por dominio. |
+| **B — Módulos por dominio** | **Medido, no supuesto:** 294 líneas en 4 módulos; `crm.ts` hoy tiene **cero** accesos directos a tablas; las fronteras las enforca el CI; revertirlo exige tocar **10 archivos** (`ADR-007`) | 🟢 | Es la única opción con costo y resultado observados: propiedad por dominio, fronteras verificadas por CI y un refactor ya integrado. |
+| **C — Hexagonal** | Agregaría puertos y adaptadores sobre la partición existente. **Costo sin medir**; la cifra de "~14 clases de mapeo por módulo" que propuso la IA **es un supuesto falso detectado**: venía de un ejemplo en Java y este repositorio no tiene clases en `src/` fuera de `components/ui` | 🟡 | Podría aislar adaptadores, pero el beneficio adicional y el costo de puertos/mapeos no cuentan con un spike propio. |
 
 ### Driver 4 — Rendimiento
 
 | | Evidencia verificada | Calificación | Justificación |
 |---|---|---|---|
-| **A — Capas** | Línea base reproducida: mediana p95 **64,45 ms** contra umbral de 2.000 ms | `[  ]` | `[COMPLETAR]` |
-| **B — Módulos por dominio** | Mismo orden de magnitud, **con un costo que nunca se midió**: la prohibición de JOIN entre dominios obliga a componer en la aplicación (1 + 2 viajes por lista de oportunidades) | `[  ]` | `[COMPLETAR]` |
-| **C — Hexagonal** | Una capa de indirección más. Sin medir | `[  ]` | `[COMPLETAR]` |
+| **A — Capas** | Línea base reproducida: mediana p95 **64,45 ms** contra umbral de 2.000 ms | 🟡 | La línea base es favorable, pero es una medición local de PostgREST y no una prueba de producción o carga alta. |
+| **B — Módulos por dominio** | Mismo orden de magnitud, **con un costo que nunca se midió**: la prohibición de JOIN entre dominios obliga a componer en la aplicación (1 + 2 viajes por lista de oportunidades) | 🟡 | No hay evidencia de degradación, pero tampoco se midió el camino de composición que introduce la partición. |
+| **C — Hexagonal** | Una capa de indirección más. Sin medir | 🟡 | La indirección adicional no se ha probado; no hay datos para declararla favorable ni desfavorable. |
 
 > **Advertencia fuerte para esta fila.** El quiebre medido está en **50 VUs**, y la escalera de S11 consultó `/rest/v1/deals` con un select plano: **no ejerció el camino de composición**. Calificar rendimiento como favorable para B sin medir esa composición sería afirmar lo que la propia evidencia no respalda. Ver [`22-cqrs-y-consistencia-eventual.md`](22-cqrs-y-consistencia-eventual.md).
 
@@ -92,7 +92,7 @@ Escala sugerida: **la misma que el equipo ya acordó** en `12-matriz-trade-offs.
 
 | | Evidencia verificada | Calificación | Justificación |
 |---|---|---|---|
-| **A, B y C** | Prueba de primer uso con una persona real: oportunidad creada y guardada en **3:28 min**, umbral 5 min. Mide la interfaz, no el estilo | `[  ]` | `[COMPLETAR]` |
+| **A, B y C** | Prueba de primer uso con una persona real: oportunidad creada y guardada en **3:28 min**, umbral 5 min. Mide la interfaz, no el estilo | 🟡 | La prueba supera el umbral, pero no diferencia ninguna alternativa arquitectónica. |
 
 ## 4. Costo y reversibilidad
 
@@ -100,19 +100,19 @@ Lo único con cifras trazables es el candidato B, porque ya se implementó:
 
 | | Costo de implementación | Costo de reversión |
 |---|---|---|
-| **B — Módulos por dominio** | Trabajo concentrado el 16-17/10/2026, commits `e5e6a80` y `9255129`. **Horas reales: `[COMPLETAR]`** — el historial da fechas, no esfuerzo | 10 archivos, 294 líneas de módulos más sus consumidores |
+| **B — Módulos por dominio** | Trabajo concentrado el 16-17/10/2026, commits `e5e6a80` y `9255129`. El historial permite afirmar dos días de calendario, **no horas reales**. | 10 archivos, 294 líneas de módulos más sus consumidores |
 | **A — Capas** | Cero: es el punto de partida | No aplica |
-| **C — Hexagonal** | `[COMPLETAR]` — sin medir | `[COMPLETAR]` |
+| **C — Hexagonal** | Sin medir: requeriría un spike propio antes de estimar horas o clases. | Sin medir; dependería del alcance del adaptador y de la migración de consumidores. |
 
-## 5. Veredicto — `[COMPLETAR — EQUIPO]`
+## 5. Veredicto — aprobado por el equipo
 
-**Estilo elegido:** `[COMPLETAR]`
+**Estilo elegido:** se mantiene **B — monolito modular particionado por dominio**, dentro de la arquitectura en capas.
 
-**Por qué, en función de los drivers priorizados:** `[COMPLETAR]`
+**Por qué, en función de los drivers priorizados:** mantenibilidad es el único driver que diferencia con evidencia propia. B ya demostró propiedad de tablas por módulo y fronteras verificadas por CI. Seguridad, disponibilidad, rendimiento y usabilidad no distinguen de forma suficiente entre candidatos: sus controles, limitaciones o mediciones actuales se conservan bajo los tres estilos.
 
-**Qué se descartó y por qué:** `[COMPLETAR]`
+**Qué se descartó y por qué:** no se adopta Hexagonal ahora. Aunque podría facilitar una sustitución futura de proveedor, el acoplamiento a Supabase no se ha demostrado como un problema que los módulos no puedan manejar y el costo/beneficio de puertos y adaptadores no fue validado con un spike. Microkernel y Pipes & Filters quedan fuera por no responder a estructuras o requisitos presentes; microservicios distribuidos se descartan para este alcance por el TCO medido en `EXP-004`.
 
-**Qué condición reproducible haría reconsiderarlo:** `[COMPLETAR]` — con umbral medible, como en el `ADR-006`, no una meta sin número.
+**Qué condición reproducible haría reconsiderarlo:** se reabre la decisión si ocurre al menos una de estas condiciones: (1) tres pruebas Kanban reproducibles documentan p95 superior a **300 ms** o tasa de errores superior a **2 %**; (2) dos funcionalidades del mismo entregable requieren romper la propiedad exclusiva de tablas entre dominios; o (3) existe un requisito verificable de operar simultáneamente con dos proveedores de persistencia. Cada condición exige un spike y medición antes de cambiar el estilo.
 
 ## 6. Tres formas de responder mal esto
 
