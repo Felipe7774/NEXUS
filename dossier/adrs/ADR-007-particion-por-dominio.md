@@ -1,12 +1,8 @@
-# ADR-007 — `[COMPLETAR — EQUIPO: la decisión concreta, no el tema]`
-
-> El título debe nombrar una decisión, no un área.
-> ❌ "ADR-007: Módulos" — es un tema.
-> ✅ "ADR-007: Adopción de partición por dominio con propiedad exclusiva de tablas" — es una decisión.
+# ADR-007 — Adopción de partición por dominio con propiedad exclusiva de tablas
 
 ## Estado
 
-`Propuesto.` Este documento registra una partición por dominio que **ya existe y está activa en el código** desde el PR #35. Queda como propuesto hasta que el equipo redacte y apruebe su decisión, alternativas y trade-offs.
+`Confirmado.` El equipo aprobó esta decisión el 29/10/2026. La partición por dominio existe y está activa en el código desde el PR #35.
 
 ## Contexto
 
@@ -51,34 +47,31 @@ Como efecto de la partición, `src/lib/crm.ts` pasó de **419 a 216 líneas** y 
 
 ## Decisión del equipo
 
-`[COMPLETAR — EQUIPO]` En voz activa: *"Nosotros implementaremos…"*. Debe responder, como mínimo:
+Adoptamos una partición por dominio dentro del monolito. Cada tabla, RPC y consulta productiva tiene un único módulo propietario en `src/modules/`.
 
-- Qué regla define la propiedad de una tabla por un módulo.
-- Qué dependencias entre módulos están permitidas y cuáles prohibidas.
-- Cómo accede un módulo a datos de otro dominio, y por qué esa vía y no un JOIN directo.
+Los módulos pueden usar contratos compartidos y APIs públicas de otros módulos, pero no importan implementaciones privadas ni ejecutan consultas sobre tablas ajenas.
+
+Las vistas que necesitan datos de varios dominios usan `src/lib/crm-composition.ts`, que llama las APIs públicas de cada módulo. Así evitamos JOINs directos entre dominios y ciclos de dependencias.
+
+Mantendremos estas reglas mediante las fitness functions del CI.
 
 ## Alternativas consideradas
 
-`[COMPLETAR — EQUIPO]` Mínimo dos opciones viables, con su punto de sensibilidad y pros/contras atados a los drivers medidos.
-
-> Nota de método: a diferencia de los ADR-001 a 004, acá **sí corresponde registrar alternativas**, porque esta decisión se tomó en octubre de 2026 y el equipo sí tuvo opciones frente a sí. No aplica la cláusula de "no inventar una alternativa retroactiva".
-
-Candidatas que el equipo puede evaluar o descartar — **ninguna está elegida**:
-
-| Alternativa | Qué implicaría |
-|---|---|
-| Mantener el acceso a datos centralizado en `crm.ts` | Es el estado anterior al PR #35; 419 líneas y 6 entidades en un archivo |
-| Partición por dominio sin propiedad exclusiva de tablas | Módulos que comparten tablas; evita mover consultas, pero no elimina el acoplamiento por datos |
-| Separar los módulos en paquetes o servicios desplegables | Cambia la unidad de despliegue y contradice `ADR-004` |
+| Alternativa | Veredicto | Razón y punto de sensibilidad |
+|---|---|---|
+| Mantener el acceso centralizado en `crm.ts` | Descartada | Era más simple al inicio, pero concentraba seis entidades en 419 líneas y no definía propiedad de datos. Se volvería a evaluar solo si el costo de composición supera el beneficio de las fronteras. |
+| Particionar sin propiedad exclusiva de tablas | Descartada | Ordena carpetas, pero permite que varios módulos consulten la misma tabla; el acoplamiento por datos permanece sin una regla verificable. |
+| Separar módulos en paquetes o servicios desplegables | Postergada | Daría independencia de despliegue, pero aumenta el costo operativo, contradice ADR-004 y no se justifica con el tamaño del equipo ni la evidencia actual. |
+| Partición por dominio con propiedad exclusiva de tablas | Adoptada | Reduce acoplamiento, conserva una sola unidad de despliegue y permite verificar las fronteras automáticamente en CI. |
 
 ## Consecuencias y trade-offs
 
-`[COMPLETAR — EQUIPO]` Esta sección necesita al menos una fila "Degradado": un ADR sin consecuencias negativas no es defendible.
-
 | Atributo (ISO/IEC 25010) | Efecto | Evidencia o estimación |
 |---|---|---|
-| `[COMPLETAR]` | Favorecido | `[COMPLETAR]` |
-| `[COMPLETAR]` | Degradado | `[COMPLETAR]` |
+| Mantenibilidad | Favorecido | `crm.ts` pasó de 419 a 216 líneas; existen cuatro módulos y fronteras verificadas en CI. |
+| Seguridad | Favorecido | La propiedad exclusiva reduce consultas accidentales fuera del dominio; RLS sigue siendo la barrera de seguridad en tiempo de ejecución. |
+| Rendimiento | Degradado potencial | La composición consulta APIs públicas de varios módulos. Evita JOINs entre dominios, pero puede generar más consultas que un JOIN directo. Ese costo todavía no se midió. |
+| Operación | Conservado | La aplicación mantiene una única unidad de despliegue, coherente con ADR-004. |
 
 ### Costo de reversibilidad (medido, no estimado a ojo)
 
@@ -91,7 +84,7 @@ Deshacer la partición exige tocar **10 archivos** que hoy importan `@/modules/`
 | `src/modules/{sales,relationships,identity,followup}/api.ts` | Los módulos mismos |
 | `src/architecture/module-apis.integration.test.ts` · `persistence-fitness.test.ts` · `persistence-rules.ts` | Reglas de gobernanza |
 
-Son 294 líneas de módulos más sus consumidores. `[COMPLETAR — EQUIPO]` la traducción a horas de ingeniería del equipo.
+Son 294 líneas de módulos más sus consumidores. La reversión es posible, pero tiene un costo medio: exige adaptar los consumidores y las pruebas de gobernanza. No se declara una estimación de horas porque el repositorio no registra el esfuerzo real.
 
 ### Costo de implementación (trazable en el historial)
 
@@ -101,7 +94,7 @@ El trabajo se concentró entre el **16 y el 17/10/2026**, en commits identificab
 - `9255129` — *fix(crm): permitir borrado logico autorizado sin exponer filas eliminadas*
 - *test(m6): verificar ciclo deliberado y corregir tipos del fixture*
 
-`[COMPLETAR — EQUIPO]` las horas reales invertidas; el historial da las fechas, no el esfuerzo.
+El historial registra dos días calendario de trabajo y el tamaño del cambio, pero no horas efectivas. Por rigor, este ADR conserva esas medidas verificables y no convierte días calendario en horas de ingeniería.
 
 ## Evidencia y trazabilidad
 
@@ -125,11 +118,9 @@ Corre en el job `unit-tests` de `.github/workflows/ci.yml`.
 
 ## Supuestos y seguimiento
 
-`[COMPLETAR — EQUIPO]` Un supuesto no verificado y la métrica exacta que obligaría a reabrir este ADR.
-
 | Supuesto no verificado | Métrica que dispara la reapertura |
 |---|---|
-| `[COMPLETAR]` | `[COMPLETAR]` |
+| Las APIs públicas y la capa de composición resuelven las necesidades entre dominios sin volver costosas las consultas. | Una prueba reproducible de una vista que compone varios dominios supera un p95 de 300 ms bajo una carga y semilla documentadas, o una funcionalidad requiere romper la propiedad exclusiva de una tabla. |
 
 ## Relación con otros ADR
 

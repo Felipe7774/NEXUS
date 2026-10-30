@@ -14,7 +14,18 @@ El CRM utiliza Supabase como plataforma para autenticación y persistencia de da
 
 ## Alternativas consideradas
 
-No se proporcionó una alternativa considerada de forma histórica. No se agrega una alternativa posterior como si hubiera formado parte de la decisión original.
+No se proporcionó una alternativa considerada de forma histórica. La siguiente comparación es una **evaluación retrospectiva** aprobada el 29/10/2026; no se presenta como parte de la decisión original.
+
+| Alternativa retrospectiva | Evaluación actual |
+|---|---|
+| Backend propio con autenticación, API y PostgreSQL operados por el equipo | No se adopta. Trasladaría al equipo la operación de sesiones, recuperación de contraseñas, control de acceso e infraestructura. |
+| Otro BaaS o Supabase autoalojado | No se adopta. Exigiría migrar autenticación, configuración y despliegue, además de validar de nuevo RLS. Docker local reproduce pruebas, pero no demuestra operación cloud propia. |
+
+### Costo y reversibilidad
+
+El costo verificable actual comprende 6 archivos de integración de Supabase y 5 migraciones versionadas. No hay horas registradas, por lo que el ADR no declara una cifra de esfuerzo.
+
+Cambiar de proveedor afectaría al menos 16 archivos de `src/` que importan la integración de Supabase, además de migraciones, variables de entorno, autenticación y pruebas RLS. Es reversible, pero de costo alto.
 
 ## Consecuencias y trade-offs
 
@@ -40,4 +51,4 @@ El equipo justifica esta evaluación porque Supabase reduce el tiempo de desarro
 
 ## Supuestos y seguimiento
 
-El proveedor y la cuenta que aloja el proyecto deben mantener acceso administrado por el equipo. Cualquier cambio de proyecto o de credenciales debe verificarse con las migraciones y las pruebas antes de usarlo en producción.
+El proveedor y la cuenta que aloja el proyecto deben mantener acceso administrado por el equipo. Cualquier cambio de proyecto o de credenciales debe verificarse con las migraciones y las pruebas antes de usarlo en producción. El ADR se reabre si el proveedor no permite cumplir un requisito verificable de aislamiento, recuperación, costo o acceso administrativo del equipo.

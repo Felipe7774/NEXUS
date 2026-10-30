@@ -30,7 +30,17 @@ El CRM adopta y mantiene un estilo arquitectónico en capas, separando presentac
 
 ## Alternativas consideradas
 
-No se proporcionó una alternativa considerada de forma histórica. No se infiere ni se agrega una alternativa posterior como si hubiera formado parte de la decisión original.
+No se proporcionó una alternativa considerada de forma histórica. La siguiente comparación es una **evaluación retrospectiva** aprobada el 29/10/2026; no se presenta como parte de la decisión original.
+
+| Alternativa retrospectiva | Evaluación actual |
+|---|---|
+| Organización únicamente por dominio, sin dirección explícita entre presentación, composición, dominio e integración | No se adopta. La estructura actual conserva los límites por capas y el CI detecta dependencias inválidas mediante `persistence-fitness.test.ts`. |
+
+### Costo y reversibilidad
+
+No hay horas históricas registradas para adoptar este estilo. Su costo actual es de gobierno: mantener las reglas de frontera y respetarlas al añadir archivos nuevos.
+
+Revertir el estilo afectaría rutas y componentes, composición, módulos, integraciones, migraciones y las reglas de CI. Es reversible, pero el repositorio no permite traducir esa intervención a horas sin inventar una cifra.
 
 ## Consecuencias y trade-offs
 
@@ -57,4 +67,4 @@ El equipo justifica esta evaluación porque el estilo mejora mantenibilidad y co
 
 ## Supuestos y seguimiento
 
-El equipo debe conservar la separación al añadir nuevas capacidades y registrar cualquier excepción relevante. Si se afirma un beneficio de escalabilidad o costo, debe acompañarse de una medición o declararse como supuesto.
+El equipo debe conservar la separación al añadir nuevas capacidades y registrar cualquier excepción relevante. El ADR se reabre si una funcionalidad requiere que presentación o módulos dependan directamente de persistencia para poder implementarse. Si se afirma un beneficio de escalabilidad o costo, debe acompañarse de una medición o declararse como supuesto.

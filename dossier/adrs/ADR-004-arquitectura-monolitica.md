@@ -14,7 +14,18 @@ El CRM mantiene una arquitectura monolítica: una única aplicación contiene la
 
 ## Alternativas consideradas
 
-No se proporcionó una alternativa considerada de forma histórica. No se afirma que microservicios u otra separación hayan sido evaluados por el equipo.
+No se proporcionó una alternativa considerada de forma histórica. La siguiente comparación es una **evaluación retrospectiva** aprobada el 29/10/2026; no se presenta como parte de la decisión original.
+
+| Alternativa retrospectiva | Evaluación actual |
+|---|---|
+| Frontend y backend como servicios independientes | No se adopta. Dividir TanStack Start/Nitro y Supabase agregaría despliegues, contratos y observabilidad sin evidencia de que hagan falta. |
+| Microservicios por dominio | No se adopta. El equipo es pequeño, el alcance es académico y no existe una necesidad demostrada de despliegue o escalamiento independiente. |
+
+### Costo y reversibilidad
+
+El costo verificable actual es una sola aplicación para desarrollo, pruebas y despliegue. El repositorio no registra el costo histórico de elegir este estilo, por lo que el ADR no declara horas ni ahorro económico como hechos.
+
+Extraer un módulo exigiría definir contratos remotos, autenticación entre servicios, despliegue independiente, observabilidad y adaptar composición e integración. Es reversible, pero de costo alto y mayor riesgo operativo.
 
 ## Consecuencias y trade-offs
 
@@ -42,4 +53,4 @@ El equipo justifica esta evaluación porque la solución reduce complejidad oper
 
 ## Supuestos y seguimiento
 
-La decisión se sostiene para el alcance actual del CRM. Las necesidades futuras de despliegue, integración o escalamiento deben evaluarse antes de introducir servicios separados.
+La decisión se sostiene para el alcance actual del CRM. El ADR se reabre si un módulo necesita desplegarse de forma independiente o una prueba reproducible demuestra un cuello de botella que no puede resolverse dentro del monolito. Las necesidades futuras de despliegue, integración o escalamiento deben evaluarse antes de introducir servicios separados.
