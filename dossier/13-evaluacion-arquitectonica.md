@@ -1,6 +1,6 @@
 # 13 — Evaluación arquitectónica basada en evidencia
 
-> **Estado:** inventario de evidencia para la deliberación del equipo. No es un veredicto arquitectónico final.
+> **Estado:** clasificación aprobada por el equipo el 29/10/2026. Los estados conservan sus límites de evidencia y no se presentan como garantías de producción.
 
 ## Evidencia consolidada
 
@@ -15,7 +15,7 @@
 | Acceso operativo | El equipo confirmó acceso para los 3 integrantes; la revisión previa mostró dos cuentas `Owner` sin MFA. | Panel Team y confirmación del equipo, 18/09/2026. | Falta verificar privilegios mínimos y MFA para todas las cuentas administrativas. |
 | Recuperación | Un respaldo lógico fue restaurado localmente y los conteos de Auth y 14 tablas públicas coincidieron con producción. | `experimentos/EXP-003-recuperacion/README.md` | No demuestra recuperación automática, almacenamiento externo, RPO/RTO ni recuperación regional. |
 
-## Clasificación propuesta para validación del equipo
+## Clasificación aprobada por el equipo
 
 | Atributo | Estado | Justificación y límite | Referencia |
 |---|---|---|---|
