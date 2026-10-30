@@ -1,6 +1,6 @@
 # 22 — Aplicabilidad de CQRS y consistencia eventual (semana 10)
 
-> **Estado: insumo verificado + evaluación por completar.** Todo lo que está marcado como verificado se comprobó contra el código el 23/10/2026. **La evaluación y el veredicto son del equipo**: la rúbrica los evalúa como trabajo propio.
+> **Estado: evaluación aprobada por el equipo el 29/10/2026.** Todo lo que está marcado como verificado se comprobó contra el código el 23/10/2026. El equipo decidió no adoptar CQRS ni consistencia eventual por ahora y registró condiciones reproducibles de reapertura.
 >
 > Este documento cubre el único ítem de la semana 10 que ningún otro archivo del dossier tocaba.
 
@@ -111,26 +111,29 @@ Y fija una regla de honestidad hacia el usuario que vale la pena citar en la def
 
 **Lo que falta de esta mitad:** el `ADR-005` está en estado *"propuesta para revisión mediante PR"*, con *"Veredicto de comité: no registrado"*. Sin esa firma, el análisis existe pero la decisión no.
 
-## 5. Evaluación — `[COMPLETAR — EQUIPO]`
-
-La estructura y la evidencia están servidas. **La calificación de cada criterio y el veredicto final los escribe el equipo.**
+## 5. Evaluación aprobada por el equipo
 
 | Criterio | Qué dice la evidencia | ¿Justifica CQRS? | Por qué |
 |---|---|---|---|
-| Asimetría entre lecturas y escrituras | **Nunca se midió.** Ver la advertencia de abajo | `[COMPLETAR]` | `[COMPLETAR]` |
-| Presión de lectura medida | Quiebre a 50 VUs; throughput útil cae después | `[COMPLETAR]` | `[COMPLETAR]` |
-| Costo de composición en lectura | 1 + 2 viajes por lista de oportunidades, **sin medir** | `[COMPLETAR]` | `[COMPLETAR]` |
-| Tolerancia del negocio al desfase | Ventana medida de 66,90 ms en el spike | `[COMPLETAR]` | `[COMPLETAR]` |
-| Costo operativo de mantener dos modelos | `ADR-005`: consumidor, idempotencia, monitoreo y pendientes | `[COMPLETAR]` | `[COMPLETAR]` |
-| Capacidad del equipo para operarlo | 3 personas, 6-8 h semanales, plan gratuito, **cero observabilidad** | `[COMPLETAR]` | `[COMPLETAR]` |
+| Asimetría entre lecturas y escrituras | **Nunca se midió.** Ver la advertencia de abajo | No | El 80/20 de S11 reparte dos perfiles de lectura; no demuestra predominio de lectura sobre escritura. |
+| Presión de lectura medida | Quiebre a 50 VUs; throughput útil cae después | No por ahora | El experimento consulta una tabla cruda, no el camino real del Kanban con composición entre dominios. |
+| Costo de composición en lectura | 1 + 2 viajes por lista de oportunidades, **sin medir** | No | La composición puede costar más consultas, pero no hay medición que demuestre que sea un problema. |
+| Tolerancia del negocio al desfase | Ventana medida de 66,90 ms en el spike | No | No existe un requisito funcional que acepte explícitamente efectos diferidos. |
+| Costo operativo de mantener dos modelos | `ADR-005`: consumidor, idempotencia, monitoreo y pendientes | No | El costo de outbox, consumidor, reintentos e incidencias no se compensa con una necesidad demostrada. |
+| Capacidad del equipo para operarlo | 3 personas, 6-8 h semanales, plan gratuito, **cero observabilidad** | No | El equipo no tiene aún la capacidad operativa ni la observabilidad requeridas para dos modelos sincronizados. |
 
 > **Advertencia sobre el primer criterio, que es el que más se presta a error.** El prerregistro de S11 dice *"80% lecturas calientes, 20% pipeline"*, y es tentador leer ahí una proporción de lecturas contra escrituras. **No lo es: las dos son lecturas.** El script `load.js` hace un solo tipo de llamada, `http.get`, y cero escrituras — verificado el 23/10/2026. El 80/20 reparte entre dos *perfiles de lectura*, no entre lectura y escritura.
 >
 > Consecuencia: **la asimetría entre lecturas y escrituras, que es el primer argumento a favor de CQRS, nunca se midió en este proyecto.** Si el equipo la usa como criterio, tiene que medirla o declararla como no medida. Afirmarla con el 80/20 sería citar mal la propia evidencia.
 
-**Veredicto:** `[COMPLETAR — EQUIPO]`
+**Veredicto:** Nexus conserva CQS y la composición de lecturas actual, pero no adopta CQRS ni consistencia eventual. No existe una necesidad funcional demostrada que compense el costo de operar dos modelos sincronizados.
 
-**Condiciones que harían reconsiderarlo:** `[COMPLETAR — EQUIPO]` — conviene que sean reproducibles, como las del `ADR-006`, y no metas sin umbral.
+**Condiciones que harían reconsiderarlo:**
+
+1. Medir el flujo real del Kanban, incluyendo `readDeals` y `enrichDeals`, con semilla, concurrencia y red documentadas.
+2. Reabrir la decisión si tres corridas reproducibles superan p95 de 300 ms o 2% de errores bajo la carga objetivo acordada.
+3. Contar con un caso de negocio que acepte explícitamente consistencia eventual.
+4. Tener antes un outbox durable, idempotencia, reintentos, monitoreo y un responsable operativo.
 
 ## 6. Trampas a evitar
 
