@@ -27,7 +27,7 @@ Un fallo **inducido** no equivale a uno **ocurrido en producción**: el primero 
 | Auth devuelve 401/403 o JWT vencido | Inducido | No hay acceso autorizado | No abrir circuito por errores 4xx; Auth fuera del circuito | Tests; se conserva RLS, sin fallback de permisos |
 | Escritura de resultado incierto | Hipotético | Posible duplicación si se reintenta | Adaptador no repite ni bloquea escrituras con breaker de lectura | Test de paso directo; idempotencia productiva pendiente para eventos |
 | Aumento de usuarios | **Inducido y medido** | Más competencia por recursos del stack | Medir mesetas 5/50/100/150/200 antes de decidir extracción | `/experimentos/crecimiento-S11/`: quiebre en **50 VUs**; no suponer causa exacta sin trazas del pool |
-| Consulta a tablas de otro módulo | Inducido | Acoplamiento y cambios coordinados | Propietarios explícitos + composición por API pública + AST/ArchUnitTS | CI rechaza FROM/JOIN ajeno, tabla dinámica, import privado y ciclos |
+| Consulta a tablas de otro módulo | Inducido | Acoplamiento y cambios coordinados | Propietarios explícitos + composición por API pública + AST/ArchUnitTS | CI rechaza FROM/JOIN ajeno, tabla dinámica, import privado y ciclos. Violación deliberada ejecutada: ver [`26-demostracion-fitness-function.md`](../dossier/26-demostracion-fitness-function.md) |
 | Acceso ajeno a datos de otro usuario | Inducido | Fuga de datos entre usuarios | 40 políticas RLS sobre 14 tablas | `rls-isolation.integration.test.ts`: **8 casos sobre 4 tablas** desde el PR #59. Las 40 políticas no se auditaron una por una (riesgo R4) |
 | PostgreSQL caído | Hipotético | CRM pierde persistencia; Auth también puede depender de DB | Error acotado y breaker de lectura | Sin réplica/failover implementado; no ofrece alta disponibilidad |
 | Fallo de proceso de aplicación | Hipotético | Interfaz no disponible | Healthcheck Docker | Reinicio/failover de producción y RTO/RPO no ensayados |
@@ -42,7 +42,7 @@ Un fallo **inducido** no equivale a uno **ocurrido en producción**: el primero 
 | Timeout | Implementado: 3.000 ms | Limita espera, no repara dependencia |
 | Circuit breaker | Implementado y medido | Menos intentos durante fallo; puede rechazar lecturas durante cooldown. **No se midió cuántas lecturas legítimas rechaza** (mini-comité 2, respuesta 10) |
 | Aislamiento por RLS | Implementado y medido | 8 casos sobre 4 tablas en CI; las 40 políticas sin auditar una por una |
-| Propiedad de datos por módulo | Implementado y verificado rompiéndolo | Violación deliberada ejecutada en CI |
+| Propiedad de datos por módulo | Implementado y verificado rompiéndolo | Violación deliberada ejecutada en CI: PR #60, corrida 40051537724 |
 | Retry/backoff/jitter | No añadido al adaptador | Medir amplificación; escrituras necesitan idempotencia antes de repetir |
 | Bulkhead/pools separados | Propuesta | Requiere demostrar recurso compartido agotado; abrir otro pool no crea CPU |
 | Caché/fallback de datos | Propuesta | Requiere política de frescura, permisos e invalidación; no devolver éxitos vacíos |
