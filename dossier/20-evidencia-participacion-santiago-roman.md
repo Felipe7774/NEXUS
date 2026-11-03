@@ -5,7 +5,7 @@
 **Correos:** `55493573+santiago1500K@users.noreply.github.com` y `santiroman7@hotmail.com` (alias `chanty`)
 **Fecha de la auditoría:** 23/10/2026
 
-> **Estado: esqueleto.** La evidencia de abajo está verificada contra el repositorio. Las justificaciones marcadas `[COMPLETAR]` las escribe el integrante: son su relato de por qué decidió lo que decidió, y nadie más puede escribirlas.
+> **Estado: completo.** La evidencia está verificada contra el repositorio y **las justificaciones las escribió el integrante** el 03/11/2026, con la evidencia de cada decisión delante. Son su relato de por qué decidió lo que decidió; nadie más podía escribirlas.
 
 ## Propósito
 
@@ -36,15 +36,15 @@ La tabla de arriba —51 + 35— es la foto del 23/10/2026 que justificó el cam
 
 ## 2. Decisiones arquitectónicas tomadas por este integrante
 
-Cada fila enlaza la decisión con su consecuencia verificable en el repositorio. La columna de justificación la completa el integrante.
+Cada fila enlaza la decisión con su consecuencia verificable en el repositorio y con la razón que la sostiene.
 
 | Decisión | Consecuencia verificable | Por qué se decidió así |
 |---|---|---|
-| **Audiencia de las vistas C4.** Nivel 1 para quien debe entender el sistema sin conocerlo por dentro; Niveles 2 y 3 para quien va a tocar el código | De ese criterio se derivó incluir `client.server.ts` como componente #9. Queda escrito en `modeloc4-nivel.md` como *"criterio derivado de esta decisión"*. PR #23 y #24 | `[COMPLETAR]` |
-| **Registrar la partición por dominio como ADR nuevo**, en vez de editar el `ADR-001` o marcarlo superseded | `ADR-007`. Mantiene el criterio del equipo de no reescribir ADRs retroactivamente, el mismo que se usó con `ADR-005` y `ADR-006`. PR #41 | `[COMPLETAR]` |
-| **Validar el registro de uso de IA del Módulo 3** como exacto y completo | Quedó firmado en `LOG-EDAV-auditoria-ia.md`. PR #26 | `[COMPLETAR]` |
-| **Consolidar los ADR en una sola carpeta** y renumerar solo los dos más nuevos, para no romper 28 referencias | PR #38. Eliminó la ambigüedad de tener dos documentos llamados "ADR 3" | `[COMPLETAR]` |
-| **No inflar el historial de los compañeros.** Ante la posibilidad de generar PRs para que otros integrantes figuraran con actividad, se descartó y se repartió trabajo real en issues | Issues #27 a #30, con alcance y criterio de aceptación. Ningún commit fue atribuido a quien no lo escribió | `[COMPLETAR]` |
+| **Audiencia de las vistas C4.** Nivel 1 para quien debe entender el sistema sin conocerlo por dentro; Niveles 2 y 3 para quien va a tocar el código | De ese criterio se derivó incluir `client.server.ts` como componente #9. Queda escrito en `modeloc4-nivel.md` como *"criterio derivado de esta decisión"*. PR #23 y #24 | Cada audiencia necesita entender cosas distintas. El Nivel 1 permite comprender qué hace el sistema y cómo se relaciona con su entorno, sin conocer el código; los Niveles 2 y 3 necesitan el detalle para que quien vaya a modificarlo entienda su estructura y sus componentes. Un solo diagrama habría quedado demasiado cargado para alguien no técnico o demasiado general para quien trabaja en el código. **Ese criterio explica también incluir `client.server.ts`:** aunque no tenga consumidores, sus privilegios son relevantes para quien mantiene el sistema, y dejarlo fuera habría ocultado a esa audiencia justo el componente que bypassa RLS. |
+| **Registrar la partición por dominio como ADR nuevo**, en vez de editar el `ADR-001` o marcarlo superseded | `ADR-007`. Mantiene el criterio del equipo de no reescribir ADRs retroactivamente, el mismo que se usó con `ADR-005` y `ADR-006`. PR #41 | El `ADR-001` no quedó falso, así que marcarlo *superseded* habría sido incorrecto: *superseded* significa reemplazado, y la partición por dominio no reemplaza a las capas, convive dentro de ellas. **Son ejes distintos** — capas separa por responsabilidad técnica, dominio separa por negocio —, y por eso correspondía un ADR nuevo. Sí se actualizó el **Contexto** del `ADR-001`, con una nota fechada que dice qué cambió y remite al `ADR-007`; la **Decisión** no se tocó. Actualizar el contexto con marca de fecha conserva el registro, reescribir la decisión lo borraría. |
+| **Validar el registro de uso de IA del Módulo 3** como exacto y completo | Quedó firmado en `LOG-EDAV-auditoria-ia.md`. PR #26 | **La firma tiene dos mitades que no se apoyan en lo mismo, y conviene decirlo.** *Exacto* se verificó contra el repositorio: los diagramas Mermaid renderizan en GitHub, las rutas citadas existen —21 el 28/08 y 25 el 15/09, ninguna rota— y `client.server.ts` terminó incluido como componente #9 después de que la IA reportara su ausencia. *Completo* se apoya en haber participado directamente en esas sesiones: los cuatro rechazos registrados ocurrieron ahí y no dejaron commit. Se firma declarando esa diferencia, con el mismo criterio que el documento 16 aplica a sus dos últimas filas. |
+| **Consolidar los ADR en una sola carpeta** y renumerar solo los dos más nuevos, para no romper 28 referencias | PR #38. Eliminó la ambigüedad de tener dos documentos llamados "ADR 3" | Renumerar los ADR viejos habría roto referencias **irreparables**. Las 165 citas dentro del dossier se arreglan con un reemplazo, pero **27 viven en mensajes de commit** y el historial de Git es inmutable: un `ADR-003` renumerado habría dejado commits apuntando para siempre a un documento que ya no es ese, y la única salida habría sido reescribir la historia. El costo era además asimétrico: el `ADR-005` y el `ADR-006` tenían horas de vida cuando se consolidaron, así que casi nadie los citaba. Renumerar lo nuevo no rompe nada; renumerar lo viejo rompe todo lo escrito antes. |
+| **No inflar el historial de los compañeros.** Ante la posibilidad de generar PRs para que otros integrantes figuraran con actividad, se descartó y se repartió trabajo real en issues | Issues #27 a #30, con alcance y criterio de aceptación. Ningún commit fue atribuido a quien no lo escribió | No quise falsificar el historial. Y el repositorio lo desmentiría de todos modos: `git log --author` muestra quién escribió cada commit, así que una actividad inventada no habría sobrevivido a la primera verificación. Repartir trabajo real en issues era la única opción que dejaba evidencia verdadera. |
 
 > La última fila es una decisión de integridad, no técnica. Se registra porque la rúbrica evalúa el proceso, y porque la alternativa descartada habría sido detectable en el historial.
 
@@ -63,11 +63,27 @@ Además de decidir, este integrante condujo auditorías que encontraron problema
 
 ## 4. Declaración de uso de herramientas
 
-`[COMPLETAR — INTEGRANTE]`
+Parte del trabajo de arriba se produjo **con asistencia de Claude Code**, declarada en los commits mediante el trailer `Co-Authored-By`. Esta sección dice qué fue asistido y qué no, en coherencia con [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md).
 
-Esta sección debe declarar con qué asistencia se produjo el trabajo de arriba, en coherencia con [`16-declaracion-uso-ia.md`](16-declaracion-uso-ia.md).
+**Qué fue asistido.** La implementación y la documentación. Eso incluye código fuente, no solo archivos del dossier: los commits con trailer tocan cinco archivos de `src/`.
 
-Dato objetivo para partir, sin cifra fija por la razón explicada en el documento 16. La proporción de commits de **esta identidad** que llevan el trailer `Co-Authored-By: Claude`:
+| Archivo de `src/` | Commit |
+|---|---|
+| `architecture/service-role-boundary.test.ts` | `fea5036` |
+| `architecture/persistence-fitness.test.ts` | `65fb1fa` |
+| `architecture/persistence-rules.ts` | `e1c5083` |
+| `integrations/supabase/rls-isolation.integration.test.ts` | `e1c5083` |
+| `routes/__root.tsx` | `ca70927` — corrección del CVE-2026-102989 en producción |
+
+**Qué no fue asistido.** Las cinco decisiones de la sección 2 y las justificaciones que las acompañan.
+
+**Por qué esta declaración no dice «el código es nuestro y la documentación fue asistida».** Porque sería falsa y el repositorio la desmiente en una consulta: los cinco archivos de arriba son código. La distinción que sí se sostiene es otra, y es la que ordena todo el dossier:
+
+> No es **código contra documentación**, sino **decisiones contra implementación**.
+
+La implementación asistida no depende de confianza: las fitness functions se verificaron **rompiéndolas a propósito**, y el aislamiento RLS corre contra Postgres real en cada PR. Lo asistido es verificable por pruebas; lo decidido es de este integrante y está justificado fila por fila arriba.
+
+**Dato objetivo**, sin cifra fija por la razón explicada en el documento 16. La proporción de commits de **esta identidad** que llevan el trailer `Co-Authored-By: Claude`:
 
 ```bash
 echo "asistidos: $(git log --use-mailmap --author=santiago1500K --grep="Co-Authored-By: Claude" -i --oneline main | wc -l) de $(git log --use-mailmap --author=santiago1500K --oneline main | wc -l)"
