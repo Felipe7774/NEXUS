@@ -96,6 +96,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 - [`24-matriz-stride.md`](24-matriz-stride.md) — Módulo 7: superficie de ataque y controles verificados por categoría STRIDE, con el modelado por completar.
 - [`25-acta-mini-comite-2.md`](25-acta-mini-comite-2.md) — Módulo 6: acta del mini-comité 2, **celebrado el 23/10/2026**. Doce decisiones por rol y veredicto del `ADR-006`.
 - [`26-demostracion-fitness-function.md`](26-demostracion-fitness-function.md) — regla, umbral y condición de fallo de la fitness function, con el log real de la violación deliberada que rompió el CI.
+- [`runbooks/RB-001-perdida-del-proyecto-supabase.md`](runbooks/RB-001-perdida-del-proyecto-supabase.md) — primer runbook. Separa lo que el EXP-003 probó (clonar) de lo que no (recuperar tras un borrado).
 
 ## Trazabilidad Git
 

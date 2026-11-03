@@ -67,7 +67,7 @@ La lectura correcta tiene dos caras y conviene dar las dos:
 | Trazas | **No existe** |
 | Alertas | **No existe** |
 | SLO definidos | **No existe** |
-| Runbooks | **No existe** |
+| Runbooks | **Uno**, [`RB-001`](runbooks/RB-001-perdida-del-proyecto-supabase.md), para la pérdida del proyecto. Los demás no existen |
 | Auditoría de acciones de usuario | **Parcial.** Solo el cambio de etapa queda registrado, y **ninguna parte de la aplicación lee esa tabla** |
 | Monitoreo de disponibilidad del proveedor | **No existe** — el incidente de septiembre lo demuestra |
 
