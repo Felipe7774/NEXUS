@@ -72,6 +72,7 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 
 - [`01-contexto-y-drivers.md`](01-contexto-y-drivers.md) — identificación del sistema, stakeholders, restricciones, drivers y riesgos preliminares.
 - [`02-escenarios-de-calidad.md`](02-escenarios-de-calidad.md) — matriz de atributos, trade-offs, los 6 escenarios de calidad de 6 partes, semilla decidida por el equipo.
+- [`03-mediciones.md`](03-mediciones.md) — **índice consolidado de todo lo medido**, con su condición, resultado y límite declarado. Incluye la sección de lo que no se midió.
 - [`modeloc4-nivel.md`](modeloc4-nivel.md) — modelo C4 **as-is** (Módulo 3): contexto, contenedores y componentes en Mermaid, con las 25 rutas de archivo citadas verificadas contra el repo (28/08/2026, re-verificadas el 15/09/2026).
 - [`04-evidencia-ejecutable.md`](04-evidencia-ejecutable.md) — resultado de la medición de línea base (Escenario 3).
 - [`experimentos/EXP-001-linea-base/`](experimentos/EXP-001-linea-base/) — script de siembra + k6, condiciones, 3 corridas válidas.
