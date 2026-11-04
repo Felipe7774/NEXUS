@@ -70,6 +70,8 @@ Pendientes del Módulo 4 (semanas 7-8): decisión de estilo arquitectónico, map
 
 ## Índice de documentos
 
+> **¿Buscás un archivo con el nombre que pide el curso?** La correspondencia completa `00` a `16` está en [`00-INDICE-EQUIVALENCIAS.md`](00-INDICE-EQUIVALENCIAS.md).
+
 - [`01-contexto-y-drivers.md`](01-contexto-y-drivers.md) — identificación del sistema, stakeholders, restricciones, drivers y riesgos preliminares.
 - [`02-escenarios-de-calidad.md`](02-escenarios-de-calidad.md) — matriz de atributos, trade-offs, los 6 escenarios de calidad de 6 partes, semilla decidida por el equipo.
 - [`03-mediciones.md`](03-mediciones.md) — **índice consolidado de todo lo medido**, con su condición, resultado y límite declarado. Incluye la sección de lo que no se midió.
