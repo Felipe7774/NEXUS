@@ -34,6 +34,24 @@ El equipo compartirá el acceso administrativo, habilitará MFA en cuentas admin
 | Costo | Mantiene servicios gestionados y evita operar infraestructura propia. |
 | Dependencia | Conserva dependencia de Vercel y Supabase; se mitiga con acceso compartido, MFA y procedimientos de recuperación. |
 
+### Reversibilidad
+
+Agregada el 03/11/2026 a pedido de la auditoría del Módulo 7 (M7-08), con el mismo criterio del [`ADR-007`](ADR-007-particion-por-dominio.md): costo observable, no estimado a ojo.
+
+**Estado actual:** la decisión está aprobada pero **no implementada**, así que hoy no hay nada que revertir. El costo de reversión es cero mientras ese estado no cambie.
+
+**Cuando se implemente**, revertir significa retirar lo que se haya agregado. Lo que el equipo puede afirmar sin medirlo todavía:
+
+| Qué se agregaría | Qué cuesta deshacerlo |
+|---|---|
+| Monitor sintético externo | Dar de baja el servicio. No deja dependencias en el código |
+| Registro de latencia y errores en el cliente de Supabase | Revertir el cambio en `supabase-fetch.ts`, que es el único punto de instrumentación previsto |
+| Acceso administrativo compartido y MFA | **No se revierte**: quitar MFA o volver a una sola cuenta reintroduce un riesgo que ya se materializó dos veces |
+
+**Lo que hace reversible esta decisión** es que no cambia la arquitectura: no introduce un proceso nuevo, ni una base de datos, ni un contrato entre módulos. Es instrumentación y gobernanza de cuentas. Por eso su costo de reversión es de otro orden que el del [`ADR-007`](ADR-007-particion-por-dominio.md), donde deshacer la partición exige tocar 10 archivos.
+
+`[COMPLETAR — EQUIPO]` las horas, una vez implementado. El historial dará las fechas; el esfuerzo lo pone el equipo.
+
 ## Evidencia y trazabilidad
 
 - `21-seguridad-y-operacion.md` — activos, controles, incidentes y plan de observabilidad.

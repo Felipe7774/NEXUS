@@ -41,7 +41,8 @@ El material del curso pide `/docs/adr/0001-decision-estilo.md` y `0002-aislamien
 
 - Los ADR 001 a 004 documentan evaluaciones retrospectivas, costo y reversibilidad observables sin afirmar alternativas históricas ni inventar horas. El ADR-007 también registra su huella de reversibilidad medida.
 - El `ADR-001` sigue vigente y **su Contexto se actualizó el 23/10/2026** para reflejar las cinco capas actuales: describía cuatro y ubicaba las operaciones en `src/lib/crm.ts`, que tras el PR #35 pasó a ser la capa de composición. Se corrigió la descripción, no la decisión.
-- Ningún ADR tiene **veredicto de comité**: los primeros cuatro dicen "confirmado por el equipo", que no es lo mismo.
+- **El `ADR-006` sí tiene veredicto de comité desde el 23/10/2026: CONFIRMADA.** El mini-comité 2 se celebró con los tres integrantes repartidos en los roles de CTO, seguridad, finanzas y operaciones; el acta está en [`25-acta-mini-comite-2.md`](../25-acta-mini-comite-2.md).
+- Los demás ADR **no** tienen veredicto de comité: los primeros cuatro dicen "confirmado por el equipo", que no es lo mismo, y el `ADR-005` sigue en estado de propuesta.
 
 ## Plantilla mínima
 

@@ -39,7 +39,7 @@ Esto es lo que hay **hoy en el código**, con su punto de aplicación y cómo se
 | **Frontera del cliente privilegiado** | `service_role` solo en `*.server.ts` | `service-role-boundary.test.ts` — probada rompiéndola adrede |
 | **Aislamiento de secretos por bundler** | Vite solo inyecta variables con prefijo `VITE_`; la clave se lee sin ese prefijo | Verificado el 23/10/2026 |
 | **Protección de importación** | `importProtection` en `vite.config.ts`, con `behavior: "error"` | Falla el build |
-| **Propiedad de datos por módulo** | Toda consulta respeta al propietario y sus JOINs | `persistence-fitness.test.ts` |
+| **Propiedad de datos por módulo** | Toda consulta respeta al propietario y sus JOINs | `persistence-fitness.test.ts`. Secuencia verde → rojo → verde conservada en [`26-demostracion-fitness-function.md`](26-demostracion-fitness-function.md) |
 | **Ausencia de ciclos entre módulos** | ArchUnitTS | `persistence-fitness.test.ts` — incluye un ciclo deliberado |
 | **Timeout de lectura** | 3.000 ms por request a Supabase | `supabase-fetch.ts` |
 | **Circuit breaker** | Abre tras **3 fallos**, enfría **1.000 ms** | `read-circuit-breaker.test.ts` |
