@@ -50,6 +50,20 @@ export const saveDeal = async (input: {
   if (error) throw error;
 };
 
+/**
+ * Traza de auditoria del cambio de etapa. La escribe el trigger
+ * deals_stage_history; la tabla solo tiene GRANT SELECT, asi que desde aqui
+ * es de lectura. changed_by se resuelve en composicion: profiles es de identity.
+ */
+export const readDealStageHistory = async (dealId: string) => {
+  const { data, error } = await supabase
+    .from("deal_stage_history")
+    .select("id, deal_id, from_stage_id, to_stage_id, changed_by, changed_at")
+    .eq("deal_id", dealId)
+    .order("changed_at", { ascending: false });
+  if (error) throw error;
+  return data ?? [];
+};
 export const moveDeal = async (input: { id: string; stage_id: string }) => {
   const { error } = await supabase
     .from("deals")
