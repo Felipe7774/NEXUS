@@ -5,6 +5,8 @@ Fecha: 16/10/2026. Base de código inspeccionada: `72622d1`.
 Los contextos siguientes son una interpretación explícita del dominio, no módulos
 ya extraídos ni decisiones históricas aprobadas por los tres integrantes.
 
+> **Esa frase envejeció, y se deja a la vista en lugar de reescribirla.** El 16/10/2026 no había módulos extraídos. **Hoy sí: cuatro**, con propiedad exclusiva de tablas y verificados en CI — `identity`, `relationships`, `sales` y `followup`. La partición se registró en el [`ADR-007`](adrs/ADR-007-particion-por-dominio.md), confirmado el 29/10/2026. Los contextos de abajo son el análisis que la precedió, no el estado actual del código.
+
 ## 1. Dominio y lenguaje
 
 Nexo CRM organiza la relación comercial B2B: una **empresa** tiene **contactos**;

@@ -1,4 +1,6 @@
-# 03 — Vistas C4 (as-is)
+# 04 — Vistas C4 (as-is)
+
+> El archivo se llama `modeloc4-nivel.md` por historia; en la estructura del curso es el **`04-arquitectura-as-is.md`**, según [`00-INDICE-EQUIVALENCIAS.md`](00-INDICE-EQUIVALENCIAS.md). El título decía «03» y chocaba con [`03-mediciones.md`](03-mediciones.md) desde que ese documento se creó, el 03/11/2026. Corregido el 06/11.
 
 > Diagrama **as-is**: representa la arquitectura que existe hoy y puede demostrarse en el código. Cada elemento tiene un ancla verificable en el repositorio — nada de lo que "nos gustaría tener". Contenido y decisiones de frontera son del equipo; verificación de trazabilidad (que cada archivo citado exista de verdad) corrida el 28/08/2026 y re-corrida el 15/09/2026.
 

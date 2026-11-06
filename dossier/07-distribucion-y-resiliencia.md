@@ -1,5 +1,9 @@
 # 07 — Distribución y resiliencia: módulo 6
 
+> **De qué trata.** Una sola unidad de despliegue con los fallos de lectura contenidos: timeout de 3.000 ms y circuito que abre tras 3 fallos. La decisión está en el [`ADR-006`](adrs/ADR-006-distribucion-y-resiliencia.md), **confirmada por el mini-comité 2** el 23/10/2026, con su acta en [`25-acta-mini-comite-2.md`](25-acta-mini-comite-2.md). Las mediciones de carga, en [`03-mediciones.md`](03-mediciones.md).
+
+## Notas de mantenimiento
+
 Actualización 22/10/2026: se corrigieron los dos errores de tipos del formulario
 de acceso con campos vinculados a `FieldPath<T>`, sin conversiones a `never`.
 `npm run typecheck` se incorpora a Docker y al CI. Los registros del 16/17 de
