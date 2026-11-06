@@ -72,4 +72,6 @@ Umbral: p95 < 2000ms. Resultado real: **92.62ms** — cumple el umbral con un ma
 
 `experimentos/EXP-001-linea-base/` — script de siembra, script de k6, condiciones, y los 3 JSON de corridas válidas (`resultados/corrida-2.json`, `corrida-3.json`, `corrida-4.json`).
 
-**Para el equipo:** falta la clasificación (Válido/Modificado/Genérico/Falso) del Escenario 3 con este dato real, y la justificación propia — mismo proceso que los Escenarios 1 y 2 en `LOG-EDAV-auditoria-ia.md`.
+**Clasificado el 24/08/2026: Válido.** La clasificación y su justificación están en [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md), con los JSON de las tres corridas como respaldo y el límite declarado de que se midió la API REST, no la aplicación renderizada.
+
+> **Corregido el 06/11/2026** a partir de una revisión de Felipe. Esta línea decía *«falta la clasificación del Escenario 3»* cuando el Log EDAV ya la tenía. El documento quedó atrás, no el README: su «6/6 escenarios auditados» era correcto.

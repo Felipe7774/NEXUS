@@ -2,6 +2,10 @@
 
 > Ver `LOG-EDAV-auditoria-ia.md` para la trazabilidad de qué contenido de este archivo fue delegado a IA (paso D) y cuál es su estado de auditoría (paso A) — todavía **no completado** con la matriz formal Válido/Modificado/Genérico/Falso.
 
+> **Antes de leer los escenarios.** El texto de las secciones 2 a 5 es el de la **semana 3** y **no se reescribe**: es el registro de lo que el equipo sabía entonces. Por eso dice cosas que ya no son ciertas —«todavía no ejecutada», «11+ tablas»— y por eso las correcciones, fechadas, están reunidas en [*Cifras del texto original que envejecieron*](#cifras-del-texto-original-que-envejecieron), más abajo. **Los seis escenarios se ejecutaron**; los resultados están en la tabla que precede a esa sección.
+>
+> Aviso agregado el 06/11/2026: en una revisión, el texto viejo se leyó como estado actual. La corrección existía, pero después del tropiezo.
+
 ## 1. Atributos de calidad considerados
 
 Seguridad, Disponibilidad, Mantenibilidad, Rendimiento, Usabilidad, Escalabilidad — el set estándar de ISO/IEC 25010 usado por la cátedra.
@@ -95,6 +99,8 @@ Lo que se midió después de redactarlos. El texto de arriba no se modificó.
 | 6 | ≤2 s con 5.000/1.000 | p95 = 127,16 ms | `experimentos/EXP-002-escalabilidad/` |
 
 ### Cifras del texto original que envejecieron
+
+> **Por qué el texto de arriba dice cosas que ya no son ciertas.** Los escenarios se redactaron en la semana 3 y **no se reescriben**: son el registro de lo que el equipo sabía entonces. Las correcciones van acá abajo, fechadas. Si alguien lee de arriba hacia abajo y tropieza con un «todavía no ejecutada», esta sección es la respuesta.
 
 Se dejan a la vista en lugar de corregirlas dentro del texto de la semana 3:
 

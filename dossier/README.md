@@ -12,6 +12,14 @@
 
 ## Estado: 6/6 escenarios auditados (ciclo EDAV completo)
 
+> **Esta cifra es correcta y está respaldada.** Los seis escenarios tienen clasificación y justificación en [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md). Si otro documento del dossier dice que falta clasificar alguno, **el que está desactualizado es ese documento**, no esta línea: pasó con el Escenario 3 en `04-evidencia-ejecutable.md`, corregido el 06/11/2026.
+>
+> Para comprobarlo sin confiar en esta nota, contando solo la tabla de clasificación:
+>
+> ```bash
+> grep -c "^| Escenario .* | **Válido** |" dossier/LOG-EDAV-auditoria-ia.md
+> ```
+
 | # | Escenario | Clasificación | Verificación |
 |---|---|---|---|
 | 1 | Seguridad (aislamiento RLS) | **Válido** | `rls-isolation.integration.test.ts`, 2/2, corre en cada PR |
