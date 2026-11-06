@@ -2,8 +2,11 @@
 
 > **Renumerado el 23/10/2026.** Nació como `docs/adr/0003-integracion-oportunidades-actividades.md`. Pasó de 0003 a **005** al consolidar los ADR en una sola carpeta, para eliminar el choque con `ADR-003 — Aislamiento de datos mediante RLS`, que es una decisión distinta. El contenido no se modificó.
 
-**Fecha:** 16/10/2026. **Estado:** propuesta para revisión mediante PR.
-**Veredicto de comité:** no registrado; este documento no afirma aprobación del equipo.
+**Fecha:** 16/10/2026. **Estado: confirmado por el equipo el 06/11/2026.**
+**Veredicto de comité:** no registrado. Se confirma con el mismo criterio que los `ADR-001` a
+`ADR-004` —decisión del equipo, no sesión de comité—. El único con veredicto de comité es el
+[`ADR-006`](ADR-006-distribucion-y-resiliencia.md), cuya acta está en
+[`25-acta-mini-comite-2.md`](../25-acta-mini-comite-2.md). No se le atribuye un comité que no ocurrió.
 
 ## Contexto
 
@@ -61,6 +64,27 @@ responder durante indisponibilidad del consumidor o se exige un plazo verificabl
 de materialización. Medir ese plazo con una carga y umbral acordados antes de adoptar.
 El harness exige invariantes funcionales, aislamiento e idempotencia; falla en CI si
 no se cumplen. Los tests de rendimiento no son un SLO productivo.
+
+**Condición reproducible de reconsideración, acordada el 06/11/2026.** Las razones de arriba
+estaban en prosa y no se podían comprobar. La que las vuelve medible es la demanda funcional:
+se reconsidera cuando **20 o más** cambios de etapa no hayan tenido una actividad de
+seguimiento creada después.
+
+```sql
+SELECT count(*) FROM public.deal_stage_history h
+WHERE NOT EXISTS (
+  SELECT 1 FROM public.activities a
+  WHERE a.deal_id = h.deal_id AND a.created_at > h.changed_at
+);
+```
+
+Esta consulta **no era posible hasta el 06/11/2026**: `deal_stage_history` no tenía dueño
+declarado y ninguna parte de la aplicación la leía. La condición existe porque la traza se
+expuso.
+
+Se eligió la demanda funcional y no la latencia del acuse porque el margen de latencia es
+enorme —51,00 ms síncrono contra 4,49 ms diferido— y un umbral ahí no se cumpliría en mucho
+tiempo: sonaría riguroso y sería decorativo.
 
 Este ADR corresponde al **tema 3 del curso, integración**. El antecedente
 `dossier/adrs/ADR-003-aislamiento-de-datos-con-rls.md` sigue siendo un registro distinto
