@@ -21,7 +21,7 @@
 
 ## Nivel 1 — Contexto
 
-Nexo CRM — Sistema CRM B2B que permite gestionar empresas, contactos, oportunidades de venta y actividades comerciales desde una sola interfaz.
+Nexus CRM — Sistema CRM B2B que permite gestionar empresas, contactos, oportunidades de venta y actividades comerciales desde una sola interfaz.
 
 **Interactúa con:**
 - **Vendedor** — administra contactos, empresas, oportunidades y actividades.
@@ -32,13 +32,13 @@ Nexo CRM — Sistema CRM B2B que permite gestionar empresas, contactos, oportuni
 
 ```mermaid
 C4Context
-  title Diagrama de Contexto — Nexo CRM
+  title Diagrama de Contexto — Nexus CRM
 
   Person(vendedor, "Vendedor", "Administra contactos, empresas, oportunidades y actividades")
   Person(gerente, "Gerente", "Consulta el pipeline, el dashboard y los reportes comerciales")
   Person(admin, "Administrador", "Gestiona usuarios, roles, pipelines y etapas")
 
-  System(nexo, "Nexo CRM", "Sistema CRM B2B para gestionar empresas, contactos, oportunidades y actividades comerciales desde una sola interfaz")
+  System(nexo, "Nexus CRM", "Sistema CRM B2B para gestionar empresas, contactos, oportunidades y actividades comerciales desde una sola interfaz")
 
   System_Ext(supabase, "Supabase", "Proporciona autenticacion, base de datos PostgreSQL y seguridad RLS")
   System_Ext(hosting, "Vercel / Cloudflare", "Plataforma donde puede desplegarse la aplicacion web")
@@ -54,7 +54,7 @@ C4Context
 
 ### Contenedor 1
 
-- **Nombre:** Aplicación web Nexo CRM.
+- **Nombre:** Aplicación web Nexus CRM.
 - **Tecnología:** React 19, TypeScript, TanStack Start, Vite, Nitro y Tailwind CSS.
 - **Responsabilidad:** Presenta la interfaz del CRM, procesa las acciones del usuario y consulta los servicios de Supabase.
 - **Evidencia de despliegue separado:** `package.json` contiene los comandos `npm run build` y `npm run dev`. `vite.config.ts` configura la compilación y Nitro.
@@ -66,18 +66,18 @@ C4Context
 - **Responsabilidad:** Autentica usuarios, almacena la información del CRM y controla el acceso a los datos.
 - **Evidencia de despliegue separado:** `supabase/config.toml` identifica el proyecto Supabase y `supabase/migrations/` contiene el esquema y las políticas de la base de datos.
 
-**Aclaración:** Nexo CRM no tiene un backend Node independiente. La lógica de servidor de TanStack Start se despliega junto con la aplicación web.
+**Aclaración:** Nexus CRM no tiene un backend Node independiente. La lógica de servidor de TanStack Start se despliega junto con la aplicación web.
 
 ```mermaid
 C4Container
-  title Diagrama de Contenedores — Nexo CRM
+  title Diagrama de Contenedores — Nexus CRM
 
   Person(vendedor, "Vendedor")
   Person(gerente, "Gerente")
   Person(admin, "Administrador")
 
-  System_Boundary(nexo, "Nexo CRM") {
-    Container(webapp, "Aplicacion web Nexo CRM", "React 19, TypeScript, TanStack Start, Vite, Nitro, Tailwind CSS", "Presenta la interfaz del CRM, procesa las acciones del usuario y consulta los servicios de Supabase")
+  System_Boundary(nexo, "Nexus CRM") {
+    Container(webapp, "Aplicacion web Nexus CRM", "React 19, TypeScript, TanStack Start, Vite, Nitro, Tailwind CSS", "Presenta la interfaz del CRM, procesa las acciones del usuario y consulta los servicios de Supabase")
     ContainerDb(supabase, "Backend Supabase", "Supabase Auth + PostgreSQL + RLS", "Autentica usuarios, almacena la informacion del CRM y controla el acceso a los datos")
   }
 
@@ -125,9 +125,9 @@ Estas fronteras **no son una intención documentada: están verificadas en cada 
 
 ```mermaid
 C4Component
-  title Diagrama de Componentes — Aplicación web Nexo CRM
+  title Diagrama de Componentes — Aplicación web Nexus CRM
 
-  Container_Boundary(webapp, "Aplicacion web Nexo CRM") {
+  Container_Boundary(webapp, "Aplicacion web Nexus CRM") {
     Component(auth_comp, "Autenticacion y autorizacion", "TanStack Router + hooks", "Gestiona el inicio de sesion, registro, sesion activa y consulta de roles")
     Component(companies_comp, "Gestion de empresas y contactos", "React", "Muestra, busca, crea, modifica y elimina empresas y contactos")
     Component(pipeline_comp, "Pipeline de oportunidades", "React", "Muestra las oportunidades por etapas y permite crearlas, editarlas, eliminarlas y moverlas")

@@ -19,9 +19,9 @@ import { usePipelines, useProfiles, useStages } from "@/lib/crm";
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
     meta: [
-      { title: "Configuración | Nexo CRM" },
+      { title: "Configuración | Nexus CRM" },
       { name: "description", content: "Usuarios, pipelines, etapas y etiquetas." },
-      { property: "og:title", content: "Configuración | Nexo CRM" },
+      { property: "og:title", content: "Configuración | Nexus CRM" },
       { property: "og:description", content: "Usuarios, pipelines, etapas y etiquetas." },
     ],
   }),

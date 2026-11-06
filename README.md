@@ -1,4 +1,4 @@
-# Nexo CRM
+# Nexus CRM
 
 CRM B2B para gestionar contactos, empresas, oportunidades y actividades comerciales desde una única interfaz.
 

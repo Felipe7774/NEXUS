@@ -8,7 +8,7 @@
 
 El ítem pide evaluar **dos cosas distintas** que se confunden con facilidad, y confundirlas acá sería el error más caro:
 
-| Concepto | Qué significa | Estado en Nexo CRM |
+| Concepto | Qué significa | Estado en Nexus CRM |
 |---|---|---|
 | **Separación de comandos y consultas** (CQS) | Una operación o cambia estado, o devuelve datos, pero no ambas | **Ya existe**, verificado abajo |
 | **CQRS** | Modelos **y almacenes** de lectura y escritura separados, sincronizados entre sí | **No existe** |

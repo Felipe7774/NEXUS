@@ -22,9 +22,9 @@ import {
 export const Route = createFileRoute("/_authenticated/activities")({
   head: () => ({
     meta: [
-      { title: "Actividades | Nexo CRM" },
+      { title: "Actividades | Nexus CRM" },
       { name: "description", content: "Tareas, llamadas, reuniones y notas." },
-      { property: "og:title", content: "Actividades | Nexo CRM" },
+      { property: "og:title", content: "Actividades | Nexus CRM" },
       { property: "og:description", content: "Tareas, llamadas, reuniones y notas." },
     ],
   }),

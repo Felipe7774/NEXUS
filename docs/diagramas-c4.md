@@ -1,4 +1,4 @@
-# Arquitectura C4 de Nexo CRM
+# Arquitectura C4 de Nexus CRM
 
 > Versión local histórica incorporada a Git el 22/10/2026. Estos diagramas
 > preceden la separación interna de persistencia del módulo 6. El estado y los
@@ -8,13 +8,13 @@
 
 ```mermaid
 C4Context
-    title Nivel 1 — Contexto de Nexo CRM
+    title Nivel 1 — Contexto de Nexus CRM
 
     Person(vendedor, "Vendedor", "Gestiona contactos, empresas, oportunidades y actividades.")
     Person(gerente, "Gerente comercial", "Consulta el pipeline, indicadores y reportes.")
     Person(admin, "Administrador", "Gestiona usuarios, roles, pipelines y etapas.")
 
-    System(nexo, "Nexo CRM", "CRM B2B para gestionar contactos, empresas, oportunidades y actividades comerciales.")
+    System(nexo, "Nexus CRM", "CRM B2B para gestionar contactos, empresas, oportunidades y actividades comerciales.")
 
     System_Ext(supabase, "Supabase", "Proporciona autenticación, PostgreSQL y seguridad RLS.")
     System_Ext(hosting, "Vercel / Cloudflare", "Aloja y ejecuta la aplicación web.")
@@ -32,13 +32,13 @@ C4Context
 
 ```mermaid
 C4Container
-    title Nivel 2 — Contenedores de Nexo CRM
+    title Nivel 2 — Contenedores de Nexus CRM
 
     Person(vendedor, "Vendedor", "Gestiona contactos, empresas, oportunidades y actividades.")
     Person(gerente, "Gerente comercial", "Consulta el pipeline, indicadores y reportes.")
     Person(admin, "Administrador", "Gestiona usuarios, roles y configuración.")
 
-    System_Boundary(nexo, "Nexo CRM") {
+    System_Boundary(nexo, "Nexus CRM") {
         Container(webapp, "Aplicación web", "React 19, TypeScript, TanStack Start, Vite y Nitro", "Presenta la interfaz, procesa solicitudes y ejecuta la lógica del CRM.")
     }
 
@@ -66,13 +66,13 @@ C4Container
 
 ```mermaid
 C4Component
-    title Nivel 3 — Componentes de la aplicación web Nexo CRM
+    title Nivel 3 — Componentes de la aplicación web Nexus CRM
 
     Person(vendedor, "Vendedor", "Gestiona información comercial.")
     Person(gerente, "Gerente comercial", "Consulta indicadores y reportes.")
     Person(admin, "Administrador", "Gestiona usuarios y configuración.")
 
-    Container_Boundary(webapp, "Aplicación web Nexo CRM") {
+    Container_Boundary(webapp, "Aplicación web Nexus CRM") {
         Component(auth_ui, "Autenticación y autorización", "React, TanStack Router", "Gestiona registro, inicio de sesión, sesión activa y roles.")
         Component(crm_ui, "Empresas y contactos", "React", "Muestra y modifica empresas y contactos.")
         Component(pipeline_ui, "Pipeline de oportunidades", "React", "Muestra y mueve oportunidades entre etapas.")
@@ -121,7 +121,7 @@ C4Component
 C4Component
     title Nivel 3 — Componentes del proyecto Supabase
 
-    Container_Ext(webapp, "Aplicación web Nexo CRM", "React y TanStack Start", "Utiliza los servicios de Supabase.")
+    Container_Ext(webapp, "Aplicación web Nexus CRM", "React y TanStack Start", "Utiliza los servicios de Supabase.")
 
     Container_Boundary(supabase, "Proyecto Supabase") {
         Component(auth, "Autenticación", "Supabase Auth", "Registra usuarios, valida credenciales y mantiene sesiones.")

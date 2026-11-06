@@ -21,9 +21,9 @@ import { STATUS_LABEL, useContacts, useDeleteContact, type Contact } from "@/lib
 export const Route = createFileRoute("/_authenticated/contacts")({
   head: () => ({
     meta: [
-      { title: "Contactos | Nexo CRM" },
+      { title: "Contactos | Nexus CRM" },
       { name: "description", content: "Personas con las que trabaja tu equipo comercial." },
-      { property: "og:title", content: "Contactos | Nexo CRM" },
+      { property: "og:title", content: "Contactos | Nexus CRM" },
       { property: "og:description", content: "Personas con las que trabaja tu equipo comercial." },
     ],
   }),

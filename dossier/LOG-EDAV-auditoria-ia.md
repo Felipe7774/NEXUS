@@ -215,7 +215,7 @@ Clasificación y justificación del equipo (25/08/2026), no de la IA. Reemplaza 
 | R3 | Un solo integrante administra Supabase | **Válido** | "Que una sola persona administre Supabase genera dependencia operativa y un punto único de conocimiento/acceso." |
 | R4 | Política RLS mal escrita expone datos de otra organización | **Válido** | "La cantidad de tablas y políticas RLS sin auditoría detallada representa un riesgo real de exposición de datos." |
 | R5 | Límites del plan free cortan el servicio bajo carga | **Modificado** | "El límite económico del plan es real, pero debería expresarse como riesgo de escalabilidad o saturación, ya que todavía no fue validado con pruebas de carga." |
-| R6 | Dependencias muy nuevas traen bugs de tooling | **Genérico** | "Las dependencias nuevas pueden generar problemas en cualquier proyecto; no hay evidencia específica de que estén afectando a Nexo." |
+| R6 | Dependencias muy nuevas traen bugs de tooling | **Genérico** | "Las dependencias nuevas pueden generar problemas en cualquier proyecto; no hay evidencia específica de que estén afectando a Nexus." |
 | R7 | Sesión en `localStorage`, riesgo si hay XSS | **Modificado** | "Guardar la sesión en `localStorage` aumenta el impacto de una vulnerabilidad XSS, pero no demuestra por sí mismo que exista una vulnerabilidad activa." |
 | R8 | Nombre de paquete `"tanstack_start_ts"` sin cambiar | **Genérico** | "El nombre del paquete es un detalle cosmético y no representa un riesgo funcional, técnico ni operativo." |
 | R9 | "El servidor de Supabase podría estar caído en algún país" | **Falso** | "La posible caída regional de Supabase es un riesgo general del proveedor, sin evidencia específica relacionada con este sistema." |

@@ -20,9 +20,9 @@ import {
 export const Route = createFileRoute("/_authenticated/pipeline")({
   head: () => ({
     meta: [
-      { title: "Pipeline | Nexo CRM" },
+      { title: "Pipeline | Nexus CRM" },
       { name: "description", content: "Tablero de oportunidades por etapa." },
-      { property: "og:title", content: "Pipeline | Nexo CRM" },
+      { property: "og:title", content: "Pipeline | Nexus CRM" },
       { property: "og:description", content: "Tablero de oportunidades por etapa." },
     ],
   }),

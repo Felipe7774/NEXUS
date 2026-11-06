@@ -20,7 +20,7 @@ import { useActivities, useDeals } from "@/lib/crm";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard | Nexo CRM" },
+      { title: "Dashboard | Nexus CRM" },
       {
         name: "description",
         content: "Indicadores de ventas B2B, pipeline abierto y actividad del equipo.",

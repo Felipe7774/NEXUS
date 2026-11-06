@@ -1,8 +1,8 @@
-# Dossier de arquitectura — Nexo CRM
+# Dossier de arquitectura — Nexus CRM
 
 | Campo | Valor |
 |---|---|
-| **Proyecto** | Nexo CRM — CRM B2B de contactos, empresas, oportunidades y actividades |
+| **Proyecto** | Nexus CRM — CRM B2B de contactos, empresas, oportunidades y actividades |
 | **Materia** | Arquitectura de Software |
 | **Docente** | Nelson Sánchez Sánchez |
 | **Equipo** | Carlos Correa, Felipe Piragauta, Santiago Roman |

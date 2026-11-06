@@ -10,9 +10,9 @@ import { useDeals, usePipelines, useStages } from "@/lib/crm";
 export const Route = createFileRoute("/_authenticated/reports")({
   head: () => ({
     meta: [
-      { title: "Reportes | Nexo CRM" },
+      { title: "Reportes | Nexus CRM" },
       { name: "description", content: "Análisis de conversión y desempeño comercial." },
-      { property: "og:title", content: "Reportes | Nexo CRM" },
+      { property: "og:title", content: "Reportes | Nexus CRM" },
       { property: "og:description", content: "Análisis de conversión y desempeño comercial." },
     ],
   }),

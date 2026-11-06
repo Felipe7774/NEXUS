@@ -31,7 +31,7 @@ Estructura SEI de 6 partes (Bass, Clements &amp; Kazman): **fuente del estímulo
 
 > **Nota de restauración (22/10/2026).** Hasta hoy esta sección contenía solo una lista de seis títulos y remitía al historial de Git. Los seis escenarios completos se restauran abajo **transcritos verbatim de como el equipo los redactó en la semana 3** (archivo `03-atributos-calidad.md`, previo a la reestructuración del commit `27668e2`). No se corrigen sus cifras ni su estado: lo que cambió después se registra aparte, al final de la sección, para no alterar el texto original.
 >
-> Los primeros 3 fueron propuestos por IA y reformulados por el equipo para que la medida de respuesta fuera concreta y no un placeholder. Los 3 siguientes son RNF definidos para Nexo CRM en ese mismo ciclo, derivados del esquema y el código real.
+> Los primeros 3 fueron propuestos por IA y reformulados por el equipo para que la medida de respuesta fuera concreta y no un placeholder. Los 3 siguientes son RNF definidos para Nexus CRM en ese mismo ciclo, derivados del esquema y el código real.
 
 ### Escenario 1 — Seguridad (aislamiento entre organizaciones)
 
