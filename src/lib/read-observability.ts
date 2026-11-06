@@ -11,6 +11,13 @@ export const READ_OBSERVABILITY = Object.freeze({
   minSamples: 20,
 });
 
+/**
+ * Alcance declarado, senalado en la auditoria del 06/11/2026: la ventana de errores
+ * vive en memoria **por observador**, no es una tasa global del sistema. En un
+ * despliegue con varias instancias cada una evalua su propia ventana, y un proceso
+ * que se recicla la pierde. Para una tasa global haria falta un destino externo,
+ * que es parte del monitor sintetico que el ADR-008 todavia no implementa.
+ */
 export type ReadEvent = {
   /** Solo la ruta: la query puede llevar identificadores de propietario. */
   path: string;
@@ -32,6 +39,8 @@ export function createReadObserver({
   now = () => Date.now(),
 }: { emit?: Emit; now?: () => number } = {}) {
   let samples: { at: number; failed: boolean }[] = [];
+  // Rutas cuyo circuito estaba abierto en la ultima lectura observada.
+  const abiertas = new Set<string>();
   // null, no 0: con un reloj que empieza cerca de cero, 0 bloquearia la primera alerta.
   let lastRateAlertAt: number | null = null;
 
@@ -45,12 +54,19 @@ export function createReadObserver({
       samples.push({ at: t, failed: event.failed });
       prune(t);
 
+      // Una emision por apertura, no por rechazo. El breaker marca cada respuesta
+      // que corta durante el enfriamiento; sin este filtro la senal contaria rechazos
+      // y el umbral del documento 21 cuenta aperturas: "3 aperturas en una hora".
       if (event.circuitOpen) {
-        emit("circuit-open", { path: event.path });
-      } else if (event.failed) {
-        emit("read-failed", { path: event.path, status: event.status });
-      } else if (event.durationMs > READ_OBSERVABILITY.slowReadMs) {
-        emit("slow-read", { path: event.path, durationMs: Math.round(event.durationMs) });
+        if (!abiertas.has(event.path)) {
+          abiertas.add(event.path);
+          emit("circuit-open", { path: event.path });
+        }
+      } else {
+        abiertas.delete(event.path);
+        if (event.failed) emit("read-failed", { path: event.path, status: event.status });
+        else if (event.durationMs > READ_OBSERVABILITY.slowReadMs)
+          emit("slow-read", { path: event.path, durationMs: Math.round(event.durationMs) });
       }
 
       if (samples.length < READ_OBSERVABILITY.minSamples) return;
