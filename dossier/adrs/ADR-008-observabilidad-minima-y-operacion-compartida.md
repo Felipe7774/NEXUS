@@ -77,4 +77,9 @@ que exige tocar 10 archivos.
 
 La decisión se reabre si las señales mínimas no permiten detectar o diagnosticar incidentes a tiempo, o si el crecimiento obliga a una plataforma de observabilidad más completa.
 
-El cierre de implementación requiere evidencia de monitor activo, umbrales operativos, procedimiento de respuesta, acceso administrativo compartido y MFA en cuentas administrativas.
+El repositorio ya versiona el monitor no mutante en
+[`availability-monitor.yml`](../../.github/workflows/availability-monitor.yml), con el
+umbral de dos fallos consecutivos. El cierre de implementación aún requiere que esté en
+`main` y conserve una ejecución válida, confirmar un destinatario humano de sus fallos,
+procedimiento de respuesta, acceso administrativo compartido y MFA en cuentas
+administrativas.

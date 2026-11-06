@@ -1,0 +1,70 @@
+name: Availability monitor
+
+on:
+  schedule:
+    # Cada diez minutos. Cada ejecución toma dos muestras separadas por cinco minutos.
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe-production-and-provider:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      PRODUCTION_URL: https://nexus-green-xi.vercel.app
+      # Sin API key Auth responde 401 cuando el servicio está disponible.
+      SUPABASE_AUTH_HEALTH: https://xysncmauhogsvqtqeshe.supabase.co/auth/v1/health
+    steps:
+      - name: Primera comprobación no mutante
+        id: first
+        shell: bash
+        run: |
+          set -uo pipefail
+          probe() {
+            local label="$1" url="$2" expected="$3" code
+            code="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+              --connect-timeout 10 --max-time 20 "$url" || true)"
+            echo "$label primera_muestra=$code (esperado $expected)"
+            test "$code" = "$expected"
+          }
+
+          production=0; provider=0
+          probe production "$PRODUCTION_URL" 200 || production=1
+          probe supabase_auth "$SUPABASE_AUTH_HEALTH" 401 || provider=1
+          echo "production=$production" >> "$GITHUB_OUTPUT"
+          echo "provider=$provider" >> "$GITHUB_OUTPUT"
+
+      - name: Esperar cinco minutos antes de confirmar un fallo
+        run: sleep 300
+
+      - name: Segunda comprobación y umbral de dos fallos
+        shell: bash
+        env:
+          FIRST_PRODUCTION: ${{ steps.first.outputs.production }}
+          FIRST_PROVIDER: ${{ steps.first.outputs.provider }}
+        run: |
+          set -uo pipefail
+          probe() {
+            local label="$1" url="$2" expected="$3" code
+            code="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+              --connect-timeout 10 --max-time 20 "$url" || true)"
+            echo "$label segunda_muestra=$code (esperado $expected)"
+            test "$code" = "$expected"
+          }
+
+          production=0; provider=0
+          probe production "$PRODUCTION_URL" 200 || production=1
+          probe supabase_auth "$SUPABASE_AUTH_HEALTH" 401 || provider=1
+
+          echo "## Availability monitor" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Producción: primera=$FIRST_PRODUCTION, segunda=$production" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Supabase Auth: primera=$FIRST_PROVIDER, segunda=$provider" >> "$GITHUB_STEP_SUMMARY"
+
+          if { test "$FIRST_PRODUCTION" = 1 && test "$production" = 1; } || \
+             { test "$FIRST_PROVIDER" = 1 && test "$provider" = 1; }; then
+            echo "Dos fallos consecutivos confirmados; el workflow queda en rojo." >&2
+            exit 1
+          fi

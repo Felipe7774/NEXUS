@@ -99,12 +99,16 @@ El equipo identificó, priorizó y aceptó temporalmente los riesgos residuales 
 
 ## 5. Riesgos operativos
 
-| Riesgo operativo | Prioridad | Riesgo residual y aceptación | Mitigación actual | Pendiente |
-|---|---|---|---|---|
-| Pérdida del proyecto del proveedor | Alta | Alto, aceptado temporalmente | Esquema versionado; restauración probada en EXP-003 | Respaldo automático externo; RPO/RTO definidos |
-| Dependencia de una sola cuenta administradora | Alta | Medio, aceptado temporalmente | Acceso de los 3 integrantes a Supabase desde el 18/09 | Acceso compartido y MFA en Vercel |
-| Vulnerabilidad en dependencia | Media | Medio, aceptado | Vercel bloquea el deploy automáticamente | Alerta propia y revisión periódica de dependencias |
-| Caída silenciosa en producción | Alta | Alto, aceptado temporalmente | Ninguna | Plan de observabilidad aprobado abajo |
+> **Corte de validación: 06/11/2026, commit `3e05cf5`.** Los dueños son los
+> roles acordados en el acta del mini-comité 2; la fecha es una revisión
+> programada, no evidencia de que el riesgo se haya eliminado.
+
+| Riesgo operativo | Prioridad | Riesgo residual y aceptación | Mitigación actual verificada | Dueño | Próxima revisión | Pendiente comprobable |
+|---|---|---|---|---|---|---|
+| Pérdida del proyecto del proveedor | Alta | Alto, aceptado temporalmente | Esquema versionado; restauración local probada en EXP-003 | Carlos Correa (Operaciones) | 13/11/2026 | Supabase muestra que el plan Free no incluye backups del proyecto. Falta respaldo externo y definir/medir RPO y RTO. |
+| Dependencia de una sola cuenta administradora | Alta | Medio, aceptado temporalmente | El proyecto `nexo-crm` es accesible al equipo; la evidencia histórica confirma acceso compartido a Supabase | Felipe Piragauta (Seguridad) | 13/11/2026 | Verificar en cada cuenta administrativa de Supabase, Vercel y GitHub que MFA esté activada; confirmar rol mínimo y acceso de los tres a Vercel. |
+| Vulnerabilidad en dependencia | Media | Medio, aceptado | CI y Vercel bloquean despliegues fallidos | Felipe Piragauta (Seguridad) | 20/11/2026 | Configurar/revisar una notificación de vulnerabilidades y conservar la evidencia de la revisión. |
+| Caída silenciosa en producción | Alta | Alto, aceptado temporalmente | Monitor no mutante versionado en `.github/workflows/availability-monitor.yml`; señales de lectura en `read-observability.ts` | Carlos Correa (Operaciones) | 13/11/2026 | Confirmar un destinatario humano de los fallos de GitHub Actions y ejecutar el monitor desde `main`. |
 
 ## 6. Plan de observabilidad
 
@@ -119,15 +123,77 @@ Debe conectarse con los modos de fallo ya identificados en [`../docs/resilience_
 
 > **Criterio de realidad:** el plan debe ser proporcional a un equipo de 3 personas con 6-8 horas semanales y plan gratuito. Proponer una pila de observabilidad de empresa sería el mismo error de sobreingeniería que el módulo 4 enseñó a evitar.
 
+### Implementación mínima y límite de la alerta
+
+El repositorio incorpora el workflow [`availability-monitor.yml`](../.github/workflows/availability-monitor.yml).
+Cada diez minutos, y también bajo ejecución manual, realiza dos comprobaciones no mutantes
+separadas por cinco minutos: `GET` a la URL pública de producción debe devolver `200` y
+`GET` al health de Auth de Supabase debe devolver `401` sin clave (respuesta esperada que
+demuestra que el servicio contestó sin exponer credenciales). El job queda rojo solo si el
+mismo objetivo falla en ambas comprobaciones.
+
+La señal queda en la ejecución y resumen de **GitHub Actions**; Carlos Correa es el dueño
+operativo. Esto es un monitor activo versionado, pero **no equivale todavía a una alerta
+recibida por una persona**: falta confirmar la suscripción/notificación de los responsables
+una vez que el workflow esté en `main`. Vercel Free tampoco ofrece alertas personalizadas,
+por lo que no se declara esa capacidad como existente.
+
 ## 7. Despliegue y alternativas
 
-**Estado actual verificado:** una unidad de despliegue en Vercel, con Supabase gestionado. Producción respondiendo en `https://nexus-green-xi.vercel.app`, apuntando al proyecto vigente.
+**Estado actual verificado (06/11/2026):** una unidad de despliegue en Vercel,
+con Supabase gestionado. El dashboard de Vercel muestra producción **Ready** para
+`main` en el commit `3e05cf5`; `https://nexus-green-xi.vercel.app` respondió HTTP
+`200`. El dashboard de Supabase muestra el proyecto `nexo-crm`
+(`xysncmauhogsvqtqeshe`) como **Healthy** y de tamaño Nano.
 
-| Alternativa | Costo relativo | Decisión del equipo |
+### Vista de despliegue C4 — nodos, flujos y fronteras
+
+```mermaid
+flowchart LR
+  user[Usuario autenticado\nNavegador]
+  subgraph internet[Internet — frontera no confiable]
+    https[HTTPS]
+  end
+  subgraph vercel[Vercel — proyecto nexus / producción]
+    app[Aplicación NEXUS\nReact + TanStack Start + Nitro]
+  end
+  ci[GitHub Actions\nCI y monitor de disponibilidad]
+  subgraph supabase[Supabase — proyecto nexo-crm]
+    auth[Auth / GoTrue]
+    api[PostgREST API]
+    db[(PostgreSQL + RLS)]
+  end
+  user -->|HTTPS; sesión JWT| https --> app
+  app -->|HTTPS; Auth| auth
+  app -->|HTTPS REST; JWT/RLS| api --> db
+  ci -->|GET no mutante; sin credenciales| app
+  ci -->|GET health; 401 esperado sin clave| auth
+```
+
+| Nodo / frontera | Flujo permitido y evidencia | Límite de confianza |
 |---|---|---|
-| Vercel + Supabase gestionados | Bajo | Mantenerla. Ya funciona, reduce operación y es adecuada para tres personas. |
-| Autoalojar aplicación y Supabase con Docker | Alto | No adoptar. Docker sirve para pruebas reproducibles, pero operar producción exige respaldo, actualizaciones, monitoreo y respuesta a incidentes. |
-| Separar servicios y despliegues por módulo | Alto | No adoptar. No existe evidencia de necesidad de despliegue independiente y contradice el monolito actual. |
+| Navegador → Vercel | HTTPS a la URL de producción; la aplicación gestiona la sesión en `src/hooks/use-auth.ts` | El navegador y toda entrada del usuario no son confiables. |
+| Vercel → Supabase Auth / REST | HTTPS; `src/lib/supabase-fetch.ts` aplica timeout y circuit breaker a lecturas. | JWT y RLS son la frontera de datos. La `service_role` solo existe del lado servidor y su frontera tiene fitness function. |
+| Supabase API → PostgreSQL | PostgREST ejecuta políticas RLS definidas en `supabase/migrations/`. | La base no debe confiar en que el cliente filtre datos; RLS decide por usuario. |
+| GitHub Actions → endpoints públicos | Solo `GET`; no usa claves ni muta datos, definido en `.github/workflows/availability-monitor.yml`. | Es una sonda externa; no tiene acceso a la base, variables ni sesiones. |
+
+### Costos operativos: mismo horizonte y supuestos
+
+El horizonte de comparación es **12 meses**. Se conserva el supuesto aprobado por el
+mini-comité: tres integrantes aportan en total 18–24 h por semana, no existe una tarifa
+horaria `R` defendible y el costo se expresa en semanas de capacidad, no en dinero
+inventado. Los precios y límites contratados son una incógnita explícita; Supabase confirma
+plan Free/Nano y que no incluye backups administrados.
+
+| Alternativa | Supuestos comparables | Esfuerzo/costo a 12 meses | Conclusión |
+|---|---|---|---|
+| Vercel + Supabase gestionados (actual) | Una unidad, proveedor administrado, 1–3 h/mes de operación y 8–16 h iniciales; sin infraestructura adicional | 26–64 h con coordinación = 1–4 semanas de capacidad | Mantener. Es la única alternativa desplegada y verificada. |
+| Autoalojar app y Supabase con Docker | Incluye actualizaciones, backups, monitoreo y respuesta a incidentes; no existe medición propia ni cotización | **No cuantificado:** se descarta por riesgo operativo, no por una cifra fabricada | No adoptar mientras no haya presupuesto, responsable 24/7 y recuperación probada. |
+| Separar servicios/despliegues por módulo | Dos contextos extraídos; contratos, credenciales, coordinación y operación adicional | 200–400 h con coordinación = 8–22 semanas de capacidad; infraestructura extra aún sin cotizar | No adoptar: no hay necesidad demostrada y el esfuerzo supera el horizonte del curso. |
+
+La primera y tercera estimación son las mismas del acta y de
+`experimentos/EXP-004-resiliencia/tco-supuestos.json`; la segunda se conserva sin número
+para no presentar una estimación de IA como una factura o medición.
 
 El equipo acepta la dependencia de Vercel y Supabase como trade-off. La mitigación aprobada es acceso administrativo compartido, MFA, migraciones versionadas, respaldo/restauración y observabilidad mínima.
 
