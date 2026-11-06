@@ -83,7 +83,7 @@ Es decir: marcar *Suplantación* como cubierta porque hay login es exactamente e
 
 - Esa traza **existe y es append-only**: solo se inserta, nunca se actualiza ni se borra.
 - **Cubre una sola acción** de todas las que hace la aplicación: mover una oportunidad de etapa.
-- **Ninguna parte de la aplicación la lee.** Es inalcanzable desde `src/` sin romper el CI, porque `deal_stage_history` no tiene dueño declarado en `persistence-rules.ts`.
+- **Consultable desde el 06/11/2026, todavía no mostrada.** `deal_stage_history` pasó a ser propiedad de `sales` y `readDealStageHistory` la lee; antes era inalcanzable sin romper el CI. **Que exista una API de lectura no significa que haya una pantalla usándola**: el usuario todavía no puede ver quién movió una oportunidad.
 - No hay logs estructurados con correlación. Solo `console.error` hacia el pipeline del host.
 - Ninguna otra acción —crear, editar, borrar lógicamente, iniciar sesión— deja rastro atribuible.
 

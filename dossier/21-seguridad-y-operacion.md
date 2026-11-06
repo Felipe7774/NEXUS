@@ -62,13 +62,13 @@ La lectura correcta tiene dos caras y conviene dar las dos:
 
 | Capacidad | Estado |
 |---|---|
-| Métricas de aplicación | **No existe** |
-| Logs estructurados con correlación | **No existe.** Solo `console.error` hacia el pipeline del host |
+| Métricas de aplicación | **Parcial desde el 06/11/2026.** `read-observability.ts` registra latencia, estado y fallo de cada lectura. Sin métricas de negocio ni panel |
+| Logs estructurados con correlación | **Parcial.** Las señales salen como JSON por `console.warn`; **sin identificador de correlación** entre peticiones |
 | Trazas | **No existe** |
-| Alertas | **No existe** |
+| Alertas | **No existe.** Hay señales emitidas; **nadie las recibe**: falta el monitor sintético y un destino |
 | SLO definidos | **No existe** |
 | Runbooks | **Uno**, [`RB-001`](runbooks/RB-001-perdida-del-proyecto-supabase.md), para la pérdida del proyecto. Los demás no existen |
-| Auditoría de acciones de usuario | **Parcial.** Solo el cambio de etapa queda registrado, y **ninguna parte de la aplicación lee esa tabla** |
+| Auditoría de acciones de usuario | **Parcial.** Solo el cambio de etapa queda registrado. Desde el 06/11 `readDealStageHistory` permite consultarlo, pero **ninguna pantalla lo muestra todavía** |
 | Monitoreo de disponibilidad del proveedor | **No existe** — el incidente de septiembre lo demuestra |
 
 **Consecuencia directa y comprobada:** los dos incidentes reales del proyecto se detectaron por aviso humano, no por el sistema.

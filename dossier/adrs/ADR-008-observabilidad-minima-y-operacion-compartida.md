@@ -2,7 +2,15 @@
 
 ## Estado
 
-**Confirmado por el equipo el 29/10/2026.** La decisión está aprobada; su implementación queda pendiente y se sigue en `14-plan-evolucion.md`.
+**Confirmado por el equipo el 29/10/2026. Implementación parcial desde el 06/11/2026.**
+
+Implementado: el registro de latencia, estado y fallo por lectura, en
+[`src/lib/read-observability.ts`](../../src/lib/read-observability.ts), conectado en
+[`src/lib/supabase-fetch.ts`](../../src/lib/supabase-fetch.ts) y cubierto por 11 pruebas.
+
+**Pendiente: el monitor sintético, el destino de las señales y el responsable de mirarlas.**
+Hoy las señales salen por el pipeline del host y **nadie las recibe**, así que la capacidad
+de detección sigue sin demostrarse en producción. El seguimiento está en `14-plan-evolucion.md`.
 
 ## Contexto
 
@@ -38,7 +46,11 @@ El equipo compartirá el acceso administrativo, habilitará MFA en cuentas admin
 
 Agregada el 03/11/2026 a pedido de la auditoría del Módulo 7 (M7-08), con el mismo criterio del [`ADR-007`](ADR-007-particion-por-dominio.md): costo observable, no estimado a ojo.
 
-**Estado actual:** la decisión está aprobada pero **no implementada**, así que hoy no hay nada que revertir. El costo de reversión es cero mientras ese estado no cambie.
+**Estado actual, corregido el 06/11/2026:** ya hay código que revertir. La instrumentación son
+**dos archivos** —`read-observability.ts` y el adaptador en `supabase-fetch.ts`— más sus pruebas.
+Revertirla es quitar el observador del adaptador y borrar el módulo: no deja esquema, ni proceso,
+ni contrato entre módulos. Sigue siendo de otro orden que deshacer la partición del `ADR-007`,
+que exige tocar 10 archivos.
 
 **Cuando se implemente**, revertir significa retirar lo que se haya agregado. Lo que el equipo puede afirmar sin medirlo todavía:
 
@@ -57,7 +69,8 @@ Agregada el 03/11/2026 a pedido de la auditoría del Módulo 7 (M7-08), con el m
 - `21-seguridad-y-operacion.md` — activos, controles, incidentes y plan de observabilidad.
 - `24-matriz-stride.md` — amenazas, riesgos residuales y aceptación del equipo.
 - `experimentos/EXP-003-recuperacion/README.md` — recuperación lógica verificada.
-- `src/integrations/supabase/supabase-fetch.ts` y `read-circuit-breaker.test.ts` — timeout y circuit breaker.
+- `src/lib/supabase-fetch.ts` y `src/lib/read-circuit-breaker.test.ts` — timeout y circuit breaker.
+  *Ruta corregida el 06/11/2026: decía `src/integrations/supabase/`, donde ese archivo no está.*
 - `14-plan-evolucion.md` — metas e implementación futura.
 
 ## Supuestos y seguimiento

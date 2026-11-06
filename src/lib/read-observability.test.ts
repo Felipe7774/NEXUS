@@ -41,6 +41,28 @@ describe("ADR-008: observabilidad minima de lecturas", () => {
     expect(emitted.map((e) => e.signal)).toEqual(["read-failed", "circuit-open"]);
   });
 
+  it("emite circuit-open una vez por apertura, no por cada rechazo", () => {
+    const { emitted, observer } = harness();
+    // Tres rechazos seguidos durante el mismo enfriamiento: una sola apertura.
+    for (let i = 0; i < 3; i++) observer.record({ ...ok, status: 503, failed: true, circuitOpen: true });
+    expect(emitted.filter((e) => e.signal === "circuit-open")).toHaveLength(1);
+  });
+
+  it("vuelve a emitir cuando el circuito se cierra y abre de nuevo", () => {
+    const { emitted, observer } = harness();
+    observer.record({ ...ok, status: 503, failed: true, circuitOpen: true });
+    observer.record(ok); // cerro
+    observer.record({ ...ok, status: 503, failed: true, circuitOpen: true });
+    expect(emitted.filter((e) => e.signal === "circuit-open")).toHaveLength(2);
+  });
+
+  it("cuenta cada ruta por separado", () => {
+    const { emitted, observer } = harness();
+    observer.record({ ...ok, path: "/rest/v1/deals", failed: true, circuitOpen: true });
+    observer.record({ ...ok, path: "/rest/v1/contacts", failed: true, circuitOpen: true });
+    expect(emitted.filter((e) => e.signal === "circuit-open")).toHaveLength(2);
+  });
+
   it("no alerta por tasa de error sin muestras suficientes", () => {
     const { emitted, observer } = harness();
     observer.record({ ...ok, failed: true, status: 500 });
