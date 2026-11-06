@@ -159,7 +159,7 @@ Esta sección importa tanto como la tabla, y es la que un comité va a buscar:
 |---|---|
 | Tiempo percibido en la aplicación renderizada | Todas las mediciones van contra la API REST |
 | Costo de composición de la modularización | El script de carga consulta la tabla cruda |
-| Asimetría entre lecturas y escrituras | `load.js` no hace una sola escritura |
+| Asimetría entre lecturas y escrituras | `load.js` de S11 no hace una sola escritura. **Experimento escrito y prerregistrado**, sin ejecutar: [`mezcla-lectura-escritura`](../experimentos/mezcla-lectura-escritura/) |
 | Comportamiento bajo ataque | Se midió carga, que no es lo mismo |
 | RPO y RTO | Nunca se cronometró la recuperación |
 | Lecturas legítimas perdidas en el enfriamiento | El fallo fue inyectado, sin contar el descarte |

@@ -115,7 +115,7 @@ Y fija una regla de honestidad hacia el usuario que vale la pena citar en la def
 
 | Criterio | Qué dice la evidencia | ¿Justifica CQRS? | Por qué |
 |---|---|---|---|
-| Asimetría entre lecturas y escrituras | **Nunca se midió.** Ver la advertencia de abajo | No | El 80/20 de S11 reparte dos perfiles de lectura; no demuestra predominio de lectura sobre escritura. |
+| Asimetría entre lecturas y escrituras | **Nunca se midió.** Ver la advertencia de abajo. Hay experimento prerregistrado sin ejecutar: [`mezcla-lectura-escritura`](../experimentos/mezcla-lectura-escritura/) | No | El 80/20 de S11 reparte dos perfiles de lectura; no demuestra predominio de lectura sobre escritura. |
 | Presión de lectura medida | Quiebre a 50 VUs; throughput útil cae después | No por ahora | El experimento consulta una tabla cruda, no el camino real del Kanban con composición entre dominios. |
 | Costo de composición en lectura | 1 + 2 viajes por lista de oportunidades, **sin medir** | No | La composición puede costar más consultas, pero no hay medición que demuestre que sea un problema. |
 | Tolerancia del negocio al desfase | Ventana medida de 66,90 ms en el spike | No | No existe un requisito funcional que acepte explícitamente efectos diferidos. |
