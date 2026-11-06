@@ -1,6 +1,8 @@
 # 02 — Escenarios de calidad
 
-> Ver `LOG-EDAV-auditoria-ia.md` para la trazabilidad de qué contenido de este archivo fue delegado a IA (paso D) y cuál es su estado de auditoría (paso A) — todavía **no completado** con la matriz formal Válido/Modificado/Genérico/Falso.
+> **Los seis escenarios están auditados: los seis como Válido.** La clasificación formal y su justificación están en [`LOG-EDAV-auditoria-ia.md`](LOG-EDAV-auditoria-ia.md), junto con la trazabilidad de qué contenido fue delegado a IA.
+>
+> *Corregido el 06/11/2026.* Esta línea decía que la matriz formal estaba «todavía no completada» y llevaba meses siendo falsa. Era la **primera línea del documento**, así que contradecía al README antes de que nadie llegara a los resultados.
 
 > **Antes de leer los escenarios.** El texto de las secciones 2 a 5 es el de la **semana 3** y **no se reescribe**: es el registro de lo que el equipo sabía entonces. Por eso dice cosas que ya no son ciertas —«todavía no ejecutada», «11+ tablas»— y por eso las correcciones, fechadas, están reunidas en [*Cifras del texto original que envejecieron*](#cifras-del-texto-original-que-envejecieron), más abajo. **Los seis escenarios se ejecutaron**; los resultados están en la tabla que precede a esa sección.
 >
