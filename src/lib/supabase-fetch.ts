@@ -1,4 +1,5 @@
 import { createReadCircuitBreaker } from "./read-circuit-breaker.ts";
+import { createReadObserver, type ReadObserver } from "./read-observability.ts";
 
 export const SUPABASE_FETCH_TIMEOUT_MS = 3000;
 
@@ -7,7 +8,8 @@ export function createSupabaseFetch(
   {
     circuitBreaker = true,
     transport = globalThis.fetch,
-  }: { circuitBreaker?: boolean; transport?: typeof fetch } = {},
+    observer = createReadObserver(),
+  }: { circuitBreaker?: boolean; transport?: typeof fetch; observer?: ReadObserver } = {},
 ): typeof fetch {
   const guardedFetch = circuitBreaker ? createReadCircuitBreaker({ transport }) : transport;
   return (input, init) => {
@@ -24,6 +26,46 @@ export function createSupabaseFetch(
     const timeout = AbortSignal.timeout(SUPABASE_FETCH_TIMEOUT_MS);
     const callerSignal = init?.signal ?? request?.signal;
     const signal = callerSignal ? AbortSignal.any([callerSignal, timeout]) : timeout;
-    return guardedFetch(input, { ...init, headers, signal });
+    return observe(observer, input, request, () => guardedFetch(input, { ...init, headers, signal }));
   };
+}
+
+/**
+ * Registra duracion, estado y fallo de cada lectura (ADR-008). No altera la
+ * respuesta ni traga errores: observa y vuelve a lanzar.
+ */
+async function observe(
+  observer: ReadObserver,
+  input: Parameters<typeof fetch>[0],
+  request: Request | undefined,
+  run: () => Promise<Response>,
+): Promise<Response> {
+  const started = performance.now();
+  // Solo la ruta: la query puede llevar identificadores de propietario.
+  let path = "desconocida";
+  try {
+    path = new URL(request?.url ?? String(input)).pathname;
+  } catch {
+    /* Una URL relativa en pruebas no debe romper la lectura. */
+  }
+  try {
+    const response = await run();
+    observer.record({
+      path,
+      durationMs: performance.now() - started,
+      status: response.status,
+      failed: response.status >= 500,
+      circuitOpen: response.headers.get("X-Nexus-Circuit") === "open",
+    });
+    return response;
+  } catch (error) {
+    observer.record({
+      path,
+      durationMs: performance.now() - started,
+      status: null,
+      failed: true,
+      circuitOpen: false,
+    });
+    throw error;
+  }
 }
