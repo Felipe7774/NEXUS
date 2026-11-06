@@ -43,7 +43,7 @@ describe("initials", () => {
   });
 
   it("handles a single word", () => {
-    expect(initials("Nexo")).toBe("N");
+    expect(initials("Nexus")).toBe("N");
   });
 
   it("returns a question mark for empty input", () => {

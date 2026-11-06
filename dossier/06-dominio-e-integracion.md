@@ -9,7 +9,7 @@ ya extraídos ni decisiones históricas aprobadas por los tres integrantes.
 
 ## 1. Dominio y lenguaje
 
-Nexo CRM organiza la relación comercial B2B: una **empresa** tiene **contactos**;
+Nexus CRM organiza la relación comercial B2B: una **empresa** tiene **contactos**;
 una **oportunidad** representa una venta posible, recorre **etapas** de un **pipeline**
 y tiene un propietario. Una **actividad** registra seguimiento, tarea, llamada,
 reunión, email o nota; su responsable puede diferir de quien la creó. Un **rol**

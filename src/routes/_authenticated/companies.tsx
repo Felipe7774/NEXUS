@@ -22,9 +22,9 @@ import { STATUS_LABEL, useCompanies, useDeleteCompany, type Company } from "@/li
 export const Route = createFileRoute("/_authenticated/companies")({
   head: () => ({
     meta: [
-      { title: "Empresas | Nexo CRM" },
+      { title: "Empresas | Nexus CRM" },
       { name: "description", content: "Cuentas y organizaciones registradas." },
-      { property: "og:title", content: "Empresas | Nexo CRM" },
+      { property: "og:title", content: "Empresas | Nexus CRM" },
       { property: "og:description", content: "Cuentas y organizaciones registradas." },
     ],
   }),

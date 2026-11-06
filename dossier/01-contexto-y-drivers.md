@@ -5,7 +5,7 @@
 
 ## 1. Identificación y alcance del sistema
 
-**Nexo CRM** — CRM B2B para contactos, empresas, oportunidades y actividades comerciales. Repo: [Felipe7774/NEXUS](https://github.com/Felipe7774/NEXUS) (`main`). Stack: React 19 + TanStack Start (SSR) + Vite 8 + Supabase (PostgreSQL + Auth + RLS). Sin backend separado: la lógica de servidor vive dentro del mismo proceso Vite/Nitro (`src/integrations/supabase/*.server.ts`).
+**Nexus CRM** — CRM B2B para contactos, empresas, oportunidades y actividades comerciales. Repo: [Felipe7774/NEXUS](https://github.com/Felipe7774/NEXUS) (`main`). Stack: React 19 + TanStack Start (SSR) + Vite 8 + Supabase (PostgreSQL + Auth + RLS). Sin backend separado: la lógica de servidor vive dentro del mismo proceso Vite/Nitro (`src/integrations/supabase/*.server.ts`).
 
 ## 2. Contexto
 

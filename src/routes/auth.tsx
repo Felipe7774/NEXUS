@@ -22,10 +22,10 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Iniciar sesión | Nexo CRM" },
+      { title: "Iniciar sesión | Nexus CRM" },
       {
         name: "description",
-        content: "Accede a Nexo CRM para gestionar tu pipeline de ventas B2B.",
+        content: "Accede a Nexus CRM para gestionar tu pipeline de ventas B2B.",
       },
     ],
   }),
@@ -112,10 +112,8 @@ function AuthPage() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10">
       <div className="w-full max-w-md">
         <div className="mb-6 flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground shadow-sm">
-            n
-          </div>
-          <span className="text-lg font-semibold tracking-tight">Nexo</span>
+          <img src="/nexus-mark.svg" alt="" width={36} height={36} className="shrink-0" />
+          <span className="text-lg font-semibold tracking-tight">Nexus</span>
         </div>
         <Card className="rounded-xl border shadow-[0_12px_35px_rgb(16_16_20/0.08)]">
           <CardHeader className="pb-4">

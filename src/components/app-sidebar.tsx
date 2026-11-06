@@ -44,10 +44,14 @@ export function AppSidebar() {
     <Sidebar collapsible="icon" className="border-r bg-sidebar">
       <SidebarHeader className="border-b px-3 py-4">
         <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground shadow-sm">
-            n
-          </div>
-          {!collapsed && <span className="text-[15px] font-semibold tracking-tight">Nexo</span>}
+          <img
+            src="/nexus-mark.svg"
+            alt={collapsed ? "Nexus" : ""}
+            width={32}
+            height={32}
+            className="shrink-0"
+          />
+          {!collapsed && <span className="text-[15px] font-semibold tracking-tight">Nexus</span>}
         </div>
       </SidebarHeader>
       <SidebarContent>
