@@ -105,7 +105,7 @@ Es decir: marcar *Suplantación* como cubierta porque hay login es exactamente e
 |---|---|---|
 | RLS en todas las tablas | 40 políticas / 14 tablas | `rls-isolation.integration.test.ts` |
 | **Frontera del cliente privilegiado, en tres capas** | `service_role` solo en `*.server.ts`; Vite solo inyecta variables con prefijo `VITE_` y la clave se lee sin ese prefijo; `importProtection` con `behavior: "error"` | `service-role-boundary.test.ts`, **probada rompiéndola a propósito** |
-| Superficie de consulta acotada | 8 de 14 tablas tienen dueño declarado; las otras 6 no se pueden consultar desde `src/` sin romper el CI | `persistence-fitness.test.ts` |
+| Superficie de consulta acotada | 9 de 14 tablas tienen dueño declarado, una de ellas solo de lectura; las otras 5 no se pueden consultar desde `src/` sin romper el CI | `persistence-fitness.test.ts` |
 | Sin JOIN a tablas de otro dominio | `persistence-rules.ts` rechaza el `select()` con relaciones ajenas | `persistence-fitness.test.ts` |
 
 **Hechos a la vista:**
