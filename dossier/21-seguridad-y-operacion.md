@@ -51,11 +51,13 @@ Esto es lo que hay **hoy en el código**, con su punto de aplicación y cómo se
 
 ### Superficie realmente alcanzable
 
-Hallazgo de la auditoría del 23/10/2026, que acota la superficie de ataque mejor que cualquier declaración: de las **14 tablas**, solo **8 tienen dueño declarado** en `src/architecture/persistence-rules.ts`. Como la fitness function trata cualquier `.from()` fuera de `src/modules/*/api.ts` como violación, las otras seis —`deal_stage_history`, `tags`, `taggables`, `stakeholders`, `stakeholder_relationships` y `client_documents`— **no se pueden consultar desde el código sin romper el CI**, y de hecho ninguna se consulta.
+Hallazgo de la auditoría del 23/10/2026, que acota la superficie de ataque mejor que cualquier declaración: de las **14 tablas**, **9 tienen dueño declarado** en `src/architecture/persistence-rules.ts`. Como la fitness function trata cualquier `.from()` fuera de `src/modules/*/api.ts` como violación, las otras cinco —`tags`, `taggables`, `stakeholders`, `stakeholder_relationships` y `client_documents`— **no se pueden consultar desde el código sin romper el CI**, y de hecho ninguna se consulta.
+
+**Actualización del 06/11/2026.** `deal_stage_history` era la sexta tabla sin dueño hasta que el mini-comité 2 la asignó a `sales` ([`25-acta-mini-comite-2.md`](25-acta-mini-comite-2.md)). Desde el PR #75 se consulta en modo lectura mediante `readDealStageHistory` en `src/modules/sales/api.ts`; el trigger `deals_stage_history` sigue siendo el único que escribe en ella, porque solo tiene `GRANT SELECT`.
 
 La lectura correcta tiene dos caras y conviene dar las dos:
 
-- **A favor:** reduce la superficie de ataque de la aplicación a 8 tablas. Las otras seis quedan protegidas por RLS *y* por una barrera estática.
+- **A favor:** reduce la superficie de ataque de la aplicación a 9 tablas, una de ellas solo de lectura. Las otras cinco quedan protegidas por RLS *y* por una barrera estática.
 - **En contra:** `stakeholders` se agregó como entregable en la semana 3 y hoy es **esquema sin consumidor**. No es un riesgo de seguridad, pero sí una inconsistencia entre lo entregado y lo usado.
 
 ## 3. Lo que NO existe — brecha de detección
